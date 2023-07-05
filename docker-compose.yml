@@ -6,31 +6,31 @@ services:
     container_name: express
     build: ./backend
     ports:
-      - 3000:3000
+      - ${PORT_BACKEND}:3000
   
   frontend:
     container_name: angular
     build: ./frontend
     ports:
-      - 80:80
+      - ${PORT_FRONTEND}:80
   
   mongodb:
     image: mongo:latest
     container_name: mongodb
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
 
   mongo-express:
     image: mongo-express
     restart: always
     ports:
-      - 8081:8081
+      - ${PORT_MONGOEXPRESS}:8081
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongodb:27017/
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASS}
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_ROOT}:${MONGO_PASS}@mongodb:27017/
 
 networks:
   defualt:
