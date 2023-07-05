@@ -1,11 +1,12 @@
-FROM node:alpine AS build
-WORKDIR /app
+FROM node:20.2.0-bullseye-slim AS build
+WORKDIR /usr/app
 COPY . . 
-RUN npm install && npm run build
+RUN npm i
+RUN npm run build
 
-FROM nginx:alpine AS prod
+FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /app/dist/frontend /usr/share/nginx/html
+COPY --from=build /usr/app/dist/frontend /usr/share/nginx/html
 
 
 
