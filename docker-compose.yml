@@ -18,14 +18,15 @@ services:
     image: mongo:latest
     container_name: mongodb
     restart: always
-    volumes:
-      - ./db:/data/db
+    ports:
+      - ${PORT_MONGO}:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
 
   mongo-express:
     image: mongo-express
+    container_name: mongo_express
     restart: always
     ports:
       - ${PORT_MONGOEXPRESS}:8081
