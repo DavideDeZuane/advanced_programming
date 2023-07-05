@@ -5,4 +5,3 @@ Dockerfile
 .DS_Store
 .editorconfig
 README.md
-nginx.conf
