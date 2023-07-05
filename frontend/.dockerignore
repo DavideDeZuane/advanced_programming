@@ -1,0 +1,8 @@
+node_modules
+dist
+Dockerfile
+.gitignore
+.DS_Store
+.editorconfig
+README.md
+nginx.conf
