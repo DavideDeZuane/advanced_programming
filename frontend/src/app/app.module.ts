@@ -27,7 +27,7 @@ import { ProfileComponent } from './auth/profile.component.';
       domain: environment.auth0.domain,
       clientId: environment.auth0.clientId,
       authorizationParams: {
-        redirect_uri: environment.auth0.callbackURL
+        redirect_uri: window.location.origin
       }
     }),
   ],
