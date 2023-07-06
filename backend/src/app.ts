@@ -1,15 +1,22 @@
 import express, { Express, Request, Response } from 'express';
+import { REPLCommand } from 'repl';
 //import mongoose from 'mongoose';
 const mongoose = require('mongoose');
+const cors = require('cors')
 
 const app:Express = express()
 const port = 3000
 
 const dbUri:string = 'mongodb://adprogramming:adprogramming@mongodb/admin' 
 
+
+
+app.use(cors());
 app.get('/', (req:Request, res:Response) => {
   res.send('Hello World!')
 })
+
+app.get('/public', (req:Request, res:Response) => { let obj = { campo: 'prova' }; res.json(obj)})
 
 app.get('/db', (req:Request, res:Response) => { 
   mongoose.connect(dbUri);
