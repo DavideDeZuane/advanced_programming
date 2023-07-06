@@ -20,6 +20,11 @@ router.get('/devices/:id', (req, res) => {
     const deviceId = req.params.id; // Ottieni l'ID del device dai parametri della richiesta
 })
 
+//devices by prototipe id
+router.get('/devices/:prototype_id', (req, res) => {
+    const prototypeId = req.params.prototype_id; // Ottieni l'ID del prototipo dai parametri della richiesta
+})
+
 //##### POST METHOD ######
 
 //insert new employee
