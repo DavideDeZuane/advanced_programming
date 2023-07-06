@@ -23,11 +23,10 @@ router.get('/prototypes/:id', (req, res) => {
 
 //insert new prototype
 router.post('/addPrototype', (req: Request, res: Response) => {
-    // Assume che il corpo della richiesta contenga i dettagli del nuovo prototipo
-    const newPrototype = req.body; 
-    
-    // Ritorna il nuovo prototipo come risposta JSON con il codice di stato 201 (Created)
-    res.status(201).json(newPrototype); 
+    //NON SO SE CONVIENE PRENDERLI COME OGGETTI COMPONENTS
+    const components: string[] = req.query.components as string[];
+
+    res.status(201).json({ components }); // Ritorna i componenti del nuovo prototipo come risposta JSON con il codice di stato 201 (Created)
   });
 
 export default router;
