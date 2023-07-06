@@ -27,6 +27,6 @@ router.post('/addPrototype', (req: Request, res: Response) => {
     const components: string[] = req.query.components as string[];
 
     res.status(201).json({ components }); // Ritorna i componenti del nuovo prototipo come risposta JSON con il codice di stato 201 (Created)
-  });
+});
 
 export default router;
