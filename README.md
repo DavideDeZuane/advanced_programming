@@ -38,3 +38,12 @@ graph LR;
     Auth0 --- Angular
 ```
 
+### Sequence Diagram
+```mermaid
+sequenceDiagram
+    actor Bob
+    participant Angular
+    participant Auth0 
+    Bob->>Angular: Request
+    Angular->>Auth0: Authentication
+```
