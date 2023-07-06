@@ -8,5 +8,5 @@ export const environment = {
 	 dev:{
 		serverUrl: 'https://dev-mklwxkr2dddffknh.us.auth0.com/oauth/token'
 	}
-  };
+};
   
