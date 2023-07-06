@@ -3,10 +3,13 @@ export const environment = {
 	auth0: {
 	  domain: 'dev-mklwxkr2dddffknh.us.auth0.com',
 	  clientId: 'jhIOlWQCKWSwTzdPICAxjooQ2OkJLmXB',
-	  audience: 'http://express.api'
+	  authorizationParams: {
+		audience: 'http://express.api',
+		redirect_uri: 'http://localhost:4200',
+	  },
 	},
-	 dev:{
-		serverUrl: 'https://dev-mklwxkr2dddffknh.us.auth0.com/oauth/token'
+	 api:{
+		serverUrl: 'http://localhost:3000'
 	}
 };
   

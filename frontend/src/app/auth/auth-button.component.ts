@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 
 import { HttpClient } from '@angular/common/http';
+import { concat, concatMap } from 'rxjs';
 
 
 /* andiamo a definire quella che è la struttura della riposta, in questo modo sappiamo a quali campi è possibile accedere altrimnenti non darebbe errore*/ 
@@ -26,7 +27,7 @@ export class AuthenticationButtonComponent implements OnInit {
   //se non effettuiamo la subscribe non viene effettuata la richiesta
   //con localhost funziona, se metto express no, secondo me perchè lo risolve nginx e non docker
   getData() {
-    this.http.get<Response>('http://localhost:3000/public').subscribe(
+    this.http.get<Response>('http://localhost:3000/protected').subscribe(
       (res) => {console.log(res.campo); this.prova = res.campo;}
     )
   }

@@ -28,24 +28,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     HttpClientModule,
     // Import the module into the application, with configuration
     AuthModule.forRoot({
-      domain: environment.auth0.domain,
-      clientId: environment.auth0.clientId,
-      authorizationParams: {
-        redirect_uri: window.location.origin,
-        audience: environment.auth0.audience,
-      },
+      ...environment.auth0,
       httpInterceptor: {
-        allowedList: [
-          {
-            uri: `${environment.auth0.audience}/*/`,
-            tokenOptions: {
-              authorizationParams: {
-                audience: environment.auth0.audience,
-                scope: 'read:current_user'
-              }
-            }
-          }
-        ]
+        allowedList: [ `${environment.api.serverUrl}/*`,]
       }
     }),
   ],

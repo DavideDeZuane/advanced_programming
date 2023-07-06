@@ -1,5 +1,7 @@
 import express, { Express, Request, Response } from 'express';
-import { REPLCommand } from 'repl';
+
+const { auth } = require('express-oauth2-jwt-bearer');
+
 //import mongoose from 'mongoose';
 const mongoose = require('mongoose');
 const cors = require('cors')
@@ -10,6 +12,10 @@ const port = 3000
 const dbUri:string = 'mongodb://adprogramming:adprogramming@mongodb/admin' 
 
 
+const checkJwt = auth({
+  audience: 'http://express.api',
+  issuerBaseURL: `https://dev-mklwxkr2dddffknh.us.auth0.com/`,
+});
 
 app.use(cors());
 app.get('/', (req:Request, res:Response) => {
@@ -17,6 +23,8 @@ app.get('/', (req:Request, res:Response) => {
 })
 
 app.get('/public', (req:Request, res:Response) => { let obj = { campo: 'prova' }; res.json(obj)})
+app.get('/protected', checkJwt, (req:Request, res:Response) => { console.log('endpoint protetto'); let obj = { campo: 'protetta' }; res.json(obj)})
+
 
 app.get('/db', (req:Request, res:Response) => { 
   mongoose.connect(dbUri);
