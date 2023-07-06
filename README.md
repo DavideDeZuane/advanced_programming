@@ -23,7 +23,7 @@ graph TD;
 
 ### Architettura Docker
 
-L'infrastruttura `Docker` che si è implementato per realizzare il progetto è la segunte:
+L'infrastruttura `Docker` che si è implementata per realizzare il progetto, e che prevede l'utilizzo di `docker-compose` per la sua gestione, è la segunte:
 
 ```mermaid
 graph LR;
