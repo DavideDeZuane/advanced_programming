@@ -7,11 +7,11 @@ L'obiettivo del progetto è quello di realizzare un API
 
 ## Progettazione
 
-### Architettura API
+### :electric_plug: Architettura API
 
 Nel realizzare il progetto si è deciso di seguire come pattern architetturale quello delle **Layered Architecture**. In questa architettura gli strati che la costituiscono hanno ognuno un compito specifico e una responsabilità specifica, quelli che andremo ad implementare sono:
 
-- **Router Layer**
+- **Router Layer**: descrizione dei vari layer
 - **Service Layer**
 - **Data Access Layer**
 
@@ -21,7 +21,7 @@ graph TD;
     service --- data[Data Access Layer];
 ```
 
-### Architettura Docker
+### :whale: Architettura Docker
 
 L'infrastruttura `Docker` che si è implementata per realizzare il progetto, e che prevede l'utilizzo di `docker-compose` per la sua gestione, è la segunte:
 
@@ -37,7 +37,7 @@ graph LR;
     end
     Auth0 --- Angular
 ```
-
+## Diagram
 ### Sequence Diagram
 ```mermaid
 sequenceDiagram
