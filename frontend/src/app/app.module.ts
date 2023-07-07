@@ -13,6 +13,7 @@ import { ProfileComponent } from './auth/profile.component.';
 /*For API reqquest */
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     LoginButtonComponent,
     LogoutButtonComponent,
     AuthenticationButtonComponent,
-    ProfileComponent
+    ProfileComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
