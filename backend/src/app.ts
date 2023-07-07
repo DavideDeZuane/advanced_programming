@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 const app:Express = express()
 
 const port:string = process.env.SERVER_PORT || '3000';
-const dbUri:string = 'mongodb://adprogramming:adprogramming@mongodb:27017/admin' 
+const dbUri:string = 'mongodb://adprogramming:adprogramming@mongodb:27017/adprogramming' 
 
 
 

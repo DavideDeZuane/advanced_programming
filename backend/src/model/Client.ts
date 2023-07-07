@@ -77,7 +77,7 @@ async function seedClients() {
         createdAt: new Date()
       } as IClient;
     
-      const usClient = mongoose.model('Clienti', clientSchema);
+      const usClient = mongoose.model('Client', clientSchema);
       const md = new usClient(clientsData);
       await md.save();
       
@@ -94,7 +94,7 @@ async function seedClients() {
 }
 
 // Connessione al database
-mongoose.connect('mongodb://adprogramming:adprogramming@mongodb:27017/admin')
+mongoose.connect('mongodb://adprogramming:adprogramming@mongodb:27017/adprogramming')
   .then(() => {
     // Esegui la funzione di seeding
     seedClients();
