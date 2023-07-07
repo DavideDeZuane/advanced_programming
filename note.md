@@ -24,5 +24,5 @@ Andando a configurare l'httpinterceptor tutte le chiamate che andremo a fare uti
 Per avere un idea su come setuppare il progetto abbiamo il seguente esempio:
 
 https://developer.auth0.com/resources/guides/api/express/basic-authorization#handle-authorization-exceptions
-
+https://blog.devgenius.io/the-three-layer-architecture-for-node-js-applications-ce32a3a30fa6
 

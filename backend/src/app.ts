@@ -1,29 +1,31 @@
 import express, { Express, Request, Response } from 'express';
+import cors from 'cors'
 
-const { auth } = require('express-oauth2-jwt-bearer');
 
-//import mongoose from 'mongoose';
+import { chain, auth_chain } from './middlewares/index';
+
 const mongoose = require('mongoose');
-const cors = require('cors')
 
 const app:Express = express()
-const port = 3000
 
+const port:string = process.env.SERVER_PORT || '3000';
 const dbUri:string = 'mongodb://adprogramming:adprogramming@mongodb/admin' 
 
 
-const checkJwt = auth({
-  audience: 'http://express.api',
-  issuerBaseURL: `https://dev-mklwxkr2dddffknh.us.auth0.com/`,
-});
 
 app.use(cors());
+//se non aggiungiamo questo affinchè il corpo della richiesta venga analizzato ed assegnato a req.body altrimenti non gli viene assegnato.A
+app.use(express.json())
+
+
+
 app.get('/', (req:Request, res:Response) => {
   res.send('Hello World!')
 })
 
-app.get('/public', (req:Request, res:Response) => { let obj = { campo: 'prova' }; res.json(obj)})
-app.get('/protected', checkJwt, (req:Request, res:Response) => { console.log('endpoint protetto'); let obj = { campo: 'protetta' }; res.json(obj)})
+app.get('/public', chain, (req:Request, res:Response) => { let obj = { campo: 'prova' }; res.json(obj)})
+app.post('/public', chain, (req:Request, res:Response) => { let obj = { campo: 'prova' }; res.json(obj)})
+app.get('/protected', auth_chain, (req:Request, res:Response) => { console.log('endpoint protetto'); let obj = { campo: 'protetta' }; res.json(obj)})
 
 
 app.get('/db', (req:Request, res:Response) => { 
