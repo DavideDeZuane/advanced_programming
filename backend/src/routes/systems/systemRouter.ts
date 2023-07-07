@@ -10,12 +10,12 @@ router.get('/systems', (req: Request, res: Response) => {
 
 //systems by id
 router.get('/systems/:id', (req, res) => {
-    const prototypeId = req.params.id; // Ottieni l'ID del sistema dai parametri della richiesta
+    const systemId = req.params.id; // Ottieni l'ID del sistema dai parametri della richiesta
 })
 
 //systems by client id
 router.get('/systems/:user_id', (req, res) => {
-    const prototypeId = req.params.user_id; // Ottieni l'ID del cliente dai parametri della richiesta
+    const userId = req.params.user_id; // Ottieni l'ID del cliente dai parametri della richiesta
 })
 
 

@@ -10,17 +10,17 @@ router.get('/files', (req: Request, res: Response) => {
 
 //files by id
 router.get('/files/:id', (req, res) => {
-    const userId = req.params.id; // Ottieni l'ID del file dai parametri della richiesta
+    const fileId = req.params.id; // Ottieni l'ID del file dai parametri della richiesta
 })  
 
 //files by device id
 router.get('/files/:device_id', (req, res) => {
-    const prototypeId = req.params.device_id; // Ottieni l'ID del device dai parametri della richiesta
+    const device_id = req.params.device_id; // Ottieni l'ID del device dai parametri della richiesta
 })
 
 //##### POST METHOD ######
 
-//insert new user
+//insert new file
 router.post('/addFile', (req: Request, res: Response) => {
     // Assume che il corpo della richiesta contenga i dettagli del nuovo file
     const newFile = req.body; 

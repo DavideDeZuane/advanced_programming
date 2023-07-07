@@ -1,12 +1,6 @@
 import { Router, Request, Response } from 'express';
 const router: Router = Router();
 
-/*
-######### TO DO ##########
-1) SI PUO IMPLEMENTARE UNA ROTTA PER VEDERE A QUALI SISTEMI SONO ASSOCIATI I DEVICES; 
-2) VEDERE DOVE IMPLEMENTARE LA ROTTA CHE PERMETTE DI COSTRUIRE IL SISTEMA (SELEZIONANDO PIÙ DEVICES)
-*/
-
 
 //##### GET METHOD ######
 
@@ -27,7 +21,7 @@ router.get('/devices/:prototype_id', (req, res) => {
 
 //##### POST METHOD ######
 
-//insert new employee
+//insert new device
 router.post('/addDevice', (req: Request, res: Response) => {
     // Assume che il corpo della richiesta contenga i dettagli del nuovo device
     const newDevice = req.body; 
