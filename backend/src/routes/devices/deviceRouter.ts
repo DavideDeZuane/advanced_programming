@@ -22,12 +22,14 @@ router.get('/devices/:prototype_id', (req, res) => {
 //##### POST METHOD ######
 
 //insert new device
-router.post('/addDevice', (req: Request, res: Response) => {
+router.post('/devices', (req: Request, res: Response) => {
     // Assume che il corpo della richiesta contenga i dettagli del nuovo device
     const newDevice = req.body; 
     
     // Ritorna il nuovo device come risposta JSON con il codice di stato 201 (Created)
     res.status(201).json(newDevice); 
   });
+
+  //##### PUT METHOD #####
 
 export default router;

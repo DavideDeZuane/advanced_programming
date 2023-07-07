@@ -16,7 +16,7 @@ router.get('/versions/:id', (req, res) => {
 //##### POST METHOD ######
 
 //insert new version
-router.post('/addVersion', (req: Request, res: Response) => {
+router.post('/versions', (req: Request, res: Response) => {
 
 });
 

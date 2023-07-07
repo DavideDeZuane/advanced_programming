@@ -22,11 +22,13 @@ router.get('/systems/:user_id', (req, res) => {
 //##### POST METHOD ######
 
 //insert new system
-router.post('/addSystem', (req: Request, res: Response) => {
+router.post('/systems', (req: Request, res: Response) => {
     //NON SO SE CONVIENE PRENDERLI COME OGGETTI DEVICE
     const devices: string[] = req.query.devices as string[];
 
     res.status(201).json({ devices }); // Ritorna i componenti del nuovo sistema come risposta JSON con il codice di stato 201 (Created)
 });
+
+//##### PUT METHOD #####
 
 export default router;

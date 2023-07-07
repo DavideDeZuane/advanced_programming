@@ -26,12 +26,14 @@ router.get('/employes/:department', (req, res) => {
 //##### POST METHOD ######
 
 //insert new employee
-router.post('/addEmployee', (req: Request, res: Response) => {
+router.post('/employes', (req: Request, res: Response) => {
     // Assume che il corpo della richiesta contenga i dettagli del nuovo impiegato
     const newEmployee = req.body; 
     
     // Ritorna il nuovo impiegato come risposta JSON con il codice di stato 201 (Created)
     res.status(201).json(newEmployee); 
   });
+
+//##### PUT METHOD #####
 
 export default router;

@@ -22,11 +22,13 @@ router.get('/prototypes/:id', (req, res) => {
 //##### POST METHOD ######
 
 //insert new prototype
-router.post('/addPrototype', (req: Request, res: Response) => {
+router.post('/prototypes', (req: Request, res: Response) => {
     //NON SO SE CONVIENE PRENDERLI COME OGGETTI COMPONENTS
     const components: string[] = req.query.components as string[];
 
     res.status(201).json({ components }); // Ritorna i componenti del nuovo prototipo come risposta JSON con il codice di stato 201 (Created)
 });
+
+//##### PUT METHOD #####
 
 export default router;

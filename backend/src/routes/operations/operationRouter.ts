@@ -27,9 +27,11 @@ router.get('/operations/:employee_id', (req, res) => {
 //##### POST METHOD ######
 
 //insert new operation
-router.post('/addOperation', (req: Request, res: Response) => {
+router.post('/operations', (req: Request, res: Response) => {
 
     res.status(201)
 });
+
+//##### PUT METHOD #####
 
 export default router;

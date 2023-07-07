@@ -9,14 +9,14 @@ router.get('/clients', (req: Request, res: Response) => {
 });
 
 //users profile by id
-router.get('/users/:id', (req, res) => {
+router.get('/clients/:id', (req, res) => {
     const userId = req.params.id; // Ottieni l'ID dell'utente dai parametri della richiesta
 })  
 
 //##### POST METHOD ######
 
 //insert new user
-router.post('/addUser', (req: Request, res: Response) => {
+router.post('/clients', (req: Request, res: Response) => {
     // Assume che il corpo della richiesta contenga i dettagli del nuovo utente
     const newUser = req.body; 
     

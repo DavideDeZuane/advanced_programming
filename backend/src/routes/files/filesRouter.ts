@@ -21,7 +21,7 @@ router.get('/files/:device_id', (req, res) => {
 //##### POST METHOD ######
 
 //insert new file
-router.post('/addFile', (req: Request, res: Response) => {
+router.post('/files', (req: Request, res: Response) => {
     // Assume che il corpo della richiesta contenga i dettagli del nuovo file
     const newFile = req.body; 
     
