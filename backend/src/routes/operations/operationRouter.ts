@@ -27,7 +27,7 @@ router.get('/operations/:employee_id', (req, res) => {
 //##### POST METHOD ######
 
 //insert new operation
-router.post('/addSystem', (req: Request, res: Response) => {
+router.post('/addOperation', (req: Request, res: Response) => {
 
     res.status(201)
 });
