@@ -1,5 +1,6 @@
 .env
-mongo/db
+mongo/data
+mongo/.mongodb
 db/
 **/.DS_Store
 **/node_modules/
