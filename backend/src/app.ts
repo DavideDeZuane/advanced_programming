@@ -1,5 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors'
+import {seedClients} from './model/Client';
 
 
 import { chain, auth_chain } from './middlewares/index';
@@ -9,7 +10,7 @@ const mongoose = require('mongoose');
 const app:Express = express()
 
 const port:string = process.env.SERVER_PORT || '3000';
-const dbUri:string = 'mongodb://adprogramming:adprogramming@mongodb/admin' 
+const dbUri:string = 'mongodb://adprogramming:adprogramming@mongodb:27017/admin' 
 
 
 
@@ -27,6 +28,10 @@ app.get('/public', chain, (req:Request, res:Response) => { let obj = { campo: 'p
 app.post('/public', chain, (req:Request, res:Response) => { let obj = { campo: 'prova' }; res.json(obj)})
 app.get('/protected', auth_chain, (req:Request, res:Response) => { console.log('endpoint protetto'); let obj = { campo: 'protetta' }; res.json(obj)})
 
+app.get('/dbPrCliente', async(req:Request, res:Response) => {
+  await seedClients();
+  res.send("Aggiunto Mario");
+}) 
 
 app.get('/db', (req:Request, res:Response) => { 
   mongoose.connect(dbUri);
