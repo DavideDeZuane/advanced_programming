@@ -1,0 +1,6 @@
+Dockerfile
+build
+node_modules
+.gitignore
+.DS_Store
+.editorconfig

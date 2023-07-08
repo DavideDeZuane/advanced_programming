@@ -43,6 +43,4 @@ const clientSchema: Schema<IClient> = new Schema<IClient>({
   }
 });
 
-const Client: Model<IClient> = mongoose.model<IClient>('Client', clientSchema);
-
-export default mongoose.model<IClient>('Example', clientSchema);
+export default mongoose.model<IClient>('Client', clientSchema);

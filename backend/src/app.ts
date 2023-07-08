@@ -10,10 +10,11 @@ import { seedVersion } from './model/seeder/versionSeeder';
 import { seedOperation } from './model/seeder/operationSeeder';
 import { seedSystem } from './model/seeder/systemSeeder';
 
+import { clientRouter } from './routes'
 
 import { chain, auth_chain, checkRequiredPermissions, checkToken } from './middlewares/index';
 import { AdminPermission } from './middlewares/auth';
-
+import DB from './config/database';
 
 const mongoose = require('mongoose');
 
@@ -22,12 +23,15 @@ const app:Express = express()
 const port:string = process.env.SERVER_PORT || '3000';
 const dbUri:string = 'mongodb://adprogramming:adprogramming@mongodb:27017/adprogramming' 
 
-
+const db = DB.getIstance()
+const connection = db.getConnection()
 
 app.use(cors());
 //se non aggiungiamo questo affinchè il corpo della richiesta venga analizzato ed assegnato a req.body altrimenti non gli viene assegnato.A
 app.use(express.json())
 
+
+app.use('/clients', clientRouter)
 
 
 app.get('/', (req:Request, res:Response) => {
