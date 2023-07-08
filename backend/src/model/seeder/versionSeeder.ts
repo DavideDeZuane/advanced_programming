@@ -1,7 +1,6 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
 import Version, {IVersion} from '../Version';
 import File, {IFile} from '../File';
-import fs from 'fs'
 
 async function seed() {
     try {
