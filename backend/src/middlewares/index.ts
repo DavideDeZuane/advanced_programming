@@ -1,16 +1,19 @@
 import { checkToken, checkRequiredPermissions } from "./auth";
-import { checkJson, reqLog, errHandler, reqLogPlus} from "./utility";
+import { checkJson, preLog, errHandler, postLog} from "./utility";
 
 const chain = [
-    reqLog,
-    checkJson,
-    reqLogPlus,
-    errHandler
+    preLog,
+    postLog
 ]
 
 const auth_chain = [
+    preLog,
     checkToken,
-    ...chain
+    postLog,
+]
+
+const auth_role_chain = [
+
 ]
 
 export { chain, auth_chain, checkRequiredPermissions, checkToken };
