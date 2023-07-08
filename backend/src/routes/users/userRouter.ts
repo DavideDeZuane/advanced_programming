@@ -1,42 +1,35 @@
 import { Router, Request, Response } from 'express';
-const router: Router = Router();
+import Client, { IClient } from '../../model/Client';
+import DB from '../../config/database';
 
-//##### GET METHOD #####
+const clientRouter:Router = Router();
 
-//all clients
-router.get('/clients', (req: Request, res: Response) => {
-    //return all clients
+clientRouter.get('/', (req:Request, res: Response) => { res.send('root dei clienti') });
+clientRouter.post('/', async (req:Request, res:Response) => { 
+  const user:IClient = req.body;
+  try{
+    let wwa= new Client(user);
+    console.log(wwa)
+    await wwa.save()
+  }catch(error){
+    console.log(error)
+  }
+  res.send('ci si prova')
 });
 
-//users profile by id
-router.get('/clients/:id', (req, res) => {
-    const userId = req.params.id; // Ottieni l'ID dell'utente dai parametri della richiesta
-})  
-
-//##### POST METHOD ######
-
-//insert new user
-router.post('/clients', (req: Request, res: Response) => {
-    // Assume che il corpo della richiesta contenga i dettagli del nuovo utente
-    const newUser = req.body; 
-    
-    // Ritorna il nuovo utente come risposta JSON con il codice di stato 201 (Created)
-    res.status(201).json(newUser); 
-  });
-
 /*
-//##### PUT METHOD #####
-
-//update user's address
-router.put('/users/:id/address', (req, res) => {
-    // Ottieni l'ID dell'utente dai parametri della richiesta
-    const userId = req.params.id; 
-    // Ottieni il nuovo indirizzo dall'oggetto di richiesta (body)
-    const newAddress = req.body.address; 
-  
-    const successMessage = `Indirizzo dell'utente con ID ${userId} aggiornato con successo.`;
-    res.send(successMessage); // Invia un messaggio di conferma
-  });
+##################################################
+# Parametric Route
+##################################################
 */
+clientRouter.get('/:id', (req:Request, res:Response) => {
+    const userId = req.params.id; // Ottieni l'ID dell'utente dai parametri della richiesta
+    res.send('wasd')
+});
+clientRouter.patch('/:id', (req:Request, res:Response) => {
+  //aggiungere la validazione dei campi 
+  res.send(req.params.id)
+});
 
-export default router;
+
+export { clientRouter }
