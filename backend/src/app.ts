@@ -1,6 +1,11 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors'
-import { seed } from './model/seeder/clientSeeder';
+import { seedClient } from './model/seeder/clientSeeder';
+import { seedEmployee } from './model/seeder/employeeSeeder';
+import { seedComponent } from './model/seeder/componentSeeder';
+import { seedProto } from './model/seeder/prototypeDevSeeder';
+import { seedDevice } from './model/seeder/deviceSeeder';
+import { seedFile } from './model/seeder/fileSeeder';
 
 
 import { chain, auth_chain, checkRequiredPermissions, checkToken } from './middlewares/index';
@@ -30,9 +35,34 @@ app.get('/public', checkToken, checkRequiredPermissions([AdminPermission.Read]),
 app.get('/protected', auth_chain, (req:Request, res:Response) => { console.log(''); let obj = { campo: '' }; res.json(obj)})
 
 app.get('/seedCliente', async(req:Request, res:Response) => {
-  await seed();
-  res.send("Aggiunto Mario");
+  await seedClient();
+  res.send("Aggiunto cliente");
 }) 
+
+app.get('/seedEmployee', async(req:Request, res:Response) => {
+  await seedEmployee();
+  res.send("Aggiunto impiegato");
+}) 
+
+app.get('/seedComponent', async(req:Request, res:Response) => {
+  await seedComponent();
+  res.send("Aggiunto componente");
+})
+
+app.get('/seedProto', async(req:Request, res:Response) => {
+  await seedProto();
+  res.send("Aggiunto prototipo");
+})
+
+app.get('/seedDevice', async(req:Request, res:Response) => {
+  await seedDevice();
+  res.send("Aggiunto device");
+})
+
+app.get('/seedFile', async(req:Request, res:Response) => {
+  await seedFile();
+  res.send("Aggiunto file");
+})
 
 app.get('/db', (req:Request, res:Response) => { 
   mongoose.connect(dbUri);
