@@ -26,4 +26,4 @@ const componentSchema: Schema<IComponent> = new Schema<IComponent>({
 });
 
 const Component: Model<IComponent> = mongoose.model<IComponent>('Component', componentSchema);
-export default Component;
+export default mongoose.model<IComponent>('Component', componentSchema);

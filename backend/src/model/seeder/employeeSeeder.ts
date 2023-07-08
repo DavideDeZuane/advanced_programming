@@ -1,22 +1,21 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import Client, {IClient} from '../Client';
+import Employee, {IEmployee} from '../Employee';
 
 async function seed() {
     try {
       // Dati dei clienti da inserire
-      const clientsData =
+      const employeeData =
         {
-          firstName: 'John',
-          lastName: 'Doe',
-          birthDate: new Date('1990-01-01'),
+          name: 'Impiegato',
+          role: 'Del Mese',
+          department: 'depA',
+          birthdate: new Date('1990-10-10'),
           fiscalCode: 'ABCD1234E',
-          vatNumber: '12345678901',
-          address: 'Via Example 123',
           createdAt: new Date()
-        } as IClient;
+        } as IEmployee;
       
         //const usClient = mongoose.model('Client', clientSchema);
-        const md = new Client(clientsData);
+        const md = new Employee(employeeData);
         await md.save();
   
       console.log('Seeding completato!');
@@ -29,7 +28,7 @@ async function seed() {
   }
   
   // Connessione al database
-const seedClient = () => {
+const seedEmployee = () => {
   mongoose.connect('mongodb://adprogramming:adprogramming@mongodb:27017/adprogramming')
     .then(() => {
       // Esegui la funzione di seeding
@@ -40,4 +39,4 @@ const seedClient = () => {
     });
 }
   
-  export {seedClient};
+  export {seedEmployee};

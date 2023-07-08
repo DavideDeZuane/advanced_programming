@@ -33,4 +33,4 @@ const fileSchema: Schema<IFile> = new Schema<IFile>({
 });
 
 const File: Model<IFile> = mongoose.model<IFile>('File', fileSchema);
-export default File;
+export default mongoose.model<IFile>('File', fileSchema);

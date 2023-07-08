@@ -1,22 +1,21 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import Client, {IClient} from '../Client';
+import DevicePrototype, {IDevicePrototype} from '../DevicePrototype';
+import Component from '../Component';
 
 async function seed() {
     try {
       // Dati dei clienti da inserire
-      const clientsData =
+      const components = await Component.findOne({name: "Temperatura"}).exec(); //exec fa una sorta di promessa per il ritorno
+      const protoData =
         {
-          firstName: 'John',
-          lastName: 'Doe',
-          birthDate: new Date('1990-01-01'),
-          fiscalCode: 'ABCD1234E',
-          vatNumber: '12345678901',
-          address: 'Via Example 123',
+          components: components?._id,
+          name: 'Sensore velocità',
           createdAt: new Date()
-        } as IClient;
+        } as IDevicePrototype;
       
+        //protoData.components.push(components)
         //const usClient = mongoose.model('Client', clientSchema);
-        const md = new Client(clientsData);
+        const md = new DevicePrototype(protoData);
         await md.save();
   
       console.log('Seeding completato!');
@@ -29,7 +28,7 @@ async function seed() {
   }
   
   // Connessione al database
-const seedClient = () => {
+const seedProto = () => {
   mongoose.connect('mongodb://adprogramming:adprogramming@mongodb:27017/adprogramming')
     .then(() => {
       // Esegui la funzione di seeding
@@ -40,4 +39,4 @@ const seedClient = () => {
     });
 }
   
-  export {seedClient};
+  export {seedProto};
