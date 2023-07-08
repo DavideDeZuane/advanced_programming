@@ -3,7 +3,8 @@ import cors from 'cors'
 import {seedClients} from './model/Client';
 
 
-import { chain, auth_chain } from './middlewares/index';
+import { chain, auth_chain, checkRequiredPermissions, checkToken } from './middlewares/index';
+import { AdminPermission } from './middlewares/auth';
 
 const mongoose = require('mongoose');
 
@@ -24,9 +25,8 @@ app.get('/', (req:Request, res:Response) => {
   res.send('Hello World!')
 })
 
-app.get('/public', chain, (req:Request, res:Response) => { let obj = { campo: 'prova' }; res.json(obj)})
-app.post('/public', chain, (req:Request, res:Response) => { let obj = { campo: 'prova' }; res.json(obj)})
-app.get('/protected', auth_chain, (req:Request, res:Response) => { console.log('endpoint protetto'); let obj = { campo: 'protetta' }; res.json(obj)})
+app.get('/public',checkToken, checkRequiredPermissions([AdminPermission.Read]), chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
+app.get('/protected', auth_chain, (req:Request, res:Response) => { console.log(''); let obj = { campo: '' }; res.json(obj)})
 
 app.get('/dbPrCliente', async(req:Request, res:Response) => {
   await seedClients();

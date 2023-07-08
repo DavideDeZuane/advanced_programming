@@ -1,5 +1,5 @@
-import { checkToken } from "./auth";
-import { checkJson, reqLog, errHandler, reqLogPlus, sanitizeInput } from "./utility";
+import { checkToken, checkRequiredPermissions } from "./auth";
+import { checkJson, reqLog, errHandler, reqLogPlus} from "./utility";
 
 const chain = [
     reqLog,
@@ -9,9 +9,9 @@ const chain = [
 ]
 
 const auth_chain = [
-    ...chain, 
-    checkToken
+    checkToken,
+    ...chain
 ]
 
-export { chain, auth_chain, sanitizeInput };
+export { chain, auth_chain, checkRequiredPermissions, checkToken };
 
