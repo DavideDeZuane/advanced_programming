@@ -6,10 +6,14 @@ import { seedComponent } from './model/seeder/componentSeeder';
 import { seedProto } from './model/seeder/prototypeDevSeeder';
 import { seedDevice } from './model/seeder/deviceSeeder';
 import { seedFile } from './model/seeder/fileSeeder';
+import { seedVersion } from './model/seeder/versionSeeder';
+import { seedOperation } from './model/seeder/operationSeeder';
+import { seedSystem } from './model/seeder/systemSeeder';
 
 
 import { chain, auth_chain, checkRequiredPermissions, checkToken } from './middlewares/index';
 import { AdminPermission } from './middlewares/auth';
+
 
 const mongoose = require('mongoose');
 
@@ -30,8 +34,7 @@ app.get('/', (req:Request, res:Response) => {
   res.send('Hello World!')
 })
 
-app.get('/pubblico', chain, (req:Request, res:Response) => { res.send('tutt appost');
-})
+app.get('/publicco', checkToken, chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
 app.get('/public', checkToken, checkRequiredPermissions([AdminPermission.Read]), chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
 app.get('/protected', auth_chain, (req:Request, res:Response) => { console.log(''); let obj = { campo: '' }; res.json(obj)})
 
@@ -63,6 +66,21 @@ app.get('/seedDevice', async(req:Request, res:Response) => {
 app.get('/seedFile', async(req:Request, res:Response) => {
   await seedFile();
   res.send("Aggiunto file");
+})
+
+app.get('/seedVersion', async(req:Request, res:Response) => {
+  await seedVersion();
+  res.send("Aggiunto versione");
+})
+
+app.get('/seedOperation', async(req:Request, res:Response) => {
+  await seedOperation();
+  res.send("Aggiunto operazione");
+})
+
+app.get('/seedSystem', async(req:Request, res:Response) => {
+  await seedSystem();
+  res.send("Aggiunto sistema");
 })
 
 app.get('/db', (req:Request, res:Response) => { 
