@@ -3,7 +3,9 @@ import { checkJson, preLog, errHandler, postLog} from "./utility";
 
 const chain = [
     preLog,
-    postLog
+    checkJson,
+    postLog,
+    errHandler
 ]
 
 const auth_chain = [
