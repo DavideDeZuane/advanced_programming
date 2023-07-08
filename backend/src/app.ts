@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors'
-import {seedClients} from './model/Client';
+import { seed } from './model/seeder/clientSeeder';
 
 
 import { chain, auth_chain, checkRequiredPermissions, checkToken } from './middlewares/index';
@@ -28,8 +28,8 @@ app.get('/', (req:Request, res:Response) => {
 app.get('/public',checkToken, checkRequiredPermissions([AdminPermission.Read]), chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
 app.get('/protected', auth_chain, (req:Request, res:Response) => { console.log(''); let obj = { campo: '' }; res.json(obj)})
 
-app.get('/dbPrCliente', async(req:Request, res:Response) => {
-  await seedClients();
+app.get('/seedCliente', async(req:Request, res:Response) => {
+  await seed();
   res.send("Aggiunto Mario");
 }) 
 
