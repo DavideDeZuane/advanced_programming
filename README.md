@@ -38,12 +38,30 @@ graph LR;
     Auth0 --- Angular
 ```
 ## Diagram
-### Sequence Diagram
+
+Lo schema di interazione base dell'applicazione è il seguente:
+
+- L'utente si autentica alla Single Page Application, la quale esegue un redirect verso il servizio di autenticazione (Auth0)
+- Una volta che il processo di autenteicazione è andato a buon fine il servizio di autenticazione fornisce all'applicazione un Token
+- Questo token verrò consumato per fare le richieste alle API
+
 ```mermaid
 sequenceDiagram
     actor Bob
     participant Angular
-    participant Auth0 
-    Bob->>Angular: Request
-    Angular->>Auth0: Authentication
+    participant Auth0
+    participant API
+    Bob ->> Angular: Auth
+    activate Bob
+    Angular->>Auth0: Redirect
+    activate Auth0
+    Auth0->>Angular: Token
+    deactivate Auth0
+    Angular ->> Bob: Authenticated
+    deactivate Bob
+    Bob ->> Angular: Action
+    Angular ->> API: Request
+    activate API
+    API ->> Angular: Response
+    deactivate API
 ```
