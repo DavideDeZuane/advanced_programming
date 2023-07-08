@@ -1,6 +1,8 @@
 import { checkToken, checkRequiredPermissions } from "./auth";
 import { checkJson, preLog, errHandler, postLog} from "./utility";
 
+
+/* spostare l'errHandler direttamente in app.use */ 
 const chain = [
     preLog,
     checkJson,

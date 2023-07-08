@@ -19,21 +19,18 @@ const checkJson = (req:Request, res:Response, next:NextFunction) => {
     } catch (error:any) {
         console.log(error);
         if(error instanceof CustomError){
-
             error.setStatusCode(httpStatus.BAD_REQUEST)
                  .setName('MALFORMED_JSON')
                  .setCode('10')
                  .setTimeStamp(new Date())
-                 .setMsg('Il payload contiene un JSON Object malformato, perfavore verificane la sintassi.');
-
+                 .setType('/errors/invalid-input')
+                 .setDescription('Il payload contiene un JSON Object malformato, perfavore verificane la sintassi.');
         }
         next(error);
     }
 }
 
 /* creare un enum che riporti name e codici di errore */
-
-
 
 class CustomJSON {
 
@@ -46,27 +43,25 @@ class CustomJSON {
         }    
     }
 
-  }
-
-
-
-
+}
 
 class CustomError extends Error {
 
     name:string;
     statusCode:number;
     code:string;
-    msg:string;
+    description:string;
     timestamp:Date;
+    type:string;
 
     constructor(){
         super();
         this.name = 'CustomError';
         this.statusCode = 500;
-        this.msg = ''
+        this.description = ''
         this.code = '';
         this.timestamp = new Date();
+        this.type = 'generic'
     }
 
     setName(name:string){
@@ -89,11 +84,15 @@ class CustomError extends Error {
         return this;
     }
 
-    setMsg(message:string){
-        this.msg = message;
+    setDescription(description:string){
+        this.description = description;
         return this;
     }
 
+    setType(type:string){
+        this.type = type;
+        return this;
+    }
 
 }
 
@@ -105,9 +104,10 @@ const errHandler = function (err:any, req: Request, res: Response, next:NextFunc
         response = {
             error: {
                 status_code: err.statusCode,
-                message: err.message,
+                type: err.type, 
+                name: err.name,
                 code: err.code,
-                description: err.msg, 
+                description: err.description,
             },
             timestamp: err.timestamp,
         }
