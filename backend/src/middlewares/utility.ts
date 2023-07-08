@@ -5,8 +5,8 @@ const logPlus:FormatFn = (tokens:TokenIndexer, req, res) => {
     return `${tokens.method(req, res)} - ${tokens.status(req, res)} - ${tokens.url(req, res)} \n${tokens['response-time'](req, res)}ms - ${tokens['total-time'](req, res)}ms`;
 }
 
-const reqLog = morgan('combined');
-const reqLogPlus = morgan(logPlus); 
+const preLog = morgan('combined');
+const postLog = morgan(logPlus); 
 
 const checkJson = (req:Request, res:Response, next:NextFunction) => {   
     if(req.headers['content-type'] != 'application/json'){
@@ -28,4 +28,4 @@ const errHandler = function (err: any, req: Request, res: Response, next: NextFu
     res.status(500).json({ error: 'Internal Server Error' });
 }
 
-export { reqLog, reqLogPlus, checkJson, errHandler }
+export { preLog, postLog, checkJson, errHandler }

@@ -25,7 +25,8 @@ app.get('/', (req:Request, res:Response) => {
   res.send('Hello World!')
 })
 
-app.get('/public',checkToken, checkRequiredPermissions([AdminPermission.Read]), chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
+app.get('/publicco', checkToken, chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
+app.get('/public', checkToken, checkRequiredPermissions([AdminPermission.Read]), chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
 app.get('/protected', auth_chain, (req:Request, res:Response) => { console.log(''); let obj = { campo: '' }; res.json(obj)})
 
 app.get('/seedCliente', async(req:Request, res:Response) => {

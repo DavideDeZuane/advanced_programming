@@ -9,20 +9,19 @@ const checkToken = auth({
     issuerBaseURL: domain,
 });
 
+/* La seguente funzione va a verificare se l'utente ha i permessi per accedere alla rotta, i permessi sono specificati tramite un array */
 const checkRequiredPermissions = (requiredPermissions:string[]) => {
     return (req:any, res:any, next:NextFunction) => 
     {
+        /* claimCheck consente di verificare le rivendicazioni all'interno del JWT, prende come argomento una callback che accede alle rivendicazioni tramite l'oggetto payload */
         const permissionCheck = claimCheck((payload:any) => {
-        const permissions:string[] = payload.permissions || [];
+            console.log(payload);
+            const permissions:string[] = payload.permissions || [];
+            const hasPermissions = requiredPermissions.every((requiredPermission) => permissions.includes(requiredPermission));
   
-        const hasPermissions = requiredPermissions.every((requiredPermission) =>
-            permissions.includes(requiredPermission)
-        );
-  
-        if (!hasPermissions) { throw new InsufficientScopeError(); }
-        return hasPermissions;
+            if (!hasPermissions) { throw new InsufficientScopeError(); }
+            return hasPermissions;
         });
-  
         permissionCheck(req, res, next);
     };
 };
@@ -31,4 +30,8 @@ const AdminPermission = {
     Read: 'read:route',
 };
 
-export { checkToken, checkRequiredPermissions, AdminPermission }
+const UserPermission = {
+    Read: ['read:route', 'read:route-admin']
+}
+
+export { checkToken, checkRequiredPermissions, AdminPermission, UserPermission }
