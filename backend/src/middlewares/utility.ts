@@ -20,15 +20,18 @@ const checkJson = (req:Request, res:Response, next:NextFunction) => {
         console.log(error);
         if(error instanceof CustomError){
 
-            error.setStatusCode(400)
+            error.setStatusCode(httpStatus.BAD_REQUEST)
+                 .setName('MALFORMED_JSON')
+                 .setCode('10')
                  .setTimeStamp(new Date())
-                 .setCode('MALFORMED_JSON')
                  .setMsg('Il payload contiene un JSON Object malformato, perfavore verificane la sintassi.');
 
         }
         next(error);
     }
 }
+
+/* creare un enum che riporti name e codici di errore */
 
 
 
@@ -39,7 +42,7 @@ class CustomJSON {
             const data = JSON.parse(jsonString) as T;
             return data
         } catch(err:any){
-            throw new CustomError('Invalid JSON');
+            throw new CustomError();
         }    
     }
 
@@ -57,13 +60,18 @@ class CustomError extends Error {
     msg:string;
     timestamp:Date;
 
-    constructor(message:string){
-        super(message);
+    constructor(){
+        super();
         this.name = 'CustomError';
         this.statusCode = 500;
         this.msg = ''
         this.code = '';
         this.timestamp = new Date();
+    }
+
+    setName(name:string){
+        this.name = name;
+        return this;
     }
 
     setStatusCode(statusCode:number){
@@ -92,18 +100,19 @@ class CustomError extends Error {
 /* quando viene chiaamto un next(error) Express cerca il middleware di gestione degli errori, definito da questa firma e lo gestisce lio */
 const errHandler = function (err:any, req: Request, res: Response, next:NextFunction): void {
     console.log(err)
+    var response:object = {};
     if(err instanceof CustomError){
-        console.log('sono entrato in handler');
-    }
-    res.status(err.statusCode).json({
-        error: {
-            status_code: err.statusCode,
-            message: err.message,
+        response = {
+            error: {
+                status_code: err.statusCode,
+                message: err.message,
+                code: err.code,
+                description: err.msg, 
+            },
             timestamp: err.timestamp,
-            code: err.code,
-            description: err.msg, 
         }
-    });
+    }
+    res.status(err.statusCode).json(response);
 }
 
 export { preLog, postLog, checkJson, errHandler }
