@@ -20,5 +20,5 @@ const auth_role_chain = [
 
 ]
 
-export { chain, auth_chain, checkPermissions, checkToken };
+export { chain, auth_chain, checkJson, checkPermissions, checkToken };
 
