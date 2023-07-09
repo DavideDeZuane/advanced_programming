@@ -1,5 +1,6 @@
 import { checkToken, checkPermissions } from "./auth.middleware";
-import { checkJson, errHandler} from "./utility";
+import { checkJson} from "./utility";
+import { errHandler } from "./error.middleware";
 import { preLog, postLog } from "./morgan.middlaware";
 
 
