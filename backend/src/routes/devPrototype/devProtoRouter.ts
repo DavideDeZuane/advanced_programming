@@ -1,4 +1,7 @@
 import { Router, Request, Response } from 'express';
+import * as middlewares from '../../middlewares';
+import { prototype_validation } from '../../middlewares/validation';
+
 const router: Router = Router();
 
 /*
@@ -10,7 +13,7 @@ const router: Router = Router();
 //##### GET METHOD ######
 
 //all prototype
-router.get('/', (req: Request, res: Response) => {
+router.get('/', middlewares.chain,(req: Request, res: Response) => {
     //return all prototypes
 });
 
@@ -22,7 +25,7 @@ router.get('/:id', (req, res) => {
 //##### POST METHOD ######
 
 //insert new prototype
-router.post('/', (req: Request, res: Response) => {
+router.post('/', prototype_validation,async (req: Request, res: Response) => {
     //NON SO SE CONVIENE PRENDERLI COME OGGETTI COMPONENTS
     const components: string[] = req.query.components as string[];
 

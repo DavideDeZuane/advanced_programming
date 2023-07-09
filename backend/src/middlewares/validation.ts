@@ -36,4 +36,10 @@ const compoenent_validation = [
     checkValidation
 ]
 
-export {user_validation, employee_validation, compoenent_validation}
+const prototype_validation = [
+    body('name').trim().escape().isAlphanumeric(),
+    body('components').trim().escape(),
+    checkValidation   
+]
+
+export {user_validation, employee_validation, compoenent_validation, prototype_validation}
