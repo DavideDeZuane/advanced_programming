@@ -10,19 +10,19 @@ const router: Router = Router();
 //##### GET METHOD ######
 
 //all prototype
-router.get('/prototypes', (req: Request, res: Response) => {
+router.get('/', (req: Request, res: Response) => {
     //return all prototypes
 });
 
 //prototypes by id
-router.get('/prototypes/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     const prototypeId = req.params.id; // Ottieni l'ID del prototipo dai parametri della richiesta
 })
 
 //##### POST METHOD ######
 
 //insert new prototype
-router.post('/prototypes', (req: Request, res: Response) => {
+router.post('/', (req: Request, res: Response) => {
     //NON SO SE CONVIENE PRENDERLI COME OGGETTI COMPONENTS
     const components: string[] = req.query.components as string[];
 

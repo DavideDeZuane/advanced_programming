@@ -4,24 +4,24 @@ const router: Router = Router();
 //##### GET METHOD #####
 
 //all files
-router.get('/files', (req: Request, res: Response) => {
+router.get('/', (req: Request, res: Response) => {
     //return all files
 });
 
 //files by id
-router.get('/files/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     const fileId = req.params.id; // Ottieni l'ID del file dai parametri della richiesta
 })  
 
 //files by device id
-router.get('/files/:device_id', (req, res) => {
+router.get('/:device_id', (req, res) => {
     const device_id = req.params.device_id; // Ottieni l'ID del device dai parametri della richiesta
 })
 
 //##### POST METHOD ######
 
 //insert new file
-router.post('/files', (req: Request, res: Response) => {
+router.post('/', (req: Request, res: Response) => {
     // Assume che il corpo della richiesta contenga i dettagli del nuovo file
     const newFile = req.body; 
     

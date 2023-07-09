@@ -5,24 +5,24 @@ const router: Router = Router();
 //##### GET METHOD ######
 
 //all devidces
-router.get('/devices', (req: Request, res: Response) => {
+router.get('/', (req: Request, res: Response) => {
     //return all devices
 });
 
 //devices by id
-router.get('/devices/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     const deviceId = req.params.id; // Ottieni l'ID del device dai parametri della richiesta
 })
 
 //devices by prototipe id
-router.get('/devices/:prototype_id', (req, res) => {
+router.get('/:prototype_id', (req, res) => {
     const prototypeId = req.params.prototype_id; // Ottieni l'ID del prototipo dai parametri della richiesta
 })
 
 //##### POST METHOD ######
 
 //insert new device
-router.post('/devices', (req: Request, res: Response) => {
+router.post('/', (req: Request, res: Response) => {
     // Assume che il corpo della richiesta contenga i dettagli del nuovo device
     const newDevice = req.body; 
     

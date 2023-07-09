@@ -4,17 +4,17 @@ const router: Router = Router();
 //##### GET METHOD ######
 
 //all systems
-router.get('/systems', (req: Request, res: Response) => {
+router.get('/', (req: Request, res: Response) => {
     //return all systems
 });
 
 //systems by id
-router.get('/systems/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     const systemId = req.params.id; // Ottieni l'ID del sistema dai parametri della richiesta
 })
 
 //systems by client id
-router.get('/systems/:user_id', (req, res) => {
+router.get('/:user_id', (req, res) => {
     const userId = req.params.user_id; // Ottieni l'ID del cliente dai parametri della richiesta
 })
 
@@ -22,7 +22,7 @@ router.get('/systems/:user_id', (req, res) => {
 //##### POST METHOD ######
 
 //insert new system
-router.post('/systems', (req: Request, res: Response) => {
+router.post('/', (req: Request, res: Response) => {
     //NON SO SE CONVIENE PRENDERLI COME OGGETTI DEVICE
     const devices: string[] = req.query.devices as string[];
 

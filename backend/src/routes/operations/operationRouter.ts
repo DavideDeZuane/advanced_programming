@@ -4,22 +4,22 @@ const router: Router = Router();
 //##### GET METHOD ######
 
 //all operations
-router.get('/operations', (req: Request, res: Response) => {
+router.get('/', (req: Request, res: Response) => {
     //return all operations
 });
 
 //operation by id
-router.get('/operations/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     const operationId = req.params.id; // Ottieni l'ID dell'operazione dai parametri della richiesta
 })
 
 //operation by client id
-router.get('/operations/:user_id', (req, res) => {
+router.get('/:user_id', (req, res) => {
     const clientId = req.params.user_id; // Ottieni l'ID del cliente dai parametri della richiesta
 })
 
 //operation by employee id
-router.get('/operations/:employee_id', (req, res) => {
+router.get('/:employee_id', (req, res) => {
     const employee_id = req.params.employee_id; // Ottieni l'ID del employee dai parametri della richiesta
 })
 
@@ -27,7 +27,7 @@ router.get('/operations/:employee_id', (req, res) => {
 //##### POST METHOD ######
 
 //insert new operation
-router.post('/operations', (req: Request, res: Response) => {
+router.post('/', (req: Request, res: Response) => {
 
     res.status(201)
 });
