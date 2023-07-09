@@ -20,6 +20,7 @@ const versionSchema: Schema<IVersion> = new Schema<IVersion>({
   },
   versionNumber: {
     type: String,
+    min: [1.0, 'Inserire il numero di versione'],
     required: true
   },
   createdAt: {

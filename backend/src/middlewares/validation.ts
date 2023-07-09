@@ -66,4 +66,12 @@ const file_validation = [
     checkValidation
 ]
 
-export {user_validation, employee_validation, compoenent_validation, prototype_validation, device_validation, system_validation, file_validation}
+const version_validation = [
+    body('file').trim().escape().isAlphanumeric(),
+    //controlla se è giusta la seguente clausola
+    body('blob').trim().escape().isBoolean(),
+    body('versionNumber').trim().escape().isNumeric(),
+    checkValidation
+]
+
+export {user_validation, employee_validation, compoenent_validation, prototype_validation, device_validation, system_validation, file_validation, version_validation}
