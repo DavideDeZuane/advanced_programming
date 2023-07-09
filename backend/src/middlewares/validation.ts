@@ -57,4 +57,12 @@ const system_validation = [
     checkValidation
 ]
 
-export {user_validation, employee_validation, compoenent_validation, prototype_validation, device_validation, system_validation}
+const file_validation = [
+    body('name').trim().escape().isAlphanumeric(),
+    body('device').trim().escape().isAlphanumeric(),
+    body('fileType').trim().escape().isAlpha(),
+    body('description').trim().escape().isAlphanumeric(),
+    checkValidation
+]
+
+export {user_validation, employee_validation, compoenent_validation, prototype_validation, device_validation, system_validation, file_validation}
