@@ -1,14 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors'
-import { seedClient } from './model/seeder/clientSeeder';
-import { seedEmployee } from './model/seeder/employeeSeeder';
-import { seedComponent } from './model/seeder/componentSeeder';
-import { seedProto } from './model/seeder/prototypeDevSeeder';
-import { seedDevice } from './model/seeder/deviceSeeder';
-import { seedFile } from './model/seeder/fileSeeder';
-import { seedVersion } from './model/seeder/versionSeeder';
-import { seedOperation } from './model/seeder/operationSeeder';
-import { seedSystem } from './model/seeder/systemSeeder';
+
+import { seed } from './model/seeder';
 
 import { clientRouter } from './routes'
 
@@ -45,50 +38,10 @@ app.get('/publicco', checkJson, chain, (req:Request, res:Response) => { console.
 app.get('/public', checkToken, checkPermissions([AdminPermission.Read]), chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
 app.get('/protected', auth_chain, (req:Request, res:Response) => { console.log(''); let obj = { campo: '' }; res.json(obj)})
 
-app.get('/seedCliente', async(req:Request, res:Response) => {
-  await seedClient();
+app.get('/seed', async(req:Request, res:Response) => {
+  await seed();
   res.send("Aggiunto cliente");
 }) 
-
-app.get('/seedEmployee', async(req:Request, res:Response) => {
-  await seedEmployee();
-  res.send("Aggiunto impiegato");
-}) 
-
-app.get('/seedComponent', async(req:Request, res:Response) => {
-  await seedComponent();
-  res.send("Aggiunto componente");
-})
-
-app.get('/seedProto', async(req:Request, res:Response) => {
-  await seedProto();
-  res.send("Aggiunto prototipo");
-})
-
-app.get('/seedDevice', async(req:Request, res:Response) => {
-  await seedDevice();
-  res.send("Aggiunto device");
-})
-
-app.get('/seedFile', async(req:Request, res:Response) => {
-  await seedFile();
-  res.send("Aggiunto file");
-})
-
-app.get('/seedVersion', async(req:Request, res:Response) => {
-  await seedVersion();
-  res.send("Aggiunto versione");
-})
-
-app.get('/seedOperation', async(req:Request, res:Response) => {
-  await seedOperation();
-  res.send("Aggiunto operazione");
-})
-
-app.get('/seedSystem', async(req:Request, res:Response) => {
-  await seedSystem();
-  res.send("Aggiunto sistema");
-})
 
 app.get('/db', (req:Request, res:Response) => { 
   mongoose.connect(dbUri);
