@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "codice-fiscale-js": "^2.3.20",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "express-oauth2-jwt-bearer": "^1.5.0",
