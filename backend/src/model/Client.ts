@@ -10,21 +10,39 @@ export interface IClient extends Document {
   createdAt: Date;
 }
 
+//il pacchetto per la validazione del codice fiscale italiano
+//npm install codice-fiscale-js
+const CodiceFiscale = require('codice-fiscale-js');
+
 const clientSchema: Schema<IClient> = new Schema<IClient>({
   firstName: {
     type: String,
+    match: [/^[a-zA-Z] + $/, 'Only letters'],
     required: true
   },
   lastName: {
     type: String,
+    match: [/^[a-zA-Z] + $/, 'Only letters'],
     required: true
   },
   birthDate: {
     type: Date,
+    validate: {
+      validator: function (value: Date): Boolean {
+        return value < new Date();
+      },
+      message: 'Invalid date'
+    },
     required: true
   },
   fiscalCode: {
     type: String,
+    validate: {
+      validator: function (value: String): Boolean {
+        return CodiceFiscale.isValid(value);
+      },
+      message: 'Invalid CF',
+    },
     required: true,
     unique: true
   },
