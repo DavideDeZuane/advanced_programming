@@ -15,8 +15,13 @@ const componentSchema: Schema<IComponent> = new Schema<IComponent>({
   },
   type: {
     type: String,
+    enum:{
+      values: ['Tipo 1', 'Tipo 2', 'Tipo N'],
+      message: '{VALUE}: invalid type'
+    },
     required: true
   },
+  //per questi due attributi non so che tipo di validazione fare a lvl model
   description: String,
   price: Number,
   createdAt: {

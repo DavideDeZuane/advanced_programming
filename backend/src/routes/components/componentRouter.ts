@@ -1,4 +1,7 @@
 import { Router, Request, Response } from 'express';
+import * as middlewares from '../../middlewares';
+import { compoenent_validation } from '../../middlewares/validation';
+
 const router: Router = Router();
 
 /*
@@ -10,7 +13,7 @@ const router: Router = Router();
 //##### GET METHOD ######
 
 //all components
-router.get('/', (req: Request, res: Response) => {
+router.get('/', middlewares.chain,(req: Request, res: Response) => {
     //return all components
 });
 
@@ -27,7 +30,7 @@ router.get('/:type', (req, res) => {
 //##### POST METHOD ######
 
 //insert new component
-router.post('/', (req: Request, res: Response) => {
+router.post('/', compoenent_validation,async (req: Request, res: Response) => {
     // Assume che il corpo della richiesta contenga i dettagli del nuovo componente
     const newComponent = req.body; 
     

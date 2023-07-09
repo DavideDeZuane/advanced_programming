@@ -28,4 +28,12 @@ const employee_validation = [
     checkValidation
 ]
 
-export {user_validation, employee_validation}
+const compoenent_validation = [
+    body('name').trim().escape(),
+    body('type').trim().escape().isAlpha(),
+    body('description').trim().escape(),
+    body('price').trim().escape().isNumeric(),
+    checkValidation
+]
+
+export {user_validation, employee_validation, compoenent_validation}
