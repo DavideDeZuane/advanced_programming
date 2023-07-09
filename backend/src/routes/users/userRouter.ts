@@ -1,10 +1,10 @@
 import { Router, Request, Response } from 'express';
 import Client, { IClient } from '../../model/Client';
-import DB from '../../config/database';
+import * as middlewares from '../../middlewares';
 
 const clientRouter:Router = Router();
 
-clientRouter.get('/', (req:Request, res: Response) => { res.send('root dei clienti') });
+clientRouter.get('/', middlewares.chain, (req:Request, res: Response) => { res.send('root dei clienti') });
 clientRouter.post('/', async (req:Request, res:Response) => { 
   const user:IClient = req.body;
   try{

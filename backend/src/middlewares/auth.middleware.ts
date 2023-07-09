@@ -10,7 +10,7 @@ const checkToken = auth({
 });
 
 /* La seguente funzione va a verificare se l'utente ha i permessi per accedere alla rotta, i permessi sono specificati tramite un array */
-const checkRequiredPermissions = (requiredPermissions:string[]) => {
+const checkPermissions = (requiredPermissions:string[]) => {
     return (req:any, res:any, next:NextFunction) => 
     {
         /* claimCheck consente di verificare le rivendicazioni all'interno del JWT, prende come argomento una callback che accede alle rivendicazioni tramite l'oggetto payload */
@@ -26,12 +26,13 @@ const checkRequiredPermissions = (requiredPermissions:string[]) => {
     };
 };
 
+
+/* Permessi degli utenti definiti sui ruoli in auth0*/
 const AdminPermission = {
     Read: 'read:route',
 };
-
 const UserPermission = {
     Read: ['read:route', 'read:route-admin']
 }
 
-export { checkToken, checkRequiredPermissions, AdminPermission, UserPermission }
+export { checkToken, checkPermissions, AdminPermission, UserPermission }

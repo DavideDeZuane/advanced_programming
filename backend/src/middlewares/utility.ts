@@ -2,18 +2,10 @@ import morgan, { TokenIndexer, FormatFn } from 'morgan';
 import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
 import httpStatus from 'http-status-codes'
 
-const logPlus:FormatFn = (tokens:TokenIndexer, req, res) => {
-    return `${tokens.method(req, res)} - ${tokens.status(req, res)} - ${tokens.url(req, res)} \n${tokens['response-time'](req, res)}ms - ${tokens['total-time'](req, res)}ms`;
-}
-// combinare queste due funzioni insieme al winston per genereare dei log che poi andremo ad utilizzare per fare analisi
-const preLog = morgan('combined');
-const postLog = morgan(logPlus); 
-
 const checkJson = (req:Request, res:Response, next:NextFunction) => {   
     if(req.headers['content-type'] != 'application/json'){
     }
     try {
-        console.log(req.body)
         CustomJSON.parse(req.body);
         next();
     } catch (error:any) {
@@ -115,4 +107,4 @@ const errHandler = function (err:any, req: Request, res: Response, next:NextFunc
     res.status(err.statusCode).json(response);
 }
 
-export { preLog, postLog, checkJson, errHandler }
+export { checkJson, errHandler }

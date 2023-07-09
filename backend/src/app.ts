@@ -12,9 +12,12 @@ import { seedSystem } from './model/seeder/systemSeeder';
 
 import { clientRouter } from './routes'
 
-import { chain, auth_chain, checkRequiredPermissions, checkToken } from './middlewares/index';
-import { AdminPermission } from './middlewares/auth';
-import DB from './config/database';
+import { chain, auth_chain, checkPermissions, checkToken } from './middlewares/index';
+import { AdminPermission } from './middlewares/auth.middleware';
+
+import DB from './utils/Database';
+import AppLogger from './utils/Logger';
+
 
 const mongoose = require('mongoose');
 
@@ -23,8 +26,8 @@ const app:Express = express()
 const port:string = process.env.SERVER_PORT || '3000';
 const dbUri:string = 'mongodb://adprogramming:adprogramming@mongodb:27017/adprogramming' 
 
-const db = DB.getIstance()
-const connection = db.getConnection()
+const db = DB.getIstance();
+const logger = AppLogger.getInstance();
 
 app.use(cors());
 //se non aggiungiamo questo affinchè il corpo della richiesta venga analizzato ed assegnato a req.body altrimenti non gli viene assegnato.A
@@ -39,7 +42,7 @@ app.get('/', (req:Request, res:Response) => {
 })
 
 app.get('/publicco', checkToken, chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
-app.get('/public', checkToken, checkRequiredPermissions([AdminPermission.Read]), chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
+app.get('/public', checkToken, checkPermissions([AdminPermission.Read]), chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
 app.get('/protected', auth_chain, (req:Request, res:Response) => { console.log(''); let obj = { campo: '' }; res.json(obj)})
 
 app.get('/seedCliente', async(req:Request, res:Response) => {
@@ -125,6 +128,6 @@ app.get('/db', (req:Request, res:Response) => {
   })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  logger.info(`Server in ascolto sulla porta ${port}`)
 });
 

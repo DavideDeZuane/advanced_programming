@@ -1,17 +1,16 @@
-import { checkToken, checkRequiredPermissions } from "./auth";
-import { checkJson, preLog, errHandler, postLog} from "./utility";
+import { checkToken, checkPermissions } from "./auth.middleware";
+import { checkJson, errHandler} from "./utility";
+import { preLog, postLog } from "./morgan.middlaware";
 
 
 /* spostare l'errHandler direttamente in app.use */ 
 const chain = [
     preLog,
-    checkJson,
     postLog,
     errHandler
 ]
 
 const auth_chain = [
-    preLog,
     checkToken,
     postLog,
 ]
@@ -20,5 +19,5 @@ const auth_role_chain = [
 
 ]
 
-export { chain, auth_chain, checkRequiredPermissions, checkToken };
+export { chain, auth_chain, checkPermissions, checkToken };
 
