@@ -1,10 +1,13 @@
 import { Router, Request, Response } from 'express';
+import * as middlewares from '../../middlewares';
+import { operation_validation } from '../../middlewares/validation';
+
 const router: Router = Router();
 
 //##### GET METHOD ######
 
 //all operations
-router.get('/', (req: Request, res: Response) => {
+router.get('/', middlewares.chain, (req: Request, res: Response) => {
     //return all operations
 });
 
@@ -27,7 +30,7 @@ router.get('/:employee_id', (req, res) => {
 //##### POST METHOD ######
 
 //insert new operation
-router.post('/', (req: Request, res: Response) => {
+router.post('/', operation_validation, async (req: Request, res: Response) => {
 
     res.status(201)
 });
