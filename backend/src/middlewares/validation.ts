@@ -12,13 +12,14 @@ const checkValidation = (req:Request, res:Response, next:NextFunction) => {
 /* fare un array di validazione per ogni tipologia di post che viene effettuta */ 
 /* aggiungiamo quelli che sono i campi del client per esempio */
 const user_validation = [
-    body('first_name').trim().escape().isAlpha(),
-    body('last_name').trim().escape().isAlpha(),
-    body('birth_date').trim().isDate(),
-    body('fiscal_code').trim().isVAT('IT'),
+    body('firstName').trim().escape().isAlpha(),
+    body('lastName').trim().escape().isAlpha('it-IT', {ignore: ' '}),
+    body('birthDate').isISO8601().toDate(),
+    body('fiscalCode').trim().matches(/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/),
     body('address').trim(),
     checkValidation
 ]
+
 
 const employee_validation = [
     body('name').trim().escape().isAlpha(),
