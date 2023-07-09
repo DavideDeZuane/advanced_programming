@@ -1,11 +1,12 @@
 import { Router, Request, Response } from 'express';
 import Client, { IClient } from '../../model/Client';
 import * as middlewares from '../../middlewares';
+import { user_validation } from '../../middlewares/validation';
 
 const clientRouter:Router = Router();
 
 clientRouter.get('/', middlewares.chain, (req:Request, res: Response) => { res.send('root dei clienti') });
-clientRouter.post('/', async (req:Request, res:Response) => { 
+clientRouter.post('/', user_validation, async (req:Request, res:Response) => { 
   const user:IClient = req.body;
   try{
     let wwa= new Client(user);
