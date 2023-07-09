@@ -1,5 +1,6 @@
 import { body, validationResult } from 'express-validator';
 import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
+import DevicePrototype from 'model/DevicePrototype';
 
 const checkValidation = (req:Request, res:Response, next:NextFunction) => {
     let errors = validationResult(req);
@@ -15,7 +16,7 @@ const user_validation = [
     body('last_name').trim().escape().isAlpha(),
     body('birth_date').trim().isDate(),
     body('fiscal_code').trim().isVAT('IT'),
-    body('address').trim(),
+    body('address').trim().escape().isAlphanumeric(),
     checkValidation
 ]
 
@@ -29,17 +30,23 @@ const employee_validation = [
 ]
 
 const compoenent_validation = [
-    body('name').trim().escape(),
+    body('name').trim().escape().isAlphanumeric(),
     body('type').trim().escape().isAlpha(),
-    body('description').trim().escape(),
+    body('description').trim().escape().isAlphanumeric(),
     body('price').trim().escape().isNumeric(),
     checkValidation
 ]
 
 const prototype_validation = [
     body('name').trim().escape().isAlphanumeric(),
-    body('components').trim().escape(),
+    body('components').trim().escape().isAlphanumeric(),
     checkValidation   
 ]
 
-export {user_validation, employee_validation, compoenent_validation, prototype_validation}
+const device_validation = [
+    body('name').trim().escape().isAlphanumeric(),
+    body('prototype').trim().escape().isAlphanumeric(),
+    checkValidation
+]
+
+export {user_validation, employee_validation, compoenent_validation, prototype_validation, device_validation}

@@ -1,11 +1,14 @@
 import { Router, Request, Response } from 'express';
+import * as middlewares from '../../middlewares';
+import { device_validation } from '../../middlewares/validation';
+
 const router: Router = Router();
 
 
 //##### GET METHOD ######
 
 //all devidces
-router.get('/', (req: Request, res: Response) => {
+router.get('/', middlewares.chain,(req: Request, res: Response) => {
     //return all devices
 });
 
@@ -22,7 +25,7 @@ router.get('/:prototype_id', (req, res) => {
 //##### POST METHOD ######
 
 //insert new device
-router.post('/', (req: Request, res: Response) => {
+router.post('/', device_validation,async (req: Request, res: Response) => {
     // Assume che il corpo della richiesta contenga i dettagli del nuovo device
     const newDevice = req.body; 
     
