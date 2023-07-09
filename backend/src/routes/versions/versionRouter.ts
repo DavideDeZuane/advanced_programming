@@ -1,22 +1,25 @@
 import { Router, Request, Response } from 'express';
+import * as middlewares from '../../middlewares';
+import { version_validation } from '../../middlewares/validation';
+
 const router: Router = Router();
 
 //##### GET METHOD #####
 
 //all versions' file
-router.get('/versions/:file_id', (req: Request, res: Response) => {
+router.get('/:file_id', middlewares.chain, (req: Request, res: Response) => {
     //return all versions' file
 });
 
 //version by id
-router.get('/versions/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     const versionId = req.params.id; // Ottieni l'ID della versione dai parametri della richiesta
 })  
 
 //##### POST METHOD ######
 
 //insert new version
-router.post('/versions', (req: Request, res: Response) => {
+router.post('/', version_validation, async (req: Request, res: Response) => {
 
 });
 

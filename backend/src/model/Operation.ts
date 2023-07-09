@@ -27,6 +27,10 @@ const operationSchema: Schema<IOperation> = new Schema<IOperation>({
   },
   type: {
     type: String,
+    enum:{
+      values: ['Riparazione', 'Sostituzione', 'Instaurazione nuovo device', 'Costruzione impianto', 'Operazione z'],
+      message: '{VALUE}: invalid operation'
+    },
     required: true
   },
   createdAt: {
