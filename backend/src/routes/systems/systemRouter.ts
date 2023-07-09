@@ -1,10 +1,13 @@
 import { Router, Request, Response } from 'express';
+import * as middlewares from '../../middlewares';
+import { system_validation } from '../../middlewares/validation';
+
 const router: Router = Router();
 
 //##### GET METHOD ######
 
 //all systems
-router.get('/', (req: Request, res: Response) => {
+router.get('/', middlewares.chain, (req: Request, res: Response) => {
     //return all systems
 });
 
@@ -22,7 +25,7 @@ router.get('/:user_id', (req, res) => {
 //##### POST METHOD ######
 
 //insert new system
-router.post('/', (req: Request, res: Response) => {
+router.post('/', system_validation, async (req: Request, res: Response) => {
     //NON SO SE CONVIENE PRENDERLI COME OGGETTI DEVICE
     const devices: string[] = req.query.devices as string[];
 
