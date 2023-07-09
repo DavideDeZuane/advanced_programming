@@ -12,6 +12,7 @@ export interface IFile extends Document {
 const fileSchema: Schema<IFile> = new Schema<IFile>({
   name: {
     type: String,
+    match: [/^[a-zA-Z0-9]+$/, 'Il campo deve essere alfanumerico'],
     required: true
   },
   device: {
@@ -21,6 +22,10 @@ const fileSchema: Schema<IFile> = new Schema<IFile>({
   },
   fileType: {
     type: String,
+    enum:{
+      values: ['csv', 'doc', 'docx', 'pdf', 'txt', 'xls', 'xlsx'],
+      message: '{VALUE}: invalid file type.'
+    },
     required: true
   },
   description: {

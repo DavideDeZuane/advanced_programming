@@ -1,5 +1,6 @@
 import { body, validationResult } from 'express-validator';
 import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
+import DevicePrototype from 'model/DevicePrototype';
 
 const checkValidation = (req:Request, res:Response, next:NextFunction) => {
     let errors = validationResult(req);
@@ -11,10 +12,10 @@ const checkValidation = (req:Request, res:Response, next:NextFunction) => {
 /* fare un array di validazione per ogni tipologia di post che viene effettuta */ 
 /* aggiungiamo quelli che sono i campi del client per esempio */
 const user_validation = [
-    body('firstName').trim().escape().isAlpha(),
-    body('lastName').trim().escape().isAlpha('it-IT', {ignore: ' '}),
-    body('birthDate').isISO8601().toDate(),
-    body('fiscalCode').trim().matches(/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/),
+    body('first_name').trim().escape().isAlpha(),
+    body('last_name').trim().escape().isAlpha(),
+    body('birth_date').trim().isDate(),
+    body('fiscal_code').trim().isVAT('IT'),
     body('address').trim(),
     checkValidation
 ]
@@ -29,11 +30,39 @@ const employee_validation = [
 ]
 
 const compoenent_validation = [
-    body('name').trim().escape(),
+    body('name').trim().escape().isAlphanumeric(),
     body('type').trim().escape().isAlpha(),
-    body('description').trim().escape(),
+    body('description').trim().escape().isAlphanumeric(),
     body('price').trim().escape().isNumeric(),
     checkValidation
 ]
 
-export {user_validation, employee_validation, compoenent_validation}
+const prototype_validation = [
+    body('name').trim().escape().isAlphanumeric(),
+    body('components').trim().escape().isAlphanumeric(),
+    checkValidation   
+]
+
+const device_validation = [
+    body('name').trim().escape().isAlphanumeric(),
+    body('prototype').trim().escape().isAlphanumeric(),
+    checkValidation
+]
+
+const system_validation = [
+    body('name').trim().escape().isAlphanumeric(),
+    body('devices').trim().escape().isAlphanumeric(),
+    body('address').trim().escape().isAlphanumeric(),
+    body('client').trim().escape().isAlpha(),
+    checkValidation
+]
+
+const file_validation = [
+    body('name').trim().escape().isAlphanumeric(),
+    body('device').trim().escape().isAlphanumeric(),
+    body('fileType').trim().escape().isAlpha(),
+    body('description').trim().escape().isAlphanumeric(),
+    checkValidation
+]
+
+export {user_validation, employee_validation, compoenent_validation, prototype_validation, device_validation, system_validation, file_validation}
