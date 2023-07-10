@@ -2,10 +2,13 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors'
 
 import { seed } from './model/seeder';
+
+import { clientRouter } from './routes';
 import { componentRouter} from './routes';
 import { employeeRouter } from './routes';
+
 import { errHandler } from './middlewares/index';
-import { clientRouter } from './routes';
+
 import { chain, auth_chain } from './middlewares/index';
 import { AdminPermission } from './middlewares/auth.middleware';
 

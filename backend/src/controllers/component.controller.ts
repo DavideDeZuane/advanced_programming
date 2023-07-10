@@ -11,9 +11,9 @@ import {
 
 
 const addComponent = (req:Request, res:Response) => {
-    const user:IComponent = req.body;
+    const component:IComponent = req.body;
     try{
-        let wwa= new Component(user);
+        let wwa= new Component(component);
         console.log(wwa)
         wwa.save()
     } catch(error) {

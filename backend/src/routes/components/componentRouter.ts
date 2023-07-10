@@ -1,7 +1,6 @@
 import { Router, Request, Response } from 'express';
 import * as middlewares from '../../middlewares';
-import Component, { IComponent } from '../../model/Component';
-import component_controller from '../../controllers/component.controller';
+import * as controller from '../../controllers/index';
 
 
 const componentRouter: Router = Router();
@@ -32,6 +31,6 @@ componentRouter.get('/:type', (req, res) => {
 //##### POST METHOD ######
 
 //insert new component
-componentRouter.post('/', middlewares.chain, component_controller.addComponent);
+componentRouter.post('/', middlewares.chain, controller.component_controller.addComponent);
 
 export {componentRouter};

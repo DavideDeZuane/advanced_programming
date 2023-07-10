@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import * as middlewares from '../../middlewares';
-import Employee, { IEmployee } from '../../model/Employee';
+import * as controller from '../../controllers/index';
 
 const employeeRouter: Router = Router();
 
@@ -29,20 +29,7 @@ employeeRouter.get('/:department', (req, res) => {
 //##### POST METHOD ######
 
 //insert new employee
-employeeRouter.post('/', middlewares.chain,async (req: Request, res: Response) => {
-    // Assume che il corpo della richiesta contenga i dettagli del nuovo componente
-    const newEmployee: IEmployee = req.body; 
-    try{
-        let wwa= new Employee(newEmployee);
-        console.log(wwa)
-        wwa.save()
-    } catch(error) {
-       console.log(error)
-    }
-    // Ritorna il nuovo componente come risposta JSON con il codice di stato 201 (Created)
-    res.status(201).json(newEmployee);  
-  });
+employeeRouter.post('/', middlewares.chain, controller.employee_controller.addEmployee);
 
-//##### PUT METHOD #####
 
 export {employeeRouter};
