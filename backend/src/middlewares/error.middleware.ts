@@ -50,6 +50,21 @@ class CustomError extends Error {
         return this;
     }
 
+    toJson():object{
+        return {
+            error: {
+                name: this.name,
+                code: this.code,
+                statusCode: this.statusCode,
+                type: this.type,
+                description: this.description,
+
+            },
+            timeStamp: this.timestamp
+
+        }
+    }
+
 }
 
 interface CustomErrorHandler extends ErrorRequestHandler {

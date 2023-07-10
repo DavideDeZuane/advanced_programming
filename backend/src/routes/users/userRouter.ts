@@ -7,7 +7,7 @@ import * as controller from '../../controllers/index';
 
 const clientRouter:Router = Router();
 
-clientRouter.get('/', middlewares.chain, controller.client_controller.getClient)
+clientRouter.get('/', middlewares.chain, controller.client_controller.getClients)
             .post('/', middlewares.chain, controller.client_controller.addClient)
             .get('/:id',)
             .patch('/:id',);

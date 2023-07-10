@@ -30,7 +30,7 @@ router.get('/:department', (req, res) => {
 //##### POST METHOD ######
 
 //insert new employee
-router.post('/', employee_validation, async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
     // Assume che il corpo della richiesta contenga i dettagli del nuovo impiegato
     const newEmployee = req.body; 
     

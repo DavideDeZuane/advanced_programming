@@ -9,12 +9,9 @@ export interface IEmployee extends Document {
   createdAt: Date;
 }
 
-const CodiceFiscale = require('codice-fiscale-js');
-
 const employeeSchema: Schema<IEmployee> = new Schema<IEmployee>({
   name: {
-    function: function(value:string) {return /^[a-zA-Z\s]{2,50}$/.test(value);},
-    message: 'Il nome non è valido. Deve contenere solo lettere, spazi, apostrofi o trattini e avere una lunghezza compresa tra 2 e 50 caratteri.',
+    type:String,
     required: true
   },
   role: {
