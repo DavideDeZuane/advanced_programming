@@ -8,7 +8,7 @@ import * as controller from '../../controllers/index';
 const clientRouter:Router = Router();
 
 clientRouter.get('/', middlewares.chain, controller.client_controller.getClients)
-            .post('/', middlewares.chain, controller.client_controller.addClient)
+            .post('/', middlewares.POST_chain, controller.client_controller.addClient)
             .get('/:id',)
             .patch('/:id',);
             
