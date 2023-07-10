@@ -3,11 +3,10 @@ import cors from 'cors'
 
 import { seed } from './model/seeder';
 import { clientRouter } from './routes';
-import { chain, auth_chain, checkPermissions, checkToken, checkJson } from './middlewares/index';
+import { chain, auth_chain, errHandler} from './middlewares/index';
 import { AdminPermission } from './middlewares/auth.middleware';
 
 import { DB, AppLogger } from './utils/index';
-import { errHandler } from './middlewares/error.middleware';
 
 
 const mongoose = require('mongoose');
@@ -34,8 +33,7 @@ app.use(errHandler)
 
 app.use('/clients', clientRouter)
 
-app.get('/publicco', checkJson, chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
-app.get('/public', checkToken, checkPermissions([AdminPermission.Read]), chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
+//app.get('/public', checkToken, checkPermissions([AdminPermission.Read]), chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
 app.get('/protected', auth_chain, (req:Request, res:Response) => { console.log(''); let obj = { campo: '' }; res.json(obj)})
 
 app.get('/seed', async(req:Request, res:Response) => {

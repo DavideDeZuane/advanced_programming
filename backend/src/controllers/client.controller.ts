@@ -2,12 +2,7 @@ import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
 import Client, { IClient } from "../model/Client";
 import { CustomError } from "../middlewares/error.middleware";
-import {
-	ReasonPhrases,
-	StatusCodes,
-	getReasonPhrase,
-	getStatusCode,
-} from 'http-status-codes';
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
 
 const addClient = (req:Request, res:Response) => {
@@ -52,10 +47,14 @@ const getById = (req:Request, res:Response, next:NextFunction) => {
         .catch((err) => { console.log(err); res.json(err) }) 
 }
 
+/* per quanto riguarda l'aggiornametno conviene fare una PUT, si crea una richiesta di nuovo con tutti i campi in questo modo evitiamo di fare n validazioni */
+
 const updateClient = async (req:Request, res:Response) => {
-    Client.findByIdAndUpdate(req.params.id, {})
-        .then( () => res.status(StatusCodes.OK))
-        .catch( (err) => { console.log(err) })
+    console.log('entrato nel metodo');
+    console.log(req.body);
+    await Client.findByIdAndUpdate(req.params.id, req.body)
+        .then( () => res.status(StatusCodes.OK).send('wasd')) 
+        .catch( (err) => { console.log(err), res.send('wa'); })
 }
 
 const client_controller = {

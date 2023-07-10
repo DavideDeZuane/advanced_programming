@@ -83,4 +83,4 @@ const operation_validation = [
 ]
 
 export {user_validation, employee_validation, compoenent_validation, prototype_validation, 
-    device_validation, system_validation, file_validation, version_validation, operation_validation}
+    device_validation, system_validation, file_validation, version_validation, operation_validation, checkValidation}
