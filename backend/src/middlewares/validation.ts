@@ -30,7 +30,7 @@ const employee_validation = [
     checkValidation
 ]
 
-const compoenent_validation = [
+const component_validation = [
     body('name').trim().escape().isAlphanumeric(),
     body('type').trim().escape().isAlpha(),
     body('description').trim().escape().isAlphanumeric(),
@@ -82,5 +82,5 @@ const operation_validation = [
     checkValidation
 ]
 
-export {user_validation, employee_validation, compoenent_validation, prototype_validation, 
+export {user_validation, employee_validation, component_validation, prototype_validation, 
     device_validation, system_validation, file_validation, version_validation, operation_validation}
