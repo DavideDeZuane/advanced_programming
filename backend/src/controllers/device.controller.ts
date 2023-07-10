@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
-import DevicePrototype, { IDevicePrototype } from "../model/DevicePrototype";
+import Device, { IDevice } from "../model/Device";
 import { CustomError } from "../middlewares/error.middleware";
 import {
 	ReasonPhrases,
@@ -10,10 +10,18 @@ import {
 } from 'http-status-codes';
 
 
-const addPrototype = (req:Request, res:Response) => {
-    const proto:IDevicePrototype = req.body;
+const addDevice = (req:Request, res:Response) => {
+    const device:IDevice = req.body;
+    console.log(req.body);
+    console.log();
+    console.log(device);
+    console.log();
+
     try{
-        let wwa= new DevicePrototype(proto);
+        let wwa= new Device({
+            name: device.name,
+            devicePrototypes: device.devicePrototypes,
+        });
         console.log(wwa)
         wwa.save()
     } catch(error) {
@@ -22,8 +30,8 @@ const addPrototype = (req:Request, res:Response) => {
     res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
 }
 
-const prototype_controller = {
-    addPrototype
+const device_controller = {
+    addDevice
 }
 
-export default prototype_controller;
+export default device_controller;

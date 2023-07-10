@@ -3,7 +3,7 @@ import { IDevicePrototype } from './DevicePrototype';
 
 export interface IDevice extends Document {
   name: string;
-  prototype: mongoose.Types.ObjectId | IDevicePrototype;
+  devicePrototypes: mongoose.Types.ObjectId | IDevicePrototype;
   createdAt: Date;
 }
 
@@ -12,16 +12,14 @@ const deviceSchema: Schema<IDevice> = new Schema<IDevice>({
     type: String,
     required: true
   },
-  prototype: {
+  devicePrototypes: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'DevicePrototype',
-    required: true
+    required: true,
+    ref: 'DevicePrototype'
   },
   createdAt: {
     type: Date,
     default: Date.now
   }
 });
-
-const Device: Model<IDevice> = mongoose.model<IDevice>('Device', deviceSchema);
 export default mongoose.model<IDevice>('Device', deviceSchema);

@@ -22,5 +22,4 @@ const devicePrototypeSchema: Schema<IDevicePrototype> = new Schema<IDeviceProtot
   }
 });
 
-const DevicePrototype: Model<IDevicePrototype> = mongoose.model<IDevicePrototype>('DevicePrototype', devicePrototypeSchema);
 export default mongoose.model<IDevicePrototype>('DevicePrototype', devicePrototypeSchema);

@@ -7,6 +7,7 @@ import { clientRouter } from './routes';
 import { componentRouter} from './routes';
 import { employeeRouter } from './routes';
 import { protoRouter } from './routes';
+import { deviceRouter } from './routes';
 
 import { errHandler } from './middlewares/index';
 
@@ -42,6 +43,7 @@ app.use('/clients', clientRouter);
 app.use('/components', componentRouter);
 app.use('/employes', employeeRouter);
 app.use('/prototypes', protoRouter);
+app.use('/devices', deviceRouter);
 
 //app.get('/public', checkToken, checkPermissions([AdminPermission.Read]), chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
 app.get('/protected', auth_chain, (req:Request, res:Response) => { console.log(''); let obj = { campo: '' }; res.json(obj)})

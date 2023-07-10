@@ -8,7 +8,7 @@ async function seed() {
       const devicePro = await DevicePrototype.findOne({name: "Sensore velocità"}).exec(); //exec fa una sorta di promessa per il ritorno
       const deviceData =
         {
-          prototype: devicePro?._id,
+          devicePrototypes: devicePro?._id,
           name: 'Sensore velocità analogico',
           createdAt: new Date()
         } as IDevice;
