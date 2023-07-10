@@ -15,8 +15,8 @@ const user_validation = [
     body('firstName').trim().escape().isAlpha(),
     body('lastName').trim().escape().isAlpha('it-IT', {ignore: ' '}),
     body('birthDate').isISO8601().toDate(),
-    body('fiscalCode').trim().matches(/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/),
-    body('address').trim(),
+    body('fiscalCode').trim().escape().isVAT('IT'),
+    body('address').trim().escape(),
     checkValidation
 ]
 

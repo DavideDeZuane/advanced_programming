@@ -1,6 +1,5 @@
 import { Router, Request, Response } from 'express';
 import * as middlewares from '../../middlewares';
-import { component_validation } from '../../middlewares/validation';
 import Component, { IComponent } from '../../model/Component';
 
 
@@ -32,7 +31,7 @@ componentRouter.get('/:type', (req, res) => {
 //##### POST METHOD ######
 
 //insert new component
-componentRouter.post('/', middlewares.chain,async (req: Request, res: Response) => {
+componentRouter.post('/', middlewares.chain, async (req: Request, res: Response) => {
     // Assume che il corpo della richiesta contenga i dettagli del nuovo componente
     const newComponent: IComponent = req.body; 
     try{

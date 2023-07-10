@@ -2,8 +2,11 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors'
 
 import { seed } from './model/seeder';
+
 import { clientRouter } from './routes';
-import { componentRouter} from './routes'
+import { componentRouter} from './routes';
+import { employeeRouter } from './routes';
+
 import { chain, auth_chain, checkPermissions, checkToken, checkJson } from './middlewares/index';
 import { AdminPermission } from './middlewares/auth.middleware';
 
@@ -35,6 +38,7 @@ app.use(errHandler)
 
 app.use('/clients', clientRouter)
 app.use('/components', componentRouter)
+app.use('/employes', employeeRouter)
 
 app.get('/publicco', checkJson, chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
 app.get('/public', checkToken, checkPermissions([AdminPermission.Read]), chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
