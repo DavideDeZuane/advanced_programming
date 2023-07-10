@@ -14,6 +14,14 @@ import AppLogger from './utils/Logger';
 
 const mongoose = require('mongoose');
 
+
+/*
+TODO 
+- [ ] Aggiungere i cookie per la gestione delle sessioni
+- [ ] Aggiungere il package https per configuirare il server https  
+- [ ] vedere l'utilizzo di helmet per aggiungere degli header di sicurezza
+*/
+
 const app:Express = express()
 
 const port:string = process.env.SERVER_PORT || '3000';
@@ -41,7 +49,7 @@ app.get('/protected', auth_chain, (req:Request, res:Response) => { console.log('
 app.get('/seed', async(req:Request, res:Response) => {
   await seed();
   res.send("Aggiunto cliente");
-}) 
+})
 
 app.get('/db', (req:Request, res:Response) => { 
   mongoose.connect(dbUri);
