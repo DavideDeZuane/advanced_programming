@@ -7,7 +7,7 @@ import { chain, auth_chain, checkPermissions, checkToken, checkJson } from './mi
 import { AdminPermission } from './middlewares/auth.middleware';
 
 import { DB, AppLogger } from './utils/index';
-import { errHandler } from 'middlewares/error.middleware';
+import { errHandler } from './middlewares/error.middleware';
 
 
 const mongoose = require('mongoose');
