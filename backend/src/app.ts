@@ -6,6 +6,7 @@ import { seed } from './model/seeder';
 import { clientRouter } from './routes';
 import { componentRouter} from './routes';
 import { employeeRouter } from './routes';
+import { protoRouter } from './routes';
 
 import { errHandler } from './middlewares/index';
 
@@ -37,9 +38,10 @@ app.use(cors());
 app.use(express.json())
 app.use(errHandler)
 
-app.use('/clients', clientRouter)
-app.use('/components', componentRouter)
-app.use('/employes', employeeRouter)
+app.use('/clients', clientRouter);
+app.use('/components', componentRouter);
+app.use('/employes', employeeRouter);
+app.use('/prototypes', protoRouter);
 
 //app.get('/public', checkToken, checkPermissions([AdminPermission.Read]), chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
 app.get('/protected', auth_chain, (req:Request, res:Response) => { console.log(''); let obj = { campo: '' }; res.json(obj)})
