@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import * as middlewares from '../../middlewares';
 import Component, { IComponent } from '../../model/Component';
+import component_controller from '../../controllers/component.controller';
 
 
 const componentRouter: Router = Router();
@@ -31,18 +32,6 @@ componentRouter.get('/:type', (req, res) => {
 //##### POST METHOD ######
 
 //insert new component
-componentRouter.post('/', middlewares.chain, async (req: Request, res: Response) => {
-    // Assume che il corpo della richiesta contenga i dettagli del nuovo componente
-    const newComponent: IComponent = req.body; 
-    try{
-        let wwa= new Component(newComponent);
-        console.log(wwa)
-        wwa.save()
-    } catch(error) {
-       console.log(error)
-    }
-    // Ritorna il nuovo componente come risposta JSON con il codice di stato 201 (Created)
-    res.status(201).json(newComponent); 
-  });
+componentRouter.post('/', middlewares.chain, component_controller.addComponent);
 
 export {componentRouter};
