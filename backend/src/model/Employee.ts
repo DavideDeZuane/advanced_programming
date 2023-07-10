@@ -13,8 +13,8 @@ const CodiceFiscale = require('codice-fiscale-js');
 
 const employeeSchema: Schema<IEmployee> = new Schema<IEmployee>({
   name: {
-    type: String,
-    match: [/^[a-zA-Z] + $/, 'Only letters'],
+    function: function(value:string) {return /^[a-zA-Z\s]{2,50}$/.test(value);},
+    message: 'Il nome non è valido. Deve contenere solo lettere, spazi, apostrofi o trattini e avere una lunghezza compresa tra 2 e 50 caratteri.',
     required: true
   },
   role: {
@@ -46,10 +46,11 @@ const employeeSchema: Schema<IEmployee> = new Schema<IEmployee>({
   fiscalCode: {
     type: String,
     validate: {
-      validator: function (value: String): Boolean {
-        return CodiceFiscale.isValid(value);
+      validator: function (value: string) {
+        // Utilizza la regex per verificare se la Partita IVA è valida
+        return /^[0-9]{11}$/.test(value);
       },
-      message: 'Invalid CF',
+      message: 'La Partita IVA non è valida.'
     },
     required: true,
     unique: true

@@ -25,7 +25,7 @@ const employee_validation = [
     body('name').trim().escape().isAlpha(),
     body('role').trim().escape().isAlpha(),
     body('department').trim().escape().isAlpha(),
-    body('birthdate').trim().isDate(),
+    body('birthdate').isISO8601().toDate(),,
     body('fiscalCode').trim().isVAT('IT'),
     checkValidation
 ]
