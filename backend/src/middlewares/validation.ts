@@ -15,8 +15,8 @@ const user_validation = [
     body('firstName').trim().escape().isAlpha(),
     body('lastName').trim().escape().isAlpha('it-IT', {ignore: ' '}),
     body('birthDate').isISO8601().toDate(),
-    body('fiscalCode').trim().matches(/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/),
-    body('address').trim(),
+    body('fiscalCode').trim().escape().isVAT('IT'),
+    body('address').trim().escape(),
     checkValidation
 ]
 
@@ -30,7 +30,7 @@ const employee_validation = [
     checkValidation
 ]
 
-const compoenent_validation = [
+const component_validation = [
     body('name').trim().escape().isAlphanumeric(),
     body('type').trim().escape().isAlpha(),
     body('description').trim().escape().isAlphanumeric(),
@@ -82,5 +82,5 @@ const operation_validation = [
     checkValidation
 ]
 
-export {user_validation, employee_validation, compoenent_validation, prototype_validation, 
+export {user_validation, employee_validation, component_validation, prototype_validation, 
     device_validation, system_validation, file_validation, version_validation, operation_validation, checkValidation}

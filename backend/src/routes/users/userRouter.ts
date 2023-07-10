@@ -10,7 +10,7 @@ PATCH -> si usa per modificare la risotsa ma l'utente manda solo una parte dei d
 */
 const clientRouter:Router = Router();
 
-clientRouter.get('/', middlewares.chain, controller.client_controller.getClients)
+clientRouter.get('/', middlewares.GET_client, controller.client_controller.getClients)
             .post('/', middlewares.POST_PUT_client, controller.client_controller.addClient)
             .get('/:id', middlewares.chain, controller.client_controller.getById)
             .put('/:id', middlewares.POST_PUT_client, controller.client_controller.updateClient)
