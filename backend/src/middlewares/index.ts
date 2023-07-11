@@ -1,36 +1,38 @@
-import { checkToken, checkPermissions } from "./auth.middleware";
-import { body, validationResult } from 'express-validator';
-import { checkJson} from "./utility";
+import { checkToken } from "./auth.middleware";
 import { errHandler } from "./error.middleware";
-import { preLog, postLog } from "./morgan.middlaware";
-import { checkValidation } from "./validation";
+import logging from "./morgan.middleware";
+import * as validator from './validation/index'
 
-const POST_PUT_client = [
-    preLog,
-    checkJson,
-    body('firstName').trim().escape().isAlpha('it-IT'),
-    body('lastName').trim().escape().isAlpha('it-IT', {ignore: ' '}),
-    body('birthDate').isISO8601().toDate(),
-    body('fiscalCode').trim().matches(/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/),
-    body('address').trim(),
-    checkValidation,
-    postLog
-]
-const GET_client = [
-    preLog,
-    postLog
-]
+const client = {
+    POST: [
+        logging.preLog,
+        ...validator.client,
+        validator.checkValidation,
+        logging.postLog
+    ],
+    PUT: [
+        logging.preLog,
+        ...validator.client,
+        validator.checkValidation,
+        logging.postLog
+    ],
+    GET: [
+        logging.preLog,
+        logging.postLog 
+    ]
+}
+
 
 const chain = [
-    preLog,
-    postLog,
+    logging.preLog,
+    logging.postLog,
 ]
 
 const auth_chain = [
     checkToken,
-    postLog,
+    logging.postLog,
 ]
 
 
-export { chain, auth_chain, errHandler, POST_PUT_client, GET_client };
+export { chain, auth_chain, errHandler, client };
 
