@@ -1,38 +1,29 @@
 import { Router, Request, Response } from 'express';
 import * as middlewares from '../../middlewares';
-import { file_validation } from '../../middlewares/validation';
+import * as controller from '../../controllers/index';
 
-const router: Router = Router();
+const fileRouter: Router = Router();
 
 //##### GET METHOD #####
 
 //all files
-router.get('/', middlewares.chain, (req: Request, res: Response) => {
+fileRouter.get('/', middlewares.chain, (req: Request, res: Response) => {
     //return all files
 });
 
 //files by id
-router.get('/:id', (req, res) => {
+fileRouter.get('/:id', (req, res) => {
     const fileId = req.params.id; // Ottieni l'ID del file dai parametri della richiesta
 })  
 
 //files by device id
-router.get('/:device_id', (req, res) => {
+fileRouter.get('/:device_id', (req, res) => {
     const device_id = req.params.device_id; // Ottieni l'ID del device dai parametri della richiesta
 })
 
 //##### POST METHOD ######
 
 //insert new file
-router.post('/', file_validation, async (req: Request, res: Response) => {
-    // Assume che il corpo della richiesta contenga i dettagli del nuovo file
-    const newFile = req.body; 
-    
-    // Ritorna il nuovo utente come risposta JSON con il codice di stato 201 (Created)
-    res.status(201).json(newFile); 
-  });
+fileRouter.post('/', middlewares.chain, controller.file_controller.addFile) 
 
-
-//##### PUT METHOD #####
-
-export default router;
+export { fileRouter };

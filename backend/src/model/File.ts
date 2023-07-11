@@ -18,7 +18,8 @@ const fileSchema: Schema<IFile> = new Schema<IFile>({
   device: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Device',
-    required: true
+    required: true,
+    unique: true
   },
   fileType: {
     type: String,
