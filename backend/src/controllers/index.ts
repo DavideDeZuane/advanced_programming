@@ -8,6 +8,5 @@ import file_controller from "./fille.controller";
 import version_controller from "./version.controller";
 import operation_controller from "./operation.controller";
 
-export {client_controller, component_controller, employee_controller, prototype_controller, device_controller, system_controller, file_controller, 
-        version_controller, operation_controller}
+export {client_controller, component_controller, employee_controller, prototype_controller, device_controller, system_controller, file_controller, version_controller, operation_controller}
 
