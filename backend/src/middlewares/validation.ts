@@ -44,7 +44,7 @@ const employee_validation = [
     body('name').trim().escape().isAlpha(),
     body('role').trim().escape().isAlpha(),
     body('department').trim().escape().isAlpha(),
-    body('birthdate').isISO8601().toDate(),,
+    body('birthdate').isISO8601().toDate(),
     body('fiscalCode').trim().isVAT('IT'),
     checkValidation
 ]
@@ -52,7 +52,7 @@ const employee_validation = [
 const component_validation = [
     body('name').trim().escape().isAlphanumeric(),
     body('type').trim().escape().isAlpha(),
-    body('description').trim().escape().isAlphanumeric(),
+    body('description').trim().escape(),
     body('price').trim().escape().isNumeric(),
     checkValidation
 ]
@@ -81,7 +81,7 @@ const file_validation = [
     body('name').trim().escape().isAlphanumeric(),
     body('device').trim().escape().isAlphanumeric(),
     body('fileType').trim().escape().isAlpha(),
-    body('description').trim().escape().isAlphanumeric(),
+    body('description').trim().escape(),
     checkValidation
 ]
 
@@ -95,8 +95,8 @@ const version_validation = [
 
 const operation_validation = [
     body('employees').trim().escape().isAlphanumeric(),
-    body('system').trim().escape().isAlphanumeric(),
-    body('description').trim().escape().isAlphanumeric(),
+    body('systems').trim().escape().isAlphanumeric(),
+    body('description').trim().escape(),
     body('type').trim().escape().isAlpha(),
     checkValidation
 ]

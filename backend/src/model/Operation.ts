@@ -4,7 +4,7 @@ import { ISystem } from './System';
 
 export interface IOperation extends Document {
   employees: Array<mongoose.Types.ObjectId | IEmployee>;
-  system: mongoose.Types.ObjectId | ISystem;
+  systems: mongoose.Types.ObjectId | ISystem;
   description: string;
   type: string;
   createdAt: Date;
@@ -16,7 +16,7 @@ const operationSchema: Schema<IOperation> = new Schema<IOperation>({
     ref: 'Employee',
     required: true
   }],
-  system: {
+  systems: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'System',
     required: true

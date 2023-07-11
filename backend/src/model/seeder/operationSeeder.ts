@@ -11,7 +11,7 @@ async function seed() {
 
       const operationData =
         {
-          system: system?._id,
+          systems: system?._id,
           employees: employee?._id,
           description: 'Abbiamo fatto questo report',
           type: 'Sostituzione',

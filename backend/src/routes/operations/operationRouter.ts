@@ -1,28 +1,28 @@
 import { Router, Request, Response } from 'express';
 import * as middlewares from '../../middlewares';
-import { operation_validation } from '../../middlewares/validation';
+import * as controller from '../../controllers/index';
 
-const router: Router = Router();
+const operationRouter: Router = Router();
 
 //##### GET METHOD ######
 
 //all operations
-router.get('/', middlewares.chain, (req: Request, res: Response) => {
+operationRouter.get('/', middlewares.chain, (req: Request, res: Response) => {
     //return all operations
 });
 
 //operation by id
-router.get('/:id', (req, res) => {
+operationRouter.get('/:id', (req, res) => {
     const operationId = req.params.id; // Ottieni l'ID dell'operazione dai parametri della richiesta
 })
 
 //operation by client id
-router.get('/:user_id', (req, res) => {
+operationRouter.get('/:user_id', (req, res) => {
     const clientId = req.params.user_id; // Ottieni l'ID del cliente dai parametri della richiesta
 })
 
 //operation by employee id
-router.get('/:employee_id', (req, res) => {
+operationRouter.get('/:employee_id', (req, res) => {
     const employee_id = req.params.employee_id; // Ottieni l'ID del employee dai parametri della richiesta
 })
 
@@ -30,11 +30,7 @@ router.get('/:employee_id', (req, res) => {
 //##### POST METHOD ######
 
 //insert new operation
-router.post('/', operation_validation, async (req: Request, res: Response) => {
-
-    res.status(201)
-});
-
+operationRouter.post('/', middlewares.chain, controller.operation_controller.addOperation)
 //##### PUT METHOD #####
 
-export default router;
+export { operationRouter };

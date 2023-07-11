@@ -11,6 +11,7 @@ import { deviceRouter } from './routes';
 import { systemRouter } from './routes';
 import { fileRouter } from './routes';
 import { versionRouter } from './routes';
+import { operationRouter } from './routes';
 
 import { errHandler } from './middlewares/index';
 
@@ -50,6 +51,7 @@ app.use('/devices', deviceRouter);
 app.use('/systems', systemRouter);
 app.use('/files', fileRouter);
 app.use('/versions', versionRouter);
+app.use('/operations', operationRouter);
 
 //app.get('/public', checkToken, checkPermissions([AdminPermission.Read]), chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
 app.get('/protected', auth_chain, (req:Request, res:Response) => { console.log(''); let obj = { campo: '' }; res.json(obj)})
