@@ -53,10 +53,10 @@ class CustomError extends Error {
     toJson():object{
         return {
             error: {
-                name: this.name,
-                code: this.code,
                 statusCode: this.statusCode,
+                name: this.name,
                 type: this.type,
+                code: this.code,
                 description: this.description,
 
             },
@@ -68,12 +68,12 @@ class CustomError extends Error {
 }
 
 interface CustomErrorHandler extends ErrorRequestHandler {
-    name:string;
     statusCode:number;
+    type:string; 
+    name:string;
     code:string;
     description:string;
     timestamp:Date;
-    type:string; 
 }
 
 /* quando viene chiaamto un next(error) Express cerca il middleware di gestione degli errori, definito da questa firma e lo gestisce lio */
