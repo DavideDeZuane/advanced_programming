@@ -1,5 +1,5 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import { IComponent } from './Component';
+import Component, { IComponent } from './Component';
 
 export interface IDevicePrototype extends Document {
   name: string;
@@ -29,6 +29,19 @@ devicePrototypeSchema.post('save', (error:any, doc:IDevicePrototype, next:any):a
     next(new Error(`There was a duplicate key error on ${duplicateField}`));
   } else {
     next();
+  }
+});
+
+devicePrototypeSchema.pre<IDevicePrototype>('save', async function (next:any) {
+  const self = this;
+  const Vincolo = await Component.find({_id: self.components}).exec();
+  console.log(Vincolo)
+  //riparti da qua
+  if(Vincolo.length !== self.components.length || Vincolo === null || Vincolo.length === 0){
+    next(new Error(`Non esiste il componente`))
+  }
+  else{
+    next()
   }
 });
 

@@ -10,12 +10,12 @@ import {
 } from 'http-status-codes';
 
 
-const addPrototype = (req:Request, res:Response) => {
+const addPrototype = async (req:Request, res:Response) => {
     const proto:IDevicePrototype = req.body;
     try{
         let wwa= new DevicePrototype(proto);
-        console.log(wwa)
-        wwa.save()
+        //console.log(wwa)
+        await wwa.save()
     } catch(error) {
        console.log(error)
     }
