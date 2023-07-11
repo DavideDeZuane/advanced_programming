@@ -5,6 +5,7 @@ import { protoRouter } from "./devPrototype/devProtoRouter";
 import { deviceRouter } from "./devices/deviceRouter";
 import { systemRouter } from "./systems/systemRouter";
 import { fileRouter } from "./files/filesRouter";
+import { versionRouter } from "./versions/versionRouter";
 
 
-export { clientRouter, componentRouter, employeeRouter, protoRouter, deviceRouter, systemRouter, fileRouter }
+export { clientRouter, componentRouter, employeeRouter, protoRouter, deviceRouter, systemRouter, fileRouter, versionRouter }
