@@ -38,5 +38,14 @@ const fileSchema: Schema<IFile> = new Schema<IFile>({
   }
 });
 
-const File: Model<IFile> = mongoose.model<IFile>('File', fileSchema);
+fileSchema.post('save', (error:any, doc:IFile, next:any):any => {
+  if (error.name === 'MongoServerError' && error.code === 11000) {
+    const duplicateField = Object.keys(error.keyValue)[0];
+    console.log(duplicateField);
+    next(new Error(`There was a duplicate key error on ${duplicateField}`));
+  } else {
+    next();
+  }
+});
+
 export default mongoose.model<IFile>('File', fileSchema);

@@ -22,4 +22,14 @@ const devicePrototypeSchema: Schema<IDevicePrototype> = new Schema<IDeviceProtot
   }
 });
 
+devicePrototypeSchema.post('save', (error:any, doc:IDevicePrototype, next:any):any => {
+  if (error.name === 'MongoServerError' && error.code === 11000) {
+    const duplicateField = Object.keys(error.keyValue)[0];
+    console.log(duplicateField);
+    next(new Error(`There was a duplicate key error on ${duplicateField}`));
+  } else {
+    next();
+  }
+});
+
 export default mongoose.model<IDevicePrototype>('DevicePrototype', devicePrototypeSchema);

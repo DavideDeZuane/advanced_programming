@@ -39,5 +39,15 @@ const operationSchema: Schema<IOperation> = new Schema<IOperation>({
   }
 });
 
+operationSchema.post('save', (error:any, doc:IOperation, next:any):any => {
+  if (error.name === 'MongoServerError' && error.code === 11000) {
+    const duplicateField = Object.keys(error.keyValue)[0];
+    console.log(duplicateField);
+    next(new Error(`There was a duplicate key error on ${duplicateField}`));
+  } else {
+    next();
+  }
+});
+
 const Operation: Model<IOperation> = mongoose.model<IOperation>('Operation', operationSchema);
 export default Operation;

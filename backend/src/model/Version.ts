@@ -35,5 +35,15 @@ const versionSchema: Schema<IVersion> = new Schema<IVersion>({
   }
 });
 
+versionSchema.post('save', (error:any, doc:IVersion, next:any):any => {
+  if (error.name === 'MongoServerError' && error.code === 11000) {
+    const duplicateField = Object.keys(error.keyValue)[0];
+    console.log(duplicateField);
+    next(new Error(`There was a duplicate key error on ${duplicateField}`));
+  } else {
+    next();
+  }
+});
+
 const Version: Model<IVersion> = mongoose.model<IVersion>('Version', versionSchema);
 export default Version;
