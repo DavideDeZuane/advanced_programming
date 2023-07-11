@@ -5,8 +5,6 @@ import { NextFunction, Request, Response } from "express"
 import Client, { IClient } from "../model/Client";
 import { CustomError } from "../middlewares/error.middleware";
 import { AppLogger } from "../utils";
-import { MongoError, MongoServerError } from "mongodb";
-import Component from "../model/Component";
 
 const logger = AppLogger.getInstance();
 
@@ -118,7 +116,6 @@ const getById = async (req:Request, res:Response) => {
 }
 
 /* per quanto riguarda l'aggiornametno conviene fare una PUT, si crea una richiesta di nuovo con tutti i campi in questo modo evitiamo di fare n validazioni */
-
 const updateClient = async (req:Request, res:Response) => {
     logger.info(`Richiesta di modifica per la risorsa \\clients\\${req.params.id}`)
     await Client.findByIdAndUpdate(req.params.id, req.body)
@@ -144,11 +141,11 @@ const updateClient = async (req:Request, res:Response) => {
         })
 }
 
-const client_controller = {
+const client = {
     getById,
     getClients,
     addClient,
     updateClient
 }
 
-export default client_controller
+export default client
