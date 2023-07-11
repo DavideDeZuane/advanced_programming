@@ -88,7 +88,7 @@ const file_validation = [
 const version_validation = [
     body('file').trim().escape().isAlphanumeric(),
     //controlla se è giusta la seguente clausola
-    body('blob').trim().escape().isBoolean(),
+    body('blob').trim().escape(),
     body('versionNumber').trim().escape().isNumeric(),
     checkValidation
 ]
