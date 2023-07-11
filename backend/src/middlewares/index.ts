@@ -3,17 +3,16 @@ import { body, validationResult } from 'express-validator';
 import { checkJson} from "./utility";
 import { errHandler } from "./error.middleware";
 import { preLog, postLog } from "./morgan.middlaware";
-import { checkValidation, user_validation } from "./validation";
-import MiddlewareChainBuilder from "./Builder";
+import { checkValidation } from "./validation";
 
 const POST_PUT_client = [
     preLog,
     checkJson,
-    body('firstName').trim().escape().isAlpha(),
+    body('firstName').trim().escape().isAlpha('it-IT'),
     body('lastName').trim().escape().isAlpha('it-IT', {ignore: ' '}),
     body('birthDate').isISO8601().toDate(),
     body('fiscalCode').trim().matches(/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/),
-    body('address').trim() ,
+    body('address').trim(),
     checkValidation,
     postLog
 ]

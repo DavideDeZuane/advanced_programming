@@ -77,22 +77,9 @@ interface CustomErrorHandler extends ErrorRequestHandler {
 }
 
 /* quando viene chiaamto un next(error) Express cerca il middleware di gestione degli errori, definito da questa firma e lo gestisce lio */
-const errHandler = function (err:CustomErrorHandler, req: Request, res: Response, next:NextFunction): void {
+const errHandler = function (err:CustomError, req: Request, res: Response, next:NextFunction): void {
     console.log(err)
-    var response:object = {};
-    if(err instanceof CustomError){
-        response = {
-            error: {
-                status_code: err.statusCode,
-                type: err.type, 
-                name: err.name,
-                code: err.code,
-                description: err.description,
-            },
-            timestamp: err.timestamp,
-        }
-    }
-    res.status(err.statusCode).json(response);
+    res.json(err.toJson());
 }
 
 export {errHandler, CustomError}

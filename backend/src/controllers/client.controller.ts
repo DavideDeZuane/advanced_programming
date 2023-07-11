@@ -18,12 +18,11 @@ const addClient = async (req:Request, res:Response) => {
         logger.info(`Creato Cliente con id: ${client._id}`)
         res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
     } catch(error) {
-        console.log(error)
         if(error instanceof mongoose.Error.ValidationError){
             logger.warn('I dati inviati non rispettano le regole di validazione');
             res.send(error.errors);
-        }
-        if(error instanceof Error){
+        } 
+        else if(error instanceof Error){
             logger.warn(error.message);
             res.status(StatusCodes.CONFLICT).json(
                 new CustomError()
