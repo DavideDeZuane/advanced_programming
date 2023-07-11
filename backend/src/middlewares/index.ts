@@ -1,8 +1,9 @@
-import { checkToken } from "./auth.middleware";
+import * as auth from "./auth/auth.middleware";
 import { errHandler } from "./error.middleware";
 import logging from "./morgan.middleware";
 import * as validator from './validation/index'
 
+/* aggiungere l'auth ai vari metodi*/
 const client = {
     POST: [
         logging.preLog,
@@ -29,7 +30,6 @@ const chain = [
 ]
 
 const auth_chain = [
-    checkToken,
     logging.postLog,
 ]
 
