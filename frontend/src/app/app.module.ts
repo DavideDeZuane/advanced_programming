@@ -20,6 +20,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FlowbiteModule } from 'flowbite-angular';
+import { ClientsComponent } from './clients/clients.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,7 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
     FooterComponent,
     FormComponent,
     BreadcrumbComponent,
+    ClientsComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +44,8 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatFormFieldModule,
+    FlowbiteModule,
+    FontAwesomeModule,
     // Import the module into the application, with configuration
     AuthModule.forRoot({
       ...environment.auth0,
