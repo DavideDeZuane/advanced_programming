@@ -10,14 +10,14 @@ import {
 } from 'http-status-codes';
 
 
-const addFile = (req:Request, res:Response) => {
+const addFile = async (req:Request, res:Response) => {
     const file:IFile = req.body;
     try{
         let wwa= new File(file);
         console.log(wwa)
-        wwa.save()
+        await wwa.save()
     } catch(error) {
-       console.log(error)
+       res.send(error)
     }
     res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
 }
