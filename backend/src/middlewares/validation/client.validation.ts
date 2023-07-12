@@ -1,4 +1,4 @@
-import { body } from 'express-validator';
+import { body, checkSchema } from 'express-validator';
 
 const client = [
     body('firstName').trim().escape().isAlpha('it-IT'),
@@ -10,8 +10,8 @@ const client = [
 
 export default client
 
-/* Other method
-checkSchema({
+const userSchema = () => {
+    return checkSchema({
     firstName: { 
         trim: true,
         escape: true,
@@ -39,4 +39,4 @@ checkSchema({
         escape: true,
     }
 })
-*/
+}

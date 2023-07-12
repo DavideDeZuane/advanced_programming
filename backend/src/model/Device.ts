@@ -1,5 +1,8 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
 import DevicePrototype, { IDevicePrototype } from './DevicePrototype';
+import { NextFunction } from 'express';
+import { throws } from 'assert';
+import { errHandler } from '../middlewares';
 
 export interface IDevice extends Document {
   name: string;
@@ -14,7 +17,6 @@ const deviceSchema: Schema<IDevice> = new Schema<IDevice>({
   },
   devicePrototypes: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
     ref: 'DevicePrototype'
   },
   createdAt: {
@@ -25,12 +27,12 @@ const deviceSchema: Schema<IDevice> = new Schema<IDevice>({
 
 deviceSchema.pre<IDevice>('save', async function (next:any) {
   const self = this;
-  const Vincolo = await DevicePrototype.find({_id: self.devicePrototypes}).exec();
+  const Vincolo = await DevicePrototype.findById({_id: self.devicePrototypes}).exec();
   console.log(Vincolo)
-  console.log(Vincolo.length)
 
-  if(Vincolo.length === 0){
-    next(new Error(`Non esiste il prototipo`))
+  if(Vincolo === null){
+    self.invalidate('devicePrototypes', 'non abbiamo trovato questo prototipo');
+    next('error')
   }
   else{
     next()
@@ -46,5 +48,6 @@ deviceSchema.post('save', (error:any, doc:IDevice, next:any):any => {
     next();
   }
 });
+
 
 export default mongoose.model<IDevice>('Device', deviceSchema);

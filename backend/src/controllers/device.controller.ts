@@ -8,9 +8,10 @@ import {
 	getReasonPhrase,
 	getStatusCode,
 } from 'http-status-codes';
+import { send } from "process";
 
 
-const addDevice = (req:Request, res:Response) => {
+const addDevice = async (req:Request, res:Response) => {
     const device:IDevice = req.body;
     console.log(req.body);
     console.log();
@@ -23,11 +24,10 @@ const addDevice = (req:Request, res:Response) => {
             devicePrototypes: device.devicePrototypes,
         });
         console.log(wwa)
-        wwa.save()
+        await wwa.save();
     } catch(error) {
-       console.log(error)
+        res.send(error)
     }
-    res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
 }
 
 const device_controller = {

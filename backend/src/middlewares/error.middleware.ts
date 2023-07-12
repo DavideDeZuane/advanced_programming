@@ -77,9 +77,9 @@ interface CustomErrorHandler extends ErrorRequestHandler {
 }
 
 /* quando viene chiaamto un next(error) Express cerca il middleware di gestione degli errori, definito da questa firma e lo gestisce lio */
-const errHandler = function (err:CustomError, req: Request, res: Response, next:NextFunction): void {
-    console.log(err)
-    res.json(err.toJson());
+const errHandler = function (err:Error, req: Request, res: Response, next:NextFunction): void {
+    if(err instanceof Error){ res.send('errore non gestito')}
+    if(err instanceof CustomError){ res.json(err.toJson()) } 
 }
 
 export {errHandler, CustomError}
