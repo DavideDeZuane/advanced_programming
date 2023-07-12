@@ -23,7 +23,6 @@ const addDevice = async (req:Request, res:Response) => {
     } catch(error) {
         res.send(error)
     }
-    res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
 }
 
 const device_controller = {
