@@ -7,7 +7,7 @@ import { CustomError } from '../middlewares/error.middleware';
 
 export interface IDevice extends Document {
   name: string;
-  devicePrototypes: mongoose.Types.ObjectId | IDevicePrototype;
+  devicePrototypes: Array<mongoose.Types.ObjectId | IDevicePrototype>;
   createdAt: Date;
 }
 
@@ -16,10 +16,11 @@ const deviceSchema: Schema<IDevice> = new Schema<IDevice>({
     type: String,
     required: true
   },
-  devicePrototypes: {
+  devicePrototypes: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'DevicePrototype'
-  },
+    ref: 'DevicePrototype',
+    validate: [(value: [mongoose.Schema.Types.ObjectId]) => value.length === 1, 'Puoi inserire un solo prototipo!']
+  }],
   createdAt: {
     type: Date,
     default: Date.now
@@ -38,6 +39,7 @@ deviceSchema.pre<IDevice>('save', async function (next:any) {
     next()
   }
 });
+
 
 deviceSchema.post('save', (error:any, doc:IDevice, next:any):any => {
   if (error.name === 'MongoServerError' && error.code === 11000) {

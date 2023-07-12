@@ -21,7 +21,6 @@ const addOperation = async (req:Request, res:Response) => {
     } catch(error) {
        res.send(error)
     }
-    res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
 }
 
 const operation_controller = {

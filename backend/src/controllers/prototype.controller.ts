@@ -19,7 +19,6 @@ const addPrototype = async (req:Request, res:Response) => {
     } catch(error) {
        console.log(error)
     }
-    res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
 }
 
 const prototype_controller = {

@@ -19,7 +19,6 @@ const addSystem = async(req:Request, res:Response) => {
     } catch(error) {
        res.send(error)
     }
-    res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
 }
 
 const system_controller = {
