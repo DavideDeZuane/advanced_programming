@@ -19,6 +19,7 @@ import { FormComponent } from './form/form.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
     NavbarComponent,
     FooterComponent,
     FormComponent,
+    BreadcrumbComponent,
   ],
   imports: [
     BrowserModule,
