@@ -22,6 +22,19 @@ const devicePrototypeSchema: Schema<IDevicePrototype> = new Schema<IDeviceProtot
   }
 });
 
+devicePrototypeSchema.pre<IDevicePrototype>('save', async function (next:any) {
+  const self = this;
+  const Vincolo = await Component.find({_id: self.components}).exec();
+
+  //riparti da qua
+  if(Vincolo.length !== self.components.length){
+    next(new Error(`Non esiste il componente`))
+  }
+  else{
+    next()
+  }
+});
+
 devicePrototypeSchema.post('save', (error:any, doc:IDevicePrototype, next:any):any => {
   if (error.name === 'MongoServerError' && error.code === 11000) {
     const duplicateField = Object.keys(error.keyValue)[0];
@@ -29,19 +42,6 @@ devicePrototypeSchema.post('save', (error:any, doc:IDevicePrototype, next:any):a
     next(new Error(`There was a duplicate key error on ${duplicateField}`));
   } else {
     next();
-  }
-});
-
-devicePrototypeSchema.pre<IDevicePrototype>('save', async function (next:any) {
-  const self = this;
-  const Vincolo = await Component.find({_id: self.components}).exec();
-  console.log(Vincolo)
-  //riparti da qua
-  if(Vincolo.length !== self.components.length || Vincolo === null || Vincolo.length === 0){
-    next(new Error(`Non esiste il componente`))
-  }
-  else{
-    next()
   }
 });
 
