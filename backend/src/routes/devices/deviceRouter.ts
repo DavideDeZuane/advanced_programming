@@ -25,6 +25,6 @@ deviceRouter.get('/:prototype_id', (req, res) => {
 //##### POST METHOD ######
 
 //insert new device
-deviceRouter.post('/', middlewares.chain, controller.device_controller.addDevice)
+deviceRouter.post('/', middlewares.chain, controller.device.addDevice)
 
 export {deviceRouter};

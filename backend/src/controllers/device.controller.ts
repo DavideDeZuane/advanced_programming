@@ -25,8 +25,8 @@ const addDevice = async (req:Request, res:Response) => {
     }
 }
 
-const device_controller = {
+const device = {
     addDevice
 }
 
-export default device_controller;
+export default device;
