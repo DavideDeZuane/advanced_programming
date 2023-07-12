@@ -1,5 +1,5 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import { IDevice } from './Device';
+import Device, { IDevice } from './Device';
 
 export interface IFile extends Document {
   name: string;
@@ -35,6 +35,21 @@ const fileSchema: Schema<IFile> = new Schema<IFile>({
   createdAt: {
     type: Date,
     default: Date.now
+  }
+});
+
+fileSchema.pre<IFile>('save', async function (next:any) {
+  const self = this;
+  const Vincolo = await Device.find({_id: self.device}).exec();
+
+  console.log(Vincolo)
+  console.log(Vincolo.length)
+
+  if(Vincolo.length === 0){
+    next(new Error(`Non esiste il device`))
+  }
+  else{
+    next()
   }
 });
 

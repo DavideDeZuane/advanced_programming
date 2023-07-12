@@ -7,10 +7,10 @@ async function seed() {
       const employeeData =
         {
           name: 'Impiegato',
-          role: 'Del Mese',
-          department: 'depA',
+          role: 'Employee',
+          department: 'Office',
           birthdate: new Date('1990-10-10'),
-          fiscalCode: 'ABCD1234E',
+          fiscalCode: '12345678901',
           createdAt: new Date()
         } as IEmployee;
       

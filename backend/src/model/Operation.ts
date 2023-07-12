@@ -1,6 +1,6 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import { IEmployee } from './Employee';
-import { ISystem } from './System';
+import Employee, { IEmployee } from './Employee';
+import System, { ISystem } from './System';
 
 export interface IOperation extends Document {
   employees: Array<mongoose.Types.ObjectId | IEmployee>;
@@ -36,6 +36,28 @@ const operationSchema: Schema<IOperation> = new Schema<IOperation>({
   createdAt: {
     type: Date,
     default: Date.now
+  }
+});
+
+operationSchema.pre<IOperation>('save', async function (next:any) {
+  const self = this;
+  const VincoloSystem = await System.find({_id: self.systems}).exec();
+  const VincoloEmployee = await Employee.find({_id: self.employees}).exec();
+
+  console.log(VincoloSystem)
+  console.log(VincoloSystem.length)
+
+  console.log(VincoloEmployee)
+  console.log(VincoloEmployee.length)
+
+  if(VincoloSystem.length !== 0 && VincoloEmployee.length !== 0){
+    next()
+  }
+  else if (VincoloSystem.length === 0){
+    next(new Error(`Non esiste il system`))
+  }
+  else if (VincoloEmployee.length === 0){
+    next(new Error(`Non esiste l'employee`))
   }
 });
 

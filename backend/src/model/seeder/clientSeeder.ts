@@ -9,7 +9,7 @@ async function seed() {
           firstName: 'John',
           lastName: 'Doe',
           birthDate: new Date('1990-01-01'),
-          fiscalCode: 'ABCD1234E',
+          fiscalCode: 'ABCDEF00G12H345A',
           vatNumber: '12345678901',
           address: 'Via Example 123',
           createdAt: new Date()

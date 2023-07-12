@@ -7,7 +7,7 @@ async function seed() {
       const componentData =
         {
           name: 'Temperatura',
-          type: 'Sensore',
+          type: 'Tipo 1',
           description: 'Misura la temperatura',
           price: 5.0,
           createdAt: new Date()

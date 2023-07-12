@@ -1,5 +1,5 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import { IFile } from './File';
+import File, { IFile } from './File';
 
 export interface IVersion extends Document {
   file: mongoose.Types.ObjectId | IFile;
@@ -32,6 +32,21 @@ const versionSchema: Schema<IVersion> = new Schema<IVersion>({
   createdAt: {
     type: Date,
     default: Date.now
+  }
+});
+
+versionSchema.pre<IVersion>('save', async function (next:any) {
+  const self = this;
+  const Vincolo = await File.find({_id: self.file}).exec();
+
+  console.log(Vincolo)
+  console.log(Vincolo.length)
+
+  if(Vincolo.length === 0){
+    next(new Error(`Non esiste il file`))
+  }
+  else{
+    next()
   }
 });
 
