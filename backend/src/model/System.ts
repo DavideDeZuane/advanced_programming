@@ -58,13 +58,17 @@ systemSchema.pre<ISystem>('save', async function (next:any) {
 
 systemSchema.pre<ISystem>('save', async function (next:any) {
   const self = this;
-  const Vincolo = await Device.find({_id: self.devices}).exec();
+  const VincoloDevice = await Device.find({_id: self.devices}).exec();
+  const VincoloCliente = await Client.findById({_id: self.client})
 
-  if(Vincolo.length !== self.devices.length){
+  if(VincoloDevice.length === self.devices.length && VincoloCliente !== null){
+    next()
+  }
+  else if (VincoloDevice.length !== self.devices.length){
     next(new CustomError().setCode("DB_ERROR").setDescription("Il device non esiste").setName("Device inesistente").setType("/db/error/insert").setTimeStamp(new Date()))
   }
-  else{
-    next()
+  else if (VincoloCliente !== null){
+    next(new CustomError().setCode("DB_ERROR").setDescription("Il cliente non esiste").setName("Cliente inesistente").setType("/db/error/insert").setTimeStamp(new Date()))
   }
 });
 

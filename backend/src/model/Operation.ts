@@ -1,6 +1,7 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
 import Employee, { IEmployee } from './Employee';
 import System, { ISystem } from './System';
+import { CustomError } from '../middlewares/error.middleware';
 
 export interface IOperation extends Document {
   employees: Array<mongoose.Types.ObjectId | IEmployee>;
@@ -58,6 +59,22 @@ operationSchema.pre<IOperation>('save', async function (next:any) {
   }
   else if (VincoloEmployee.length === 0){
     next(new Error(`Non esiste l'employee`))
+  }
+});
+
+operationSchema.pre<IOperation>('save', async function (next:any) {
+  const self = this;
+  const VincoloEmployes = await Employee.find({_id: self.employees}).exec();
+  const VincoloSystem = await System.findById({_id: self.systems})
+
+  if(VincoloEmployes.length === self.employees.length && VincoloSystem !== null){
+    next()
+  }
+  else if (VincoloEmployes.length !== self.employees.length){
+    next(new CustomError().setCode("DB_ERROR").setDescription("Il device non esiste").setName("Device inesistente").setType("/db/error/insert").setTimeStamp(new Date()))
+  }
+  else if (VincoloSystem !== null){
+    next(new CustomError().setCode("DB_ERROR").setDescription("Il cliente non esiste").setName("Cliente inesistente").setType("/db/error/insert").setTimeStamp(new Date()))
   }
 });
 
