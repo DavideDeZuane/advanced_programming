@@ -11,7 +11,7 @@ TODO
 - [] Spostare le rotte in un file separato e poi importarlo 
 */
 const routes: Routes = [
-  { path: 'navbar', component: NavbarComponent },
+  { path: '', component: AppComponent },
   { path: 'form', component: FormComponent}
 ];
 

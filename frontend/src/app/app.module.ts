@@ -17,6 +17,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormComponent } from './form/form.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -27,13 +29,15 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     ProfileComponent,
     NavbarComponent,
     FooterComponent,
-    FormComponent
+    FormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
     // Import the module into the application, with configuration
     AuthModule.forRoot({
       ...environment.auth0,
