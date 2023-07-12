@@ -10,14 +10,14 @@ import {
 } from 'http-status-codes';
 
 
-const addSystem = (req:Request, res:Response) => {
+const addSystem = async(req:Request, res:Response) => {
     const system:ISystem = req.body;
     try{
         let wwa= new System(system);
         console.log(wwa)
-        wwa.save()
+        await wwa.save()
     } catch(error) {
-       console.log(error)
+       res.send(error)
     }
     res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
 }

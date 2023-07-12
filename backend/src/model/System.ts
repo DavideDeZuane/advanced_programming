@@ -1,6 +1,7 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
 import Device, { IDevice } from './Device';
 import Client, { IClient } from './Client';
+import { CustomError } from '../middlewares/error.middleware';
 
 export interface ISystem extends Document {
   name: string;
@@ -52,6 +53,18 @@ systemSchema.pre<ISystem>('save', async function (next:any) {
   }
   else if (VincoloDevice.length === 0){
     next(new Error(`Non esiste il device`))
+  }
+});
+
+systemSchema.pre<ISystem>('save', async function (next:any) {
+  const self = this;
+  const Vincolo = await Device.find({_id: self.devices}).exec();
+
+  if(Vincolo.length !== self.devices.length){
+    next(new CustomError().setCode("DB_ERROR").setDescription("Il device non esiste").setName("Device inesistente").setType("/db/error/insert").setTimeStamp(new Date()))
+  }
+  else{
+    next()
   }
 });
 

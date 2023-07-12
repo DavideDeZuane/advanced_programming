@@ -10,14 +10,14 @@ import {
 } from 'http-status-codes';
 
 
-const addEmployee = (req:Request, res:Response) => {
+const addEmployee = async (req:Request, res:Response) => {
     const employee:IEmployee = req.body;
     try{
         let wwa= new Employee(employee);
         console.log(wwa)
-        wwa.save()
+        await wwa.save()
     } catch(error) {
-       console.log(error)
+       res.send(error)
     }
     res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
 }

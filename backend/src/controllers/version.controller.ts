@@ -10,16 +10,16 @@ import {
 } from 'http-status-codes';
 
 
-const addVersion = (req:Request, res:Response) => {
+const addVersion = async (req:Request, res:Response) => {
     const version:IVersion = req.body;
     //riga sotto va modificata
     version.blob = Buffer.from("Faccio un esempio di blob", 'utf-8')
     try{
         let wwa= new Version(version);
         console.log(wwa)
-        wwa.save()
+        await wwa.save()
     } catch(error) {
-       console.log(error)
+       res.send(error)
     }
     res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
 }

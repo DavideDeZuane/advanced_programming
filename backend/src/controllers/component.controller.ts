@@ -10,14 +10,14 @@ import {
 } from 'http-status-codes';
 
 
-const addComponent = (req:Request, res:Response) => {
+const addComponent = async(req:Request, res:Response) => {
     const component:IComponent = req.body;
     try{
         let wwa= new Component(component);
         console.log(wwa)
-        wwa.save()
+        await wwa.save()
     } catch(error) {
-       console.log(error)
+       res.send(error)
     }
     res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
 }

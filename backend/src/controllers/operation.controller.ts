@@ -10,16 +10,16 @@ import {
 } from 'http-status-codes';
 
 
-const addOperation = (req:Request, res:Response) => {
+const addOperation = async (req:Request, res:Response) => {
     console.log(req.body)
     const operation:IOperation = req.body;
     console.log(operation)
     try{
         let wwa= new Operation(operation);
         console.log(wwa)
-        wwa.save()
+        await wwa.save()
     } catch(error) {
-       console.log(error)
+       res.send(error)
     }
     res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
 }
