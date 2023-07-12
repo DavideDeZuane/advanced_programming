@@ -26,7 +26,6 @@ devicePrototypeSchema.pre<IDevicePrototype>('save', async function (next:any) {
   const self = this;
   const Vincolo = await Component.find({_id: self.components}).exec();
 
-  //riparti da qua
   if(Vincolo.length !== self.components.length){
     next(new Error(`Non esiste il componente`))
   }

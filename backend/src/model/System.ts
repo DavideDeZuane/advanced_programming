@@ -1,6 +1,6 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import { IDevice } from './Device';
-import { IClient } from './Client';
+import Device, { IDevice } from './Device';
+import Client, { IClient } from './Client';
 
 export interface ISystem extends Document {
   name: string;
@@ -30,6 +30,28 @@ const systemSchema: Schema<ISystem> = new Schema<ISystem>({
   createdAt: {
     type: Date,
     default: Date.now
+  }
+});
+
+systemSchema.pre<ISystem>('save', async function (next:any) {
+  const self = this;
+  const VincoloClient = await Client.find({_id: self.client}).exec();
+  const VincoloDevice = await Device.find({_id: self.devices}).exec();
+
+  console.log(VincoloClient)
+  console.log(VincoloClient.length)
+
+  console.log(VincoloDevice)
+  console.log(VincoloDevice.length)
+
+  if(VincoloClient.length !== 0 && VincoloDevice.length !== 0){
+    next()
+  }
+  else if (VincoloClient.length === 0){
+    next(new Error(`Non esiste il client`))
+  }
+  else if (VincoloDevice.length === 0){
+    next(new Error(`Non esiste il device`))
   }
 });
 

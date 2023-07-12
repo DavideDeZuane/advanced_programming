@@ -1,5 +1,5 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import { IDevicePrototype } from './DevicePrototype';
+import DevicePrototype, { IDevicePrototype } from './DevicePrototype';
 
 export interface IDevice extends Document {
   name: string;
@@ -20,6 +20,20 @@ const deviceSchema: Schema<IDevice> = new Schema<IDevice>({
   createdAt: {
     type: Date,
     default: Date.now
+  }
+});
+
+deviceSchema.pre<IDevice>('save', async function (next:any) {
+  const self = this;
+  const Vincolo = await DevicePrototype.find({_id: self.devicePrototypes}).exec();
+  console.log(Vincolo)
+  console.log(Vincolo.length)
+
+  if(Vincolo.length === 0){
+    next(new Error(`Non esiste il prototipo`))
+  }
+  else{
+    next()
   }
 });
 
