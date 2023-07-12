@@ -3,6 +3,7 @@ import DevicePrototype, { IDevicePrototype } from './DevicePrototype';
 import { NextFunction } from 'express';
 import { throws } from 'assert';
 import { errHandler } from '../middlewares';
+import { CustomError } from '../middlewares/error.middleware';
 
 export interface IDevice extends Document {
   name: string;
@@ -31,8 +32,7 @@ deviceSchema.pre<IDevice>('save', async function (next:any) {
   console.log(Vincolo)
 
   if(Vincolo === null){
-    self.invalidate('devicePrototypes', 'non abbiamo trovato questo prototipo');
-    next('error')
+    next(new CustomError().setCode("DB_ERROR").setDescription("Il prototipo non esiste").setName("Prototipo inesistente").setType("/db/error/insert").setTimeStamp(new Date()))
   }
   else{
     next()

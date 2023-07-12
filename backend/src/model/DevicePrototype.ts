@@ -1,5 +1,6 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
 import Component, { IComponent } from './Component';
+import { CustomError } from '../middlewares/error.middleware';
 
 export interface IDevicePrototype extends Document {
   name: string;
@@ -27,7 +28,7 @@ devicePrototypeSchema.pre<IDevicePrototype>('save', async function (next:any) {
   const Vincolo = await Component.find({_id: self.components}).exec();
 
   if(Vincolo.length !== self.components.length){
-    next(new Error(`Non esiste il componente`))
+    next(new CustomError().setCode("DB_ERROR").setDescription("Il componente non esiste").setName("Componente inesistente").setType("/db/error/insert").setTimeStamp(new Date()))
   }
   else{
     next()

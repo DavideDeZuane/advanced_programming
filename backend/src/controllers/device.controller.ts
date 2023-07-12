@@ -13,21 +13,17 @@ import { send } from "process";
 
 const addDevice = async (req:Request, res:Response) => {
     const device:IDevice = req.body;
-    console.log(req.body);
-    console.log();
-    console.log(device);
-    console.log();
 
     try{
         let wwa= new Device({
             name: device.name,
             devicePrototypes: device.devicePrototypes,
         });
-        console.log(wwa)
         await wwa.save();
     } catch(error) {
         res.send(error)
     }
+    res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
 }
 
 const device_controller = {
