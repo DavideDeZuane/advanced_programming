@@ -16,6 +16,8 @@ const addSystem = async(req:Request, res:Response) => {
         let wwa= new System(system);
         console.log(wwa)
         await wwa.save()
+        res.send("Succesfully: system added")
+
     } catch(error) {
        res.send(error)
     }

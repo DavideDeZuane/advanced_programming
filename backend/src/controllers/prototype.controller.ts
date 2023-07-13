@@ -16,8 +16,9 @@ const addPrototype = async (req:Request, res:Response) => {
         let wwa= new DevicePrototype(proto);
         //console.log(wwa)
         await wwa.save()
+        res.send("Succesfully: prototype added")
     } catch(error) {
-       console.log(error)
+       res.send(error)
     }
 }
 

@@ -16,6 +16,8 @@ const addEmployee = async (req:Request, res:Response) => {
         let wwa= new Employee(employee);
         console.log(wwa)
         await wwa.save()
+        res.send("Succesfully: employee added")
+
     } catch(error) {
        res.send(error)
     }

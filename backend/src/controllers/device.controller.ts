@@ -15,10 +15,8 @@ const addDevice = async (req:Request, res:Response) => {
     const device:IDevice = req.body;
 
     try{
-        let wwa= new Device({
-            name: device.name,
-            devicePrototypes: device.devicePrototypes,
-        });
+        let wwa= new Device(device)
+        console.log(wwa)
         await wwa.save();
         res.send("Succesfully: device added")
     } catch(error) {
@@ -26,8 +24,8 @@ const addDevice = async (req:Request, res:Response) => {
     }
 }
 
-const device = {
+const device_controller = {
     addDevice
 }
 
-export default device;
+export default device_controller;

@@ -1,10 +1,6 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
 import DevicePrototype, { IDevicePrototype } from './DevicePrototype';
-import { NextFunction } from 'express';
-import { throws } from 'assert';
-import { errHandler } from '../middlewares';
-import { CustomError } from '../middlewares/error.middleware';
-import { CheckExistenceFK } from '../middlewares/mongoose';
+import { CheckExistenceFK, VerifyDuplicateKey } from '../middlewares/mongoose';
 
 export interface IDevice extends Document {
   name: string;
@@ -19,8 +15,7 @@ const deviceSchema: Schema<IDevice> = new Schema<IDevice>({
   },
   devicePrototypes: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'DevicePrototype',
-    required: true
+    ref: 'DevicePrototype'
   }],
   createdAt: {
     type: Date,
@@ -28,17 +23,8 @@ const deviceSchema: Schema<IDevice> = new Schema<IDevice>({
   }
 });
 
-CheckExistenceFK(deviceSchema, DevicePrototype, 'devicePrototypes')
-
-deviceSchema.post('save', (error:any, doc:IDevice, next:any):any => {
-  if (error.name === 'MongoServerError' && error.code === 11000) {
-    const duplicateField = Object.keys(error.keyValue)[0];
-    console.log(duplicateField);
-    next(new Error(`There was a duplicate key error on ${duplicateField}`));
-  } else {
-    next();
-  }
-});
+CheckExistenceFK(deviceSchema, DevicePrototype, 'devicePrototypes');
+VerifyDuplicateKey(deviceSchema);
 
 
 export default mongoose.model<IDevice>('Device', deviceSchema);

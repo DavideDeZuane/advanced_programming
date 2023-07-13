@@ -18,6 +18,7 @@ const addVersion = async (req:Request, res:Response) => {
         let wwa= new Version(version);
         console.log(wwa)
         await wwa.save()
+        res.send("Succesfully: version added")
     } catch(error) {
        res.send(error)
     }

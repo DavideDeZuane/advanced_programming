@@ -8,7 +8,7 @@ async function seed() {
       const dev = await Device.findOne({name: "Sensore velocità analogico"}).exec(); //exec fa una sorta di promessa per il ritorno
       const fileData =
         {
-          device: dev,
+          device: [dev],
           name: 'sva',
           fileType: 'txt',
           description: 'Descriviamo il sensore vel analogico',

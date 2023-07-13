@@ -1,3 +1,4 @@
+import { VerifyDuplicateKey } from '../middlewares/mongoose';
 import mongoose, { Document, Model, Schema } from 'mongoose';
 
 export interface IComponent extends Document {
@@ -30,14 +31,6 @@ const componentSchema: Schema<IComponent> = new Schema<IComponent>({
   }
 });
 
-componentSchema.post('save', (error:any, doc:IComponent, next:any):any => {
-  if (error.name === 'MongoServerError' && error.code === 11000) {
-    const duplicateField = Object.keys(error.keyValue)[0];
-    console.log(duplicateField);
-    next(new Error(`There was a duplicate key error on ${duplicateField}`));
-  } else {
-    next();
-  }
-});
+VerifyDuplicateKey(componentSchema);
 
 export default mongoose.model<IComponent>('Component', componentSchema);

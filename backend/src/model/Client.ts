@@ -1,3 +1,4 @@
+import { VerifyDuplicateKey } from '../middlewares/mongoose';
 import mongoose, { Document, Model, Schema } from 'mongoose';
 
 export interface IClient extends Document {
@@ -82,14 +83,6 @@ const clientSchema: Schema<IClient> = new Schema<IClient>({
 /*
 Mongoose da la possibilità di definire dei pre e post middleware rispetto ad una funzione specifica, possono essere molto utili per il debugging e per il logging
 */
-clientSchema.post('save', (error:any, doc:IClient, next:any):any => {
-  if (error.name === 'MongoServerError' && error.code === 11000) {
-    const duplicateField = Object.keys(error.keyValue)[0];
-    console.log(duplicateField);
-    next(new Error(`There was a duplicate key error on ${duplicateField}`));
-  } else {
-    next();
-  }
-});
+VerifyDuplicateKey(clientSchema);
 
 export default mongoose.model<IClient>('Client', clientSchema);

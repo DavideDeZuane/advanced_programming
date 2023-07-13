@@ -12,11 +12,15 @@ import {
 
 const addFile = async (req:Request, res:Response) => {
     const file:IFile = req.body;
+    console.log("Questo è il req.body: " + req.body);
     try{
         let wwa= new File(file);
-        console.log(wwa)
+        console.log("Questo è il wwa: " + wwa)
         await wwa.save()
+        res.send("Succesfully: file added")
+
     } catch(error) {
+        console.log("Sono entrato nel catch")
        res.send(error)
     }
 }

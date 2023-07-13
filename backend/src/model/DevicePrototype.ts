@@ -1,6 +1,6 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
 import Component, { IComponent } from './Component';
-import { CustomError } from '../middlewares/error.middleware';
+import { CheckExistenceFK, VerifyDuplicateKey } from '../middlewares/mongoose';
 
 export interface IDevicePrototype extends Document {
   name: string;
@@ -23,26 +23,7 @@ const devicePrototypeSchema: Schema<IDevicePrototype> = new Schema<IDeviceProtot
   }
 });
 
-devicePrototypeSchema.pre<IDevicePrototype>('save', async function (next:any) {
-  const self = this;
-  const Vincolo = await Component.find({_id: self.components}).exec();
-
-  if(Vincolo.length !== self.components.length){
-    next(new CustomError().setCode("DB_ERROR").setDescription("Il componente non esiste").setName("Componente inesistente").setType("/db/error/insert").setTimeStamp(new Date()))
-  }
-  else{
-    next()
-  }
-});
-
-devicePrototypeSchema.post('save', (error:any, doc:IDevicePrototype, next:any):any => {
-  if (error.name === 'MongoServerError' && error.code === 11000) {
-    const duplicateField = Object.keys(error.keyValue)[0];
-    console.log(duplicateField);
-    next(new Error(`There was a duplicate key error on ${duplicateField}`));
-  } else {
-    next();
-  }
-});
+VerifyDuplicateKey(devicePrototypeSchema);
+CheckExistenceFK(devicePrototypeSchema, Component, 'components');
 
 export default mongoose.model<IDevicePrototype>('DevicePrototype', devicePrototypeSchema);

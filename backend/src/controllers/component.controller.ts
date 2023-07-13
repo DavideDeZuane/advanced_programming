@@ -16,6 +16,8 @@ const addComponent = async(req:Request, res:Response) => {
         let wwa= new Component(component);
         console.log(wwa)
         await wwa.save()
+        res.send("Succesfully: component added")
+
     } catch(error) {
        res.send(error)
     }

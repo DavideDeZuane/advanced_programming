@@ -18,6 +18,7 @@ const addOperation = async (req:Request, res:Response) => {
         let wwa= new Operation(operation);
         console.log(wwa)
         await wwa.save()
+        res.send("Succesfully: operation added")
     } catch(error) {
        res.send(error)
     }
