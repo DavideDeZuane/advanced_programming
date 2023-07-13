@@ -2,7 +2,7 @@ import * as auth from "./auth/auth.middleware";
 import { errHandler } from "./error.middleware";
 import logging from "./morgan.middleware";
 import * as validator from './validation/index'
-import * as caching from './cachemiddleware'
+import * as caching from './cache.middleware'
 
 /* aggiungere l'auth ai vari metodi*/
 const client = {
