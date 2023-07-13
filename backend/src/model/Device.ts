@@ -4,6 +4,7 @@ import { NextFunction } from 'express';
 import { throws } from 'assert';
 import { errHandler } from '../middlewares';
 import { CustomError } from '../middlewares/error.middleware';
+import { CheckExistenceFK } from '../middlewares/mongoose';
 
 export interface IDevice extends Document {
   name: string;
@@ -19,7 +20,7 @@ const deviceSchema: Schema<IDevice> = new Schema<IDevice>({
   devicePrototypes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'DevicePrototype',
-    validate: [(value: [mongoose.Schema.Types.ObjectId]) => value.length === 1, 'Puoi inserire un solo prototipo!']
+    required: true
   }],
   createdAt: {
     type: Date,
@@ -27,19 +28,7 @@ const deviceSchema: Schema<IDevice> = new Schema<IDevice>({
   }
 });
 
-deviceSchema.pre<IDevice>('save', async function (next:any) {
-  const self = this;
-  const Vincolo = await DevicePrototype.findById({_id: self.devicePrototypes}).exec();
-  console.log(Vincolo)
-
-  if(Vincolo === null){
-    next(new CustomError().setCode("DB_ERROR").setDescription("Il prototipo non esiste").setName("Prototipo inesistente").setType("/db/error/insert").setTimeStamp(new Date()))
-  }
-  else{
-    next()
-  }
-});
-
+CheckExistenceFK(deviceSchema, DevicePrototype, 'devicePrototypes')
 
 deviceSchema.post('save', (error:any, doc:IDevice, next:any):any => {
   if (error.name === 'MongoServerError' && error.code === 11000) {

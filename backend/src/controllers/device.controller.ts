@@ -20,6 +20,7 @@ const addDevice = async (req:Request, res:Response) => {
             devicePrototypes: device.devicePrototypes,
         });
         await wwa.save();
+        res.send("Succesfully: device added")
     } catch(error) {
         res.send(error)
     }
