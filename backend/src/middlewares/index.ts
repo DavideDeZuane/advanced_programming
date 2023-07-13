@@ -2,6 +2,7 @@ import * as auth from "./auth/auth.middleware";
 import { errHandler } from "./error.middleware";
 import logging from "./morgan.middleware";
 import * as validator from './validation/index'
+import * as caching from './cachemiddleware'
 
 /* aggiungere l'auth ai vari metodi*/
 const client = {
@@ -19,7 +20,7 @@ const client = {
     ],
     GET: [
         logging.preLog,
-        auth.checkToken,
+        caching.cacheMiddleware,
         logging.postLog 
     ]
 }

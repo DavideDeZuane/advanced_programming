@@ -1,6 +1,7 @@
 .env
 mongo/data
 mongo/.mongodb
+redis/data
 db/
 **/.DS_Store
 **/node_modules/

@@ -11,6 +11,7 @@ services:
       - ${PORT_BACKEND}:3000
     depends_on:
       - mongodb
+      - cache
   
   frontend:
     container_name: angular
@@ -32,6 +33,17 @@ services:
       - ./mongo/data:/data/db
       - ./mongo/init-mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
+  cache:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - ${PORT_REDIS}:6379
+    env_file: ./.env
+    volumes:
+      - ./redis/data:/data
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    
   mongo-express:
     image: mongo-express
     container_name: mongo_express

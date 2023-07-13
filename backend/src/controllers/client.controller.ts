@@ -5,8 +5,11 @@ import { NextFunction, Request, Response } from "express"
 import Client, { IClient } from "../model/Client";
 import { CustomError } from "../middlewares/error.middleware";
 import { AppLogger } from "../utils";
+import RedisProxy from "../utils/Caching";
+
 
 const logger = AppLogger.getInstance();
+const redis = RedisProxy.getInstance()
 
 const addClient = async (req:Request, res:Response) => {
     let client:IClient;
@@ -44,6 +47,7 @@ const getClients = async (req:Request, res:Response) => {
         if(clients.length === 0){
             res.status(StatusCodes.NO_CONTENT).send();
         }
+        redis.set(req.originalUrl, JSON.stringify(clients))
         res.json(clients);
     }
     catch(error)

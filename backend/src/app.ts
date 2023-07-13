@@ -20,9 +20,8 @@ import { AdminPermission } from './middlewares/auth/auth.middleware';
 
 import { DB, AppLogger } from './utils/index';
 
-
+const redis = require('redis')
 const mongoose = require('mongoose');
-
 
 /*
 TODO 
@@ -35,6 +34,8 @@ const app:Express = express()
 
 const port:string = process.env.SERVER_PORT || '3000';
 const dbUri:string = 'mongodb://adprogramming:adprogramming@mongodb:27017/adprogramming' 
+
+
 
 const db = DB.getIstance();
 const logger = AppLogger.getInstance();
