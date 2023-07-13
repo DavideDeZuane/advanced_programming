@@ -42,7 +42,7 @@ services:
     env_file: ./.env
     volumes:
       - ./redis/data:/data
-      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis/redis.conf:/etc/redis/redis.conf
     
   mongo-express:
     image: mongo-express

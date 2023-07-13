@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
 
 class CustomError extends Error {
@@ -13,11 +14,11 @@ class CustomError extends Error {
     constructor(){
         super();
         this.name = 'CustomError';
-        this.statusCode = 500;
-        this.description = ''
-        this.code = '';
+        this.statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
+        this.description = ReasonPhrases.INTERNAL_SERVER_ERROR;
+        this.code = 'Generic Error';
         this.timestamp = new Date();
-        this.type = 'generic'
+        this.type = '/generic'
     }
 
     setName(name:string){

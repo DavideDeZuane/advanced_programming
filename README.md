@@ -7,7 +7,7 @@ L'obiettivo del progetto è quello di realizzare un API
 
 ## Progettazione
 
-### :electric_plug: Architettura API 
+### :electric_plug: Pattern Architetturale API 
 
 Nel realizzare il progetto si è deciso di seguire come pattern architetturale quello delle **Layered Architecture**. In questa architettura gli strati che la costituiscono hanno ognuno un compito specifico e una responsabilità specifica, quelli che andremo ad implementare sono:
 
@@ -37,6 +37,34 @@ graph LR;
     end
     Auth0 --- Angular
 ```
+
+### Design Pattern
+
+Breve descrizione dei design pattern utilizzati per la realizzazione del codice in JS. 
+
+#### Chain of Responsability
+
+Abbiamo fatto ampio utilizzo di middleware, dato che il funzionamento di express.js si basa proprio su questa tipologia di pattern. In paritocolare abbiamo creato middleware con diverse funzionalità:
+
+- funzionalità di **logging**: tramite l'utilizzo delle librerie winston e morgan andiamo a eeguire il logging di tutte quelle che sono le richiesta che l'API riceve, in questo modo otteniamo un elevata sicurezza su quello che accade e inoltre possiamo anche determinare le performance andando a vedere quelli che sono i tempi di risposta;
+- funzionalità di **caching**: tramite l'utilizzo di redis, abbiamo realizzato dei middlware che, nelle principali rotte GET, vanno a verificare se la riposta a quella rotta è stato salvato in Redis. Questo al fine di evitare chiamati inutili all'API.
+- funzionalità di **autenticazione**: dato che sono presenti diversi livelli di utenza i quali fanno uso delle funzionalità delle API tramite token, abbiamo realizzato dei middleware che vanno a verificare la validità dei token e dei permessi degli utenti sulle risorse che richiedono.
+- funzionalità di **validazione**: per essere sicure dei dati ricevuti dalle richieste sono presenti dei middleware che prevedono la sanitization dei dati, in modo tale che solo l'informazione appropriata raggiunga l'applicazione; poi una fase di validazione per vedere che questi rispettino la business logic dell'applicazione.
+
+#### Singleton
+
+Dato che l'API comunica con altri servizi abbastanza onerosi e in qui è presente conflitto delle risorse abbiamo deciso di utilizzare il pattern singleton per fare in modo che esista una sola istanza di questi oggetti. In particolare questo è stato realizzato per le connessione al DB e al servizio Redis; ma per esempio anche sul sistema di Logging in modo tale da non avere concorrenza nella scrittura sui file di log.
+
+#### Proxy
+
+
+#### Builder
+
+Per garantire un sistema di errori il più standard possibile abbiamo realizzato una classe di errori che costriusce l'oggetto di errore tramite questo pattern. In modo da garantire una descrizione esaustiva su quello che è l'errore che si è andato a verificare.
+
+
+
+
 ## Diagram
 
 Lo schema di interazione base dell'applicazione è il seguente:
