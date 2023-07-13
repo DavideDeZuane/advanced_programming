@@ -19,6 +19,7 @@ const client = {
     ],
     GET: [
         logging.preLog,
+        auth.checkToken,
         logging.postLog 
     ]
 }

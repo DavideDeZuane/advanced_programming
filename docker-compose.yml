@@ -5,8 +5,12 @@ services:
   backend:
     container_name: express
     build: ./backend
+    env_file:
+      - .env
     ports:
       - ${PORT_BACKEND}:3000
+    depends_on:
+      - mongodb
   
   frontend:
     container_name: angular
@@ -38,6 +42,8 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT}
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASS}
       ME_CONFIG_MONGODB_URL: mongodb://${MONGO_ROOT}:${MONGO_PASS}@mongodb:27017/
+    depends_on:
+      - mongodb
 
 networks:
   defualt:

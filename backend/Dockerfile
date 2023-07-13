@@ -1,6 +1,6 @@
 FROM node:alpine
-WORKDIR /app
-COPY . .
+WORKDIR /appS
+COPY . . 
 RUN npm install
 RUN npx tsc
 CMD [ "node", "./build/app.js" ]

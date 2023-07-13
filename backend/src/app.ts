@@ -16,7 +16,7 @@ import { operationRouter } from './routes';
 import { errHandler } from './middlewares/index';
 
 import { chain, auth_chain } from './middlewares/index';
-import { AdminPermission } from './middlewares/auth.middleware';
+import { AdminPermission } from './middlewares/auth/auth.middleware';
 
 import { DB, AppLogger } from './utils/index';
 

@@ -2,6 +2,7 @@ node_modules
 dist
 Dockerfile
 .gitignore
+.vscode
 .DS_Store
 .editorconfig
 README.md
