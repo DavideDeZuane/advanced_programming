@@ -18,7 +18,8 @@ export class FormComponent {
     lastName: [],
     birthDate: [],
     fiscalCode: [],
-    address:[]
+    address:[],
+    vatNumber:[]
     });
   }
 

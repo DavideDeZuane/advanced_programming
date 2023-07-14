@@ -23,6 +23,7 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClientsComponent } from './clients/clients.component';
 import { ToastrModule } from 'ngx-toastr';
+import { TableComponent } from './table/table.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ToastrModule } from 'ngx-toastr';
     FormComponent,
     BreadcrumbComponent,
     ClientsComponent,
+    TableComponent,
   ],
   imports: [
     BrowserModule,
