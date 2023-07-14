@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module'; 
 // Import the module from the SDK
-import { AuthModule } from '@auth0/auth0-angular';
+import { AuthModule, HttpMethod } from '@auth0/auth0-angular';
 import {ReactiveFormsModule} from "@angular/forms"; 
 import { environment } from 'src/env/env';
 import { LoginButtonComponent } from './auth/login';
@@ -52,7 +52,12 @@ import { TableComponent } from './table/table.component';
     AuthModule.forRoot({
       ...environment.auth0,
       httpInterceptor: {
-        allowedList: [ `${environment.api.serverUrl}/*`,]
+        /* si specificano le rotte a cui applicare l'interpector per richiedere l'autenticazione */
+        allowedList: [ {
+          httpMethod: 'POST',
+          uri: `${environment.api.serverUrl}/clients`,
+        }
+        ]
       }
     }),
     NoopAnimationsModule,
