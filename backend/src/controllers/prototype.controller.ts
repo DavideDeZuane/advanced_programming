@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
-import DevicePrototype, { IDevicePrototype } from "../model/DevicePrototype";
+import { addObj } from "../model/method/index"
+import DevicePrototype from "../model/DevicePrototype";
+import { DevicePrototypeClass } from "../model/class/devPrototype";
 import { CustomError } from "../middlewares/error.middleware";
 import {
 	ReasonPhrases,
@@ -11,15 +13,14 @@ import {
 
 
 const addPrototype = async (req:Request, res:Response) => {
-    const proto:IDevicePrototype = req.body;
-    try{
-        let wwa= new DevicePrototype(proto);
-        //console.log(wwa)
-        await wwa.save()
-        res.send("Succesfully: prototype added")
-    } catch(error) {
-       res.send(error)
-    }
+    const proto:DevicePrototypeClass = new DevicePrototypeClass(req.body.name, req.body.components, new Date());
+    console.log(`Components: ${req.body.components}`)
+    try {
+        await addObj(DevicePrototype, proto);
+        res.send('Successfully: prototipo added');
+      } catch (error) {
+        res.send(error);
+      }
 }
 
 const prototype_controller = {

@@ -1,13 +1,6 @@
 import { VerifyDuplicateKey } from '../middlewares/mongoose';
 import mongoose, { Document, Model, Schema } from 'mongoose';
-
-export interface IComponent extends Document {
-  name: string;
-  type: string;
-  description?: string;
-  price?: number;
-  createdAt: Date;
-}
+import { IComponent } from './class/Component';
 
 const componentSchema: Schema<IComponent> = new Schema<IComponent>({
   name: {

@@ -1,5 +1,6 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import DevicePrototype, {IDevicePrototype} from '../DevicePrototype';
+import DevicePrototype from '../DevicePrototype';
+import { IDevicePrototype } from '../../model/class/devPrototype';
 import Component from '../Component';
 
 async function seed() {

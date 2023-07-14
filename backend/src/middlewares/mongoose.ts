@@ -29,7 +29,7 @@ function CheckExistenceFK(schem: any, mod: any, fk: any) {
         console.log("Entro ciclo for");
         console.log()
         console.log(`Questo è foreign: ${[foreign]}`)
-        const check = await mod.findById(foreign).exec();
+        const check = await mod.findById([foreign]).exec();
         console.log("Questo è check: " + check);
         console.log()
     

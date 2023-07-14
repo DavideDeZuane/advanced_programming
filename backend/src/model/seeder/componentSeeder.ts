@@ -1,5 +1,6 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import Component, {IComponent} from '../Component';
+import Component from '../Component';
+import { IComponent } from '../class/Component';
 
 async function seed() {
     try {

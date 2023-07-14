@@ -1,12 +1,7 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import Component, { IComponent } from './Component';
+import Component from './Component';
 import { CheckExistenceFK, VerifyDuplicateKey } from '../middlewares/mongoose';
-
-export interface IDevicePrototype extends Document {
-  name: string;
-  components: Array<mongoose.Types.ObjectId | IComponent>;
-  createdAt: Date;
-}
+import { IDevicePrototype} from "../model/class/devPrototype"
 
 const devicePrototypeSchema: Schema<IDevicePrototype> = new Schema<IDevicePrototype>({
   name: {
