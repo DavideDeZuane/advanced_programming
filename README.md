@@ -93,3 +93,16 @@ sequenceDiagram
     API ->> Angular: Response
     deactivate API
 ```
+
+## Startup
+
+Per eseguire il progeto, dopo avere eseguito la `clone` del progetto, in locale procedere nel seguente modo:
+
+1. Copiare il file di ambiente e apportare le modifiche, in particolare alle password
+```
+cp .env.template .env
+```
+2. Tramite Docker CLI eseguire il seguente comando:
+```
+docker-compose up -d --build
+```
