@@ -56,7 +56,7 @@ class RedisProxy implements RedisInterface {
       }
   
     async get(key: string): Promise<string | null> {
-        this.logger.info('Data fetched from Redis');
+        this.logger.info('Attemping to fetch data from Redis');
         return await this.client.get(key);
     }
   

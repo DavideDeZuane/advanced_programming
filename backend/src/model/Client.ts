@@ -1,5 +1,5 @@
 import { VerifyDuplicateKey } from '../middlewares/mongoose';
-import mongoose, { Document, Model, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IClient extends Document {
   firstName: string;

@@ -1,11 +1,9 @@
 import mongoose, { MongooseError } from "mongoose";
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { NextFunction, Request, Response } from "express"
-
 import Client, { IClient } from "../model/Client";
 import { CustomError } from "../middlewares/error.middleware";
-import { AppLogger } from "../utils";
-import RedisProxy from "../utils/Caching";
+import { AppLogger, RedisProxy } from "../utils";
 
 
 const logger = AppLogger.getInstance();
@@ -114,6 +112,7 @@ const getById = async (req:Request, res:Response) => {
             }
         })
         .catch((err) => { 
+            /* Se per esempio non è presente la connessione al database da questo errore*/
             logger.error(`Altro errore`); 
             res.json(err) 
         }) 

@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "@types/mongodb": "^4.0.7",
-    "@types/redis": "^4.0.11",
     "codice-fiscale-js": "^2.3.20",
     "connect-rid": "^0.0.1",
     "cors": "^2.8.5",
