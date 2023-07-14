@@ -22,6 +22,7 @@ import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClientsComponent } from './clients/clients.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { ClientsComponent } from './clients/clients.component';
     MatDatepickerModule,
     MatFormFieldModule,
     FontAwesomeModule,
+    ToastrModule.forRoot(),
     // Import the module into the application, with configuration
     AuthModule.forRoot({
       ...environment.auth0,

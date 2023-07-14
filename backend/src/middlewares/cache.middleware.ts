@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import RedisProxy from '../utils/Caching';
+import { RedisProxy } from '../utils';
 
 const redis:RedisProxy = RedisProxy.getInstance();
 
