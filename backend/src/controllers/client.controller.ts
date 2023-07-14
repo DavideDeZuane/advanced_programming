@@ -1,10 +1,9 @@
-import mongoose, { MongooseError } from "mongoose";
+import mongoose from "mongoose";
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
-import { NextFunction, Request, Response } from "express"
+import { Request, Response } from "express"
 import Client, { IClient } from "../model/Client";
 import { CustomError } from "../middlewares/error.middleware";
 import { AppLogger, RedisProxy } from "../utils";
-
 
 const logger = AppLogger.getInstance();
 const redis = RedisProxy.getInstance()
@@ -17,6 +16,7 @@ const addClient = async (req:Request, res:Response) => {
         await client.save()
         logger.info(`Creato Cliente con id: ${client._id}`)
         res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
+        redis.flushall()
     } catch(error) {
         if(error instanceof mongoose.Error.ValidationError){
             logger.warn('I dati inviati non rispettano le regole di validazione');
@@ -43,7 +43,7 @@ const getClients = async (req:Request, res:Response) => {
     {
         let clients = await Client.find({}).select('-createdAt -__v') ;
         if(clients.length === 0){
-            res.status(StatusCodes.NO_CONTENT).send();
+            res.status(StatusCodes.NO_CONTENT).send(ReasonPhrases.NO_CONTENT);
         }
         redis.set(req.originalUrl, JSON.stringify(clients))
         res.json(clients);
@@ -121,10 +121,12 @@ const getById = async (req:Request, res:Response) => {
 /* per quanto riguarda l'aggiornametno conviene fare una PUT, si crea una richiesta di nuovo con tutti i campi in questo modo evitiamo di fare n validazioni */
 const updateClient = async (req:Request, res:Response) => {
     logger.info(`Richiesta di modifica per la risorsa \\clients\\${req.params.id}`)
+    
     await Client.findByIdAndUpdate(req.params.id, req.body)
-        .then(() => {
-            logger.info('Successo nell\'aggiornamento della risorsa');
-            res.status(StatusCodes.OK).send(ReasonPhrases.OK);
+    .then(() => {
+        logger.info('Successo nell\'aggiornamento della risorsa');
+        res.status(StatusCodes.OK).send(ReasonPhrases.OK);
+        redis.flushall()
         }) 
         .catch((err) => { 
             logger.warn('Errore nell\'aggiornamento della risorsa')
@@ -136,10 +138,11 @@ const updateClient = async (req:Request, res:Response) => {
                                     .setTimeStamp(new Date())
                                     .setName('Documento non trovato')
                                     .setType('/error/db/update')
-                                    .setStatusCode(404)
+                                    .setStatusCode(StatusCodes.NOT_FOUND)
                                     .toJson()
                 )                
             }
+            console.log(err)
             res.send('Errore generico nell\'aggiornamento'); 
         })
 }

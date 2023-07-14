@@ -1,5 +1,5 @@
 import AppLogger from "./Logger";
-import Redis from 'ioredis';
+import Redis, { Callback } from 'ioredis';
 
 const opts = {
     host: 'redis',
@@ -10,42 +10,21 @@ interface RedisInterface {
     get(key: string): Promise<string | null>;
     set(key: string, value: string): Promise<void>;
     del(key: string): Promise<void>;
-}
-
-class RedisClient implements RedisInterface{
-  
-    private client: Redis;
-    private logger: AppLogger;
-
-  constructor() {
-    this.logger = AppLogger.getInstance();
-    this.client = new Redis(opts)
-                        .on('error', (err)  => { this.logger.error('Error During Connection with Redis'); })
-                        .on('connect', () => { this.logger.info('Connection succed with Redis')});
-  }
-
-  async get(key: string): Promise<string | null> {
-    return await this.client.get(key);
-  }
-
-  async set(key: string, value: string): Promise<void> {
-    await this.client.set(key, value);
-  }
-
-  async del(key: string): Promise<void> {
-    await this.client.del(key);
-  }
+    flushall(callback?:Callback):Promise<void>;
 }
 
 class RedisProxy implements RedisInterface {
     
-    private client: RedisClient;
+    private client: Redis;
     private static instance: RedisProxy;
     private logger: AppLogger;
   
     private constructor() {
         this.logger = AppLogger.getInstance();
-        this.client = new RedisClient();
+        this.logger = AppLogger.getInstance();
+        this.client = new Redis(opts)
+                            .on('error', (err)  => { this.logger.error('Error During Connection with Redis'); })
+                            .on('connect', () => { this.logger.info('Connection succed with Redis')});
     }
 
     public static getInstance(): RedisProxy {
@@ -76,7 +55,13 @@ class RedisProxy implements RedisInterface {
     async del(key: string): Promise<void> {
       await this.client.del(key);
     }
+
+    async flushall(callback?: Callback | undefined): Promise<void> {
+      this.logger.warn('Deleting content of redis cache');
+      await this.client.flushall().then(
+        (value) => { if(value == 'OK') console.log('empty cache') }
+      ); 
+    }
 }
 
 export default RedisProxy;
-export { RedisClient }

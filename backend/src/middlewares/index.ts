@@ -8,6 +8,7 @@ import * as caching from './cache.middleware'
 const client = {
     POST: [
         logging.preLog,
+        auth.checkToken,
         ...validator.client,
         validator.checkValidation,
         logging.postLog

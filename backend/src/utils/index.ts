@@ -1,6 +1,6 @@
 import DB from "./Database";
 import AppLogger from "./Logger";
-import RedisProxy, {RedisClient} from "./Caching";
+import RedisProxy from "./Caching";
 
-export { DB, AppLogger, RedisProxy, RedisClient }
+export { DB, AppLogger, RedisProxy }
 
