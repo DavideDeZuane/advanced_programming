@@ -39,7 +39,7 @@ function CheckExistenceFK(schem: any, mod: any, fk: any) {
             new CustomError()
               .setCode("DB_ERROR")
               .setDescription("Inexistent foreign key reference to: " + mod.modelName)
-              .setName("Prototipo inesistente")
+              .setName("Inexistent reference")
               .setType("/db/error/insert")
               .setTimeStamp(new Date())
           );
@@ -59,8 +59,8 @@ function CheckExistenceFK(schem: any, mod: any, fk: any) {
         next(
           new CustomError()
             .setCode("DB_ERROR")
-            .setDescription("Too much " + fk)
-            .setName("Troppe fk")
+            .setDescription("Too many " + fk)
+            .setName("Too many FK")
             .setType("/db/error/insert")
             .setTimeStamp(new Date())
         );
