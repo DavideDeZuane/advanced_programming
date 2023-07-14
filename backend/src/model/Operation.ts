@@ -2,11 +2,11 @@ import mongoose, { Document, Model, Schema } from 'mongoose';
 import Employee, { IEmployee } from './Employee';
 import System, { ISystem } from './System';
 import { CustomError } from '../middlewares/error.middleware';
-import { CheckExistenceFK, VerifyDuplicateKey } from '../middlewares/mongoose';
+import { CheckExistenceFK, VerifyDuplicateKey, CheckSizeFK } from '../middlewares/mongoose';
 
 export interface IOperation extends Document {
   employees: Array<mongoose.Types.ObjectId | IEmployee>;
-  systems: mongoose.Types.ObjectId | ISystem;
+  systems: Array<mongoose.Types.ObjectId | ISystem>;
   description: string;
   type: string;
   createdAt: Date;
@@ -18,11 +18,11 @@ const operationSchema: Schema<IOperation> = new Schema<IOperation>({
     ref: 'Employee',
     required: true
   }],
-  systems: {
+  systems: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'System',
     required: true
-  },
+  }],
   description: {
     type: String,
     required: true
@@ -43,7 +43,7 @@ const operationSchema: Schema<IOperation> = new Schema<IOperation>({
 
 VerifyDuplicateKey(operationSchema);
 CheckExistenceFK(operationSchema, Employee, 'employees');
+CheckSizeFK(operationSchema, 'systems')
 CheckExistenceFK(operationSchema, System, 'systems');
 
-const Operation: Model<IOperation> = mongoose.model<IOperation>('Operation', operationSchema);
-export default Operation;
+export default mongoose.model<IOperation>('Operation', operationSchema);

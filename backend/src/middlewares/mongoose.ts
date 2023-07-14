@@ -4,6 +4,7 @@ import { CustomError } from './error.middleware';
 
 function VerifyDuplicateKey(schem: any){
     schem.post('save', (error: any, doc: Interface, next: any):any => {
+      console.log("Entro in VerifyDuplicateKey")
     if (error.name === 'MongoServerError' && error.code === 11000) {
         const duplicateField = Object.keys(error.keyValue)[0];
         console.log(duplicateField);
@@ -19,11 +20,10 @@ function VerifyDuplicateKey(schem: any){
     })
 }
 
-
 function CheckExistenceFK(schem: any, mod: any, fk: any) {
 
     schem.pre('save', async function (this: any, next: any) {
-
+      console.log("Entro in CheckExsistenceFK")
       const self = this;
       for (let foreign of self[fk]){
         console.log("Entro ciclo for");
@@ -34,6 +34,7 @@ function CheckExistenceFK(schem: any, mod: any, fk: any) {
         console.log()
     
         if (check === null) {
+          console.log("Sono entrato in if CheckExistenceFK")
           next(
             new CustomError()
               .setCode("DB_ERROR")
@@ -48,8 +49,28 @@ function CheckExistenceFK(schem: any, mod: any, fk: any) {
     });
   }
   
+  function CheckSizeFK (schem: any, fk: any){
+    schem.pre('validate', function(this: any, next: any){
+      console.log("Entro in CheckSizeFK")
+      const self = this;
+      console.log("Dimensione di self[fk]: " + self[fk].length)
+      if (self[fk].length > 1){
+        console.log("Sono entrato in if CheckSizeFK")
+        next(
+          new CustomError()
+            .setCode("DB_ERROR")
+            .setDescription("Too much " + fk)
+            .setName("Troppe fk")
+            .setType("/db/error/insert")
+            .setTimeStamp(new Date())
+        );
+      } else {
+        next()
+      }
+    });
+  }
 
 
     
 
-export { VerifyDuplicateKey, CheckExistenceFK}
+export { VerifyDuplicateKey, CheckExistenceFK, CheckSizeFK}

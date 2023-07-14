@@ -1,7 +1,7 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
 import Device, { IDevice } from './Device';
 import { CustomError } from '../middlewares/error.middleware';
-import { CheckExistenceFK, VerifyDuplicateKey } from '../middlewares/mongoose';
+import { CheckExistenceFK, VerifyDuplicateKey, CheckSizeFK } from '../middlewares/mongoose';
 
 export interface IFile extends Document {
   name: string;
@@ -20,18 +20,7 @@ const fileSchema: Schema<IFile> = new Schema<IFile>({
   device: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Device',
-    validate: {
-      validator: function(value:[mongoose.Schema.Types.ObjectId]) {
-        let flag = 0;
-        for (let ids of value){
-          flag ++;
-        }
-        return flag <= 1
-      },
-      message: 'Too much devices. You can put only one!'
-    },
-    required: true,
-    unique: true
+    required: true
   }],
   fileType: {
     type: String,
@@ -50,34 +39,8 @@ const fileSchema: Schema<IFile> = new Schema<IFile>({
   }
 });
 
-fileSchema.pre<IFile>('save', async function (next:any) {
-  const self = this;
-  const Vincolo = await Device.find({_id: self.device}).exec();
-
-  console.log(Vincolo)
-  console.log(Vincolo.length)
-
-  if(Vincolo.length === 0){
-    next(new Error(`Non esiste il device`))
-  }
-  else{
-    next()
-  }
-});
-
-fileSchema.pre<IFile>('save', async function (next:any) {
-  const self = this;
-  const Vincolo = await Device.findById({_id: self.device}).exec();
-
-  if(Vincolo === null){
-    next(new CustomError().setCode("DB_ERROR").setDescription("Il device non esiste").setName("Device inesistente").setType("/db/error/insert").setTimeStamp(new Date()))
-  }
-  else{
-    next()
-  }
-});
-
 VerifyDuplicateKey(fileSchema);
+CheckSizeFK(fileSchema, 'device');
 CheckExistenceFK(fileSchema, Device, 'device');
 
 export default mongoose.model<IFile>('File', fileSchema);
