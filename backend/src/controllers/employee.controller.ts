@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
 import Employee from "../model/Employee";
 import { EmployeeClass, IEmployee } from "../model/class/Employee";
-import { addObj } from "../model/method/index";
+import { addObj, getAll } from "../model/method/index";
 import { CustomError } from "../middlewares/error.middleware";
 import {
 	ReasonPhrases,
@@ -22,8 +22,11 @@ const addEmployee = async (req:Request, res:Response) => {
       }
 }
 
+const getEmployee = async (req: Request, res: Response) => {getAll(Employee,req, res)};
+
 const employee_controller = {
-    addEmployee
+    addEmployee, 
+    getEmployee
 }
 
 export default employee_controller;

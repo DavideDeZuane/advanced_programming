@@ -7,7 +7,7 @@ const protoRouter: Router = Router();
 /*
 ######### TO DO ##########
 1) SI PUO IMPLEMENTARE UNA ROTTA PER FARE UN FILTRAGGIO DEI PROTOTIPI CHE HANNO UNA/PIÙ COMPONENTI; 
-*/
+
 
 
 //##### GET METHOD ######
@@ -23,8 +23,9 @@ protoRouter.get('/:id', (req, res) => {
 })
 
 //##### POST METHOD ######
-
+*/
 //insert new prototype
-protoRouter.post('/', middlewares.chain, controller.prototype_controller.addPrototype);
+protoRouter.get('/',    middlewares.logging_chain.GET,  controller.prototype_controller.getPrototype)
+           .post('/',   middlewares.logging_chain.POST, controller.prototype_controller.addPrototype);
 
 export { protoRouter };

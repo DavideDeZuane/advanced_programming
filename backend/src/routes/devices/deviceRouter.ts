@@ -6,7 +6,7 @@ const deviceRouter: Router = Router();
 
 
 //##### GET METHOD ######
-
+/*
 //all devidces
 deviceRouter.get('/', middlewares.chain,(req: Request, res: Response) => {
     //return all devices
@@ -23,8 +23,9 @@ deviceRouter.get('/:prototype_id', (req, res) => {
 })
 
 //##### POST METHOD ######
-
+*/
 //insert new device
-deviceRouter.post('/', middlewares.chain, controller.device_controller.addDevice)
+deviceRouter.get('/',  middlewares.logging_chain.GET,   controller.device_controller.getDevice)
+            .post('/', middlewares.logging_chain.POST,  controller.device_controller.addDevice)
 
 export {deviceRouter};

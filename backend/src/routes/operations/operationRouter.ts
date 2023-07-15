@@ -5,7 +5,7 @@ import * as controller from '../../controllers/index';
 const operationRouter: Router = Router();
 
 //##### GET METHOD ######
-
+/*
 //all operations
 operationRouter.get('/', middlewares.chain, (req: Request, res: Response) => {
     //return all operations
@@ -28,9 +28,10 @@ operationRouter.get('/:employee_id', (req, res) => {
 
 
 //##### POST METHOD ######
-
+*/
 //insert new operation
-operationRouter.post('/', middlewares.chain, controller.operation_controller.addOperation)
+operationRouter.get('/',    middlewares.logging_chain.GET,  controller.operation_controller.getOperation)
+               .post('/',   middlewares.logging_chain.POST, controller.operation_controller.addOperation)
 //##### PUT METHOD #####
 
 export { operationRouter };

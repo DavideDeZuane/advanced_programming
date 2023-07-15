@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
-import { addObj } from "../model/method/index"
+import { addObj, getAll } from "../model/method/index"
 import DevicePrototype from "../model/DevicePrototype";
 import { DevicePrototypeClass } from "../model/class/devPrototype";
 import { CustomError } from "../middlewares/error.middleware";
@@ -23,8 +23,11 @@ const addPrototype = async (req:Request, res:Response) => {
       }
 }
 
+const getPrototype = async (req: Request, res: Response) => {getAll(DevicePrototype, req, res)};
+
 const prototype_controller = {
-    addPrototype
+    addPrototype,
+    getPrototype
 }
 
 export default prototype_controller;

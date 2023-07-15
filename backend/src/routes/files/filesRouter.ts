@@ -5,7 +5,7 @@ import * as controller from '../../controllers/index';
 const fileRouter: Router = Router();
 
 //##### GET METHOD #####
-
+/*
 //all files
 fileRouter.get('/', middlewares.chain, (req: Request, res: Response) => {
     //return all files
@@ -22,8 +22,9 @@ fileRouter.get('/:device_id', (req, res) => {
 })
 
 //##### POST METHOD ######
-
+*/
 //insert new file
-fileRouter.post('/', middlewares.chain, controller.file_controller.addFile) 
+fileRouter.get('/',  middlewares.logging_chain.GET,  controller.file_controller.getFile)
+          .post('/', middlewares.logging_chain.POST, controller.file_controller.addFile) 
 
 export { fileRouter };

@@ -5,7 +5,7 @@ import * as controller from '../../controllers/index';
 const employeeRouter: Router = Router();
 
 //##### GET METHOD ######
-
+/*
 //all employes
 employeeRouter.get('/', middlewares.chain, (req:Request, res: Response) => {
     res.send('Route degli employee')
@@ -27,9 +27,10 @@ employeeRouter.get('/:department', (req, res) => {
 })
 
 //##### POST METHOD ######
-
+*/
 //insert new employee
-employeeRouter.post('/', middlewares.chain, controller.employee_controller.addEmployee);
+employeeRouter.get('/',     middlewares.logging_chain.GET,  controller.employee_controller.getEmployee)
+              .post('/',    middlewares.logging_chain.POST, controller.employee_controller.addEmployee);
 
 
 export {employeeRouter};

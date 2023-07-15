@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
 import System from "../model/System";
 import { SystemClass } from "../model/class/System";
-import { addObj } from "../model/method/index";
+import { addObj, getAll } from "../model/method/index";
 import { CustomError } from "../middlewares/error.middleware";
 import {
 	ReasonPhrases,
@@ -24,8 +24,11 @@ const addSystem = async(req:Request, res:Response) => {
       }
 }
 
+const getSystem =async (req: Request, res: Response) => {getAll(System, req, res)};
+
 const system_controller = {
-    addSystem
+    addSystem,
+    getSystem
 }
 
 export default system_controller;

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
 import File from "../model/File";
 import { FileClass } from "../model/class/File";
-import { addObj } from "../model/method/index";
+import { addObj, getAll } from "../model/method/index";
 import { CustomError } from "../middlewares/error.middleware";
 import {
 	ReasonPhrases,
@@ -23,8 +23,11 @@ const addFile = async (req:Request, res:Response) => {
       }
 }
 
+const getFile =async (req:Request, res: Response) => {getAll(File, req, res)}
+
 const file_controller = {
-    addFile
+    addFile, 
+    getFile
 }
 
 export default file_controller;

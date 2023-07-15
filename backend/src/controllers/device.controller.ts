@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
 import {DeviceClass } from "../model/class/Device";
 import Device from "../model/Device";
-import { addObj } from "../model/method/index";
+import { addObj, getAll } from "../model/method/index";
 import { CustomError } from "../middlewares/error.middleware";
 import {
 	ReasonPhrases,
@@ -24,8 +24,11 @@ const addDevice = async (req:Request, res:Response) => {
       }
 }
 
+const getDevice = async (req: Request, res: Response) => {getAll(Device, req, res)}
+
 const device_controller = {
-    addDevice
+    addDevice,
+    getDevice
 }
 
 export default device_controller;

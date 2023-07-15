@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
 import Version from "../model/Version";
 import { VersionClass } from "../model/class/Version";
-import { addObj } from "../model/method/index";
+import { addObj, getAll } from "../model/method/index";
 import { CustomError } from "../middlewares/error.middleware";
 import {
 	ReasonPhrases,
@@ -22,11 +22,14 @@ const addVersion = async (req:Request, res:Response) => {
         res.send('Successfully: file added');
     } catch (error) {
         res.send(error);
-      }
+    }
 }
 
+const getVersion =async (req:Request, res: Response) => {getAll(Version, req, res)}
+
 const version_controller = {
-    addVersion
+    addVersion,
+    getVersion
 }
 
 export default version_controller;

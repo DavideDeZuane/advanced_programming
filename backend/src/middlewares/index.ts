@@ -26,6 +26,22 @@ const client = {
     ]
 }
 
+const logging_chain = {
+    POST: [
+        logging.preLog,
+        logging.postLog
+    ],
+    PUT: [
+        logging.preLog,
+        logging.postLog
+    ],
+    GET: [
+        logging.preLog,
+        caching.cacheMiddleware,
+        logging.postLog 
+    ]
+}
+
 
 const chain = [
     logging.preLog,
@@ -37,5 +53,5 @@ const auth_chain = [
 ]
 
 
-export { chain, auth_chain, errHandler, client };
+export { chain, auth_chain, errHandler, client, logging_chain };
 

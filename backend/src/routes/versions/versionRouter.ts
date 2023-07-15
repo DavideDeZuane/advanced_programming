@@ -3,7 +3,7 @@ import * as middlewares from '../../middlewares';
 import * as controller from '../../controllers/index';
 
 const versionRouter: Router = Router();
-
+/*
 //##### GET METHOD #####
 
 //all versions' file
@@ -17,9 +17,12 @@ versionRouter.get('/:id', (req, res) => {
 })  
 
 //##### POST METHOD ######
-
+*/
 //insert new version
-versionRouter.post('/', middlewares.chain, controller.version_controller.addVersion)
+versionRouter.get('/',  middlewares.logging_chain.GET,  controller.version_controller.getVersion)
+             .post('/', middlewares.logging_chain.POST, controller.version_controller.addVersion)
+
+
 //##### PUT METHOD #####
 //non penso abbia senso in quanto se modifichiamo una versione ne creiamo una nuova
 export { versionRouter };
