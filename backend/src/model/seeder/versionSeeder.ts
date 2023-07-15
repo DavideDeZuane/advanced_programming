@@ -1,6 +1,8 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import Version, {IVersion} from '../Version';
-import File, {IFile} from '../File';
+import Version from '../Version';
+import { IVersion } from "../class/Version";
+
+import File from '../File';
 
 async function seed() {
     try {

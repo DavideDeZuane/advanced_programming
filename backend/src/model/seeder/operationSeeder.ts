@@ -1,7 +1,9 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import Operation, {IOperation} from '../Operation';
-import System, {ISystem} from '../System';
-import Employee, { IEmployee } from '../Employee';
+import Operation from '../Operation';
+import { IOperation } from "../class/Operation";
+import System from '../System';
+import Employee from '../Employee';
+
 
 async function seed() {
     try {

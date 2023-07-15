@@ -1,5 +1,7 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import Employee, {IEmployee} from '../Employee';
+import Employee from '../Employee';
+import { IEmployee } from "../class/Employee";
+
 
 async function seed() {
     try {

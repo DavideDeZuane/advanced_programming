@@ -1,15 +1,6 @@
 import { VerifyDuplicateKey } from '../middlewares/mongoose';
 import mongoose, { Document, Schema } from 'mongoose';
-
-export interface IClient extends Document {
-  firstName: string;
-  lastName: string;
-  birthDate: Date;
-  fiscalCode: string;
-  vatNumber: string;
-  address: string;
-  createdAt: Date;
-}
+import { IClient } from '../model/class/Client';
 
 const validator = {
   firstName: {

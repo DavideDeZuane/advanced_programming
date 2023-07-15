@@ -1,6 +1,9 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import File, {IFile} from '../File';
-import Device, { IDevice } from '../Device';
+import File from '../File';
+import { IFile } from "../class/File";
+import Device from '../Device';
+
+
 
 async function seed() {
     try {

@@ -1,15 +1,8 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import Device, { IDevice } from './Device';
+import Device from './Device';
+import { IFile } from './class/File';
 import { CustomError } from '../middlewares/error.middleware';
 import { CheckExistenceFK, VerifyDuplicateKey, CheckSizeFK } from '../middlewares/mongoose';
-
-export interface IFile extends Document {
-  name: string;
-  device: Array<mongoose.Types.ObjectId | IDevice>;
-  fileType: string;
-  description?: string;
-  createdAt: Date;
-}
 
 const fileSchema: Schema<IFile> = new Schema<IFile>({
   name: {

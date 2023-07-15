@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
-import Operation, { IOperation } from "../model/Operation";
+import Operation from "../model/Operation";
+import { OperationClass } from "../model/class/Operation";
+import { addObj } from "../model/method/index";
 import { CustomError } from "../middlewares/error.middleware";
 import {
 	ReasonPhrases,
@@ -12,16 +14,15 @@ import {
 
 const addOperation = async (req:Request, res:Response) => {
     console.log(req.body)
-    const operation:IOperation = req.body;
-    console.log(operation)
-    try{
-        let wwa= new Operation(operation);
-        console.log(wwa)
-        await wwa.save()
-        res.send("Succesfully: operation added")
-    } catch(error) {
-       res.send(error)
-    }
+    const operation: OperationClass = new OperationClass(req.body.employees, req.body.systems, req.body.description, req.body.type, new Date());
+    console.log(`Employees: ${req.body.employees}`)
+    console.log(`System: ${req.body.systems}`)
+    try {
+        await addObj(Operation, operation);
+        res.send('Successfully: system added');
+      } catch (error) {
+        res.send(error);
+      }
 }
 
 const operation_controller = {

@@ -1,21 +1,15 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import File, { IFile } from './File';
+import File from './File';
+import { IVersion } from './class/Version';
 import { CustomError } from '../middlewares/error.middleware';
-import { CheckExistenceFK, VerifyDuplicateKey } from '../middlewares/mongoose';
-
-export interface IVersion extends Document {
-  file: mongoose.Types.ObjectId | IFile;
-  blob: Buffer;
-  versionNumber: string;
-  createdAt: Date;
-}
+import { CheckExistenceFK, VerifyDuplicateKey, CheckSizeFK } from '../middlewares/mongoose';
 
 const versionSchema: Schema<IVersion> = new Schema<IVersion>({
-  file: {
+  file: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'File',
     required: true
-  },
+  }],
   blob: {
     type: Buffer,
     required: true
@@ -38,6 +32,7 @@ const versionSchema: Schema<IVersion> = new Schema<IVersion>({
 });
 
 VerifyDuplicateKey(versionSchema);
+CheckSizeFK(versionSchema, 'file')
 CheckExistenceFK(versionSchema, File, 'file')
 
 const Version: Model<IVersion> = mongoose.model<IVersion>('Version', versionSchema);

@@ -1,13 +1,7 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
 import DevicePrototype from './DevicePrototype';
-import { IDevicePrototype } from '../model/class/devPrototype';
-import { CheckExistenceFK, VerifyDuplicateKey } from '../middlewares/mongoose';
-
-export interface IDevice extends Document {
-  name: string;
-  devicePrototypes: Array<mongoose.Types.ObjectId | IDevicePrototype>;
-  createdAt: Date;
-}
+import { IDevice } from './class/Device';
+import { CheckExistenceFK, VerifyDuplicateKey, CheckSizeFK } from '../middlewares/mongoose';
 
 const deviceSchema: Schema<IDevice> = new Schema<IDevice>({
   name: {
@@ -24,6 +18,7 @@ const deviceSchema: Schema<IDevice> = new Schema<IDevice>({
   }
 });
 
+CheckSizeFK(deviceSchema, 'devicePrototypes')
 CheckExistenceFK(deviceSchema, DevicePrototype, 'devicePrototypes');
 VerifyDuplicateKey(deviceSchema);
 

@@ -1,14 +1,6 @@
 import { VerifyDuplicateKey } from '../middlewares/mongoose';
 import mongoose, { Document, Model, Schema } from 'mongoose';
-
-export interface IEmployee extends Document {
-  name: string;
-  role: string;
-  department: string;
-  birthdate: Date;
-  fiscalCode: string;
-  createdAt: Date;
-}
+import { IEmployee } from './class/Employee';
 
 const employeeSchema: Schema<IEmployee> = new Schema<IEmployee>({
   name: {

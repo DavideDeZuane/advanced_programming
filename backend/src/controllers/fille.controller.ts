@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
-import File, { IFile } from "../model/File";
+import File from "../model/File";
+import { FileClass } from "../model/class/File";
+import { addObj } from "../model/method/index";
 import { CustomError } from "../middlewares/error.middleware";
 import {
 	ReasonPhrases,
@@ -11,18 +13,14 @@ import {
 
 
 const addFile = async (req:Request, res:Response) => {
-    const file:IFile = req.body;
-    console.log("Questo è il req.body: " + req.body);
-    try{
-        let wwa= new File(file);
-        console.log("Questo è il wwa: " + wwa)
-        await wwa.save()
-        res.send("Succesfully: file added")
-
-    } catch(error) {
-        console.log("Sono entrato nel catch")
-       res.send(error)
-    }
+    const file:FileClass = new FileClass(req.body.name, req.body.device, req.body.fileType, new Date(), req.body.description);
+    console.log(`Device: ${req.body.device}`)
+    try {
+        await addObj(File, file);
+        res.send('Successfully: file added');
+      } catch (error) {
+        res.send(error);
+      }
 }
 
 const file_controller = {

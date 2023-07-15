@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
-import Version, { IVersion } from "../model/Version";
+import Version from "../model/Version";
+import { VersionClass } from "../model/class/Version";
+import { addObj } from "../model/method/index";
 import { CustomError } from "../middlewares/error.middleware";
 import {
 	ReasonPhrases,
@@ -11,17 +13,16 @@ import {
 
 
 const addVersion = async (req:Request, res:Response) => {
-    const version:IVersion = req.body;
+    const version: VersionClass = new VersionClass(req.body.file, req.body.blob, req.body.versionNumber, new Date());
     //riga sotto va modificata
     version.blob = Buffer.from("Faccio un esempio di blob", 'utf-8')
-    try{
-        let wwa= new Version(version);
-        console.log(wwa)
-        await wwa.save()
-        res.send("Succesfully: version added")
-    } catch(error) {
-       res.send(error)
-    }
+    console.log(`File: ${req.body.file}`)
+    try {
+        await addObj(Version, version);
+        res.send('Successfully: file added');
+    } catch (error) {
+        res.send(error);
+      }
 }
 
 const version_controller = {

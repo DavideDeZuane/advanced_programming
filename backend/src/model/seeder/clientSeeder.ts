@@ -1,5 +1,6 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import Client, {IClient} from '../Client';
+import Client from '../Client';
+import { IClient } from "../class/Client";
 
 async function seed() {
     try {

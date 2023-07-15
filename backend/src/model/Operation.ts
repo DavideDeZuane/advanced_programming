@@ -1,16 +1,9 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import Employee, { IEmployee } from './Employee';
-import System, { ISystem } from './System';
+import Employee from './Employee';
+import System from './System';
+import { IOperation } from '../model/class/Operation';
 import { CustomError } from '../middlewares/error.middleware';
 import { CheckExistenceFK, VerifyDuplicateKey, CheckSizeFK } from '../middlewares/mongoose';
-
-export interface IOperation extends Document {
-  employees: Array<mongoose.Types.ObjectId | IEmployee>;
-  systems: Array<mongoose.Types.ObjectId | ISystem>;
-  description: string;
-  type: string;
-  createdAt: Date;
-}
 
 const operationSchema: Schema<IOperation> = new Schema<IOperation>({
   employees: [{

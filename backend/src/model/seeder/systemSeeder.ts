@@ -1,7 +1,8 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import System, {ISystem} from '../System';
-import Device, {IDevice} from '../Device';
-import Client, { IClient } from '../Client';
+import System from '../System';
+import { ISystem } from "../class/System";
+import Device from '../Device';
+import Client from '../Client';
 
 async function seed() {
     try {

@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { Request, Response } from "express"
-import Client, { IClient } from "../model/Client";
+import Client from "../model/Client";
+import { ClientClass, IClient } from "../model/class/Client";
 import { CustomError } from "../middlewares/error.middleware";
 import { AppLogger, RedisProxy } from "../utils";
 

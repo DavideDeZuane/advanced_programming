@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
-import Employee, { IEmployee } from "../model/Employee";
+import Employee from "../model/Employee";
+import { EmployeeClass, IEmployee } from "../model/class/Employee";
+import { addObj } from "../model/method/index";
 import { CustomError } from "../middlewares/error.middleware";
 import {
 	ReasonPhrases,
@@ -11,16 +13,13 @@ import {
 
 
 const addEmployee = async (req:Request, res:Response) => {
-    const employee:IEmployee = req.body;
-    try{
-        let wwa= new Employee(employee);
-        console.log(wwa)
-        await wwa.save()
-        res.send("Succesfully: employee added")
-
-    } catch(error) {
-       res.send(error)
-    }
+    const employee: EmployeeClass = new EmployeeClass(req.body.name, req.body.role, req.body.department, req.body.birthDate, req.body.fiscalCode, new Date());
+    try {
+        await addObj(Employee, employee);
+        res.send('Successfully: device added');
+      } catch (error) {
+        res.send(error);
+      }
 }
 
 const employee_controller = {

@@ -1,16 +1,9 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import Device, { IDevice } from './Device';
-import Client, { IClient } from './Client';
+import Device from './Device';
+import Client from './Client';
+import { ISystem } from './class/System';
 import { CustomError } from '../middlewares/error.middleware';
 import { CheckExistenceFK, VerifyDuplicateKey, CheckSizeFK } from '../middlewares/mongoose';
-
-export interface ISystem extends Document {
-  name: string;
-  devices: Array<mongoose.Types.ObjectId | IDevice>;
-  address: string;
-  client: Array<mongoose.Types.ObjectId | IClient>;
-  createdAt: Date;
-}
 
 const systemSchema: Schema<ISystem> = new Schema<ISystem>({
   name: {

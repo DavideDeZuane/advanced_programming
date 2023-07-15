@@ -25,6 +25,8 @@ function CheckExistenceFK(schem: any, mod: any, fk: any) {
     schem.pre('save', async function (this: any, next: any) {
       console.log("Entro in CheckExsistenceFK")
       const self = this;
+      console.log("Tipo di self[fk] = " + typeof(self[fk]))
+      console.log(`Questo è self[fk]: ${self[fk]}`)
       for (let foreign of self[fk]){
         console.log("Entro ciclo for");
         console.log()
