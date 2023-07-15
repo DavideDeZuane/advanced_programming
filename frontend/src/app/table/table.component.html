@@ -1,5 +1,5 @@
 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-2">
-    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <thead class="text-base text-white uppercase bg-slate-400 ">
         <tr>
             <th scope="col" class="px-6 py-3" *ngFor="let item of header">
                 {{item}}
@@ -7,21 +7,18 @@
         </tr>
     </thead>
     <tbody>
-        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700" *ngFor="let item of clients">
-            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {{ item.firstName }}
-            </td>
-            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {{ item.lastName }}
-            </td>
-            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {{ item.fiscalCode }}
-            </td>
-            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {{ item.address }}
-            </td>
-            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {{ item.vatNumber }}
+        <tr class="bg-slate-200 border-b" *ngFor="let item of clients ">
+            <ng-container
+                *ngFor="let prop of item | keyvalue" 
+            >
+                <td class="px-6 py-4 font-normal text-gray-900 whitespace-nowrap" *ngIf="allowedProp(prop.key)">    
+                    {{prop.value}}
+                </td>
+            </ng-container>
+            <td class="px-6 py-4 font-normal text-gray-900 whitespace-nowrap flex justify-center">
+                <a onclick="Edit()"> <fa-icon [icon]="icon">Edit</fa-icon></a>
+                &nbsp;
+                <a href=""><fa-icon [icon]="delete"></fa-icon></a>
             </td>
         </tr>
     </tbody>
