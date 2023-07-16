@@ -80,14 +80,14 @@ const getById = async (model: any, req: Request, res: Response) => {
       .then((elem: any) => {
         console.log(elem)
           if(elem !== null){
-              logger.info(`Return the element: ${model.Schema}`);
+              logger.info(`Return the element: ${model.modelName}`);
               console.log("mando json")
               res.json(elem)
           }
           if(elem === null){ 
               res.status(StatusCodes.NO_CONTENT).json(
                   new CustomError()
-                                  .setDescription(`Inexistence ${model.Schema} with this id`)
+                                  .setDescription(`Inexistence ${model.modelName} with this id`)
                                   .setStatusCode(StatusCodes.NOT_FOUND)
                                   .setTimeStamp(new Date())
                                   .setName('No result')
