@@ -23,7 +23,13 @@ const addPrototype = async (req:Request, res:Response) => {
       }
 }
 
-const getPrototype = async (req: Request, res: Response) => {getAll(DevicePrototype, req, res)};
+const getPrototype = async (req: Request, res: Response) => {
+  try{
+    await getAll(DevicePrototype, req, res)
+  }catch(error) {
+    res.send(error)
+  }
+};
 
 const prototype_controller = {
     addPrototype,

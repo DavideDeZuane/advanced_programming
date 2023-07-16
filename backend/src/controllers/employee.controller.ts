@@ -22,7 +22,13 @@ const addEmployee = async (req:Request, res:Response) => {
       }
 }
 
-const getEmployee = async (req: Request, res: Response) => {getAll(Employee,req, res)};
+const getEmployee = async (req: Request, res: Response) => {
+  try{
+    await getAll(Employee,req, res)
+  }catch(error) {
+    res.send(error)
+  }
+};
 
 const employee_controller = {
     addEmployee, 

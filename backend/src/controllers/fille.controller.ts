@@ -23,7 +23,13 @@ const addFile = async (req:Request, res:Response) => {
       }
 }
 
-const getFile =async (req:Request, res: Response) => {getAll(File, req, res)}
+const getFile =async (req:Request, res: Response) => {
+  try{
+    await getAll(File,req, res)
+  }catch(error) {
+    res.send(error)
+  }
+};
 
 const file_controller = {
     addFile, 

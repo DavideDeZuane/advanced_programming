@@ -24,7 +24,13 @@ const addSystem = async(req:Request, res:Response) => {
       }
 }
 
-const getSystem =async (req: Request, res: Response) => {getAll(System, req, res)};
+const getSystem =async (req: Request, res: Response) => {
+  try{
+    await getAll(System,req, res)
+  }catch(error) {
+    res.send(error)
+  }
+};
 
 const system_controller = {
     addSystem,

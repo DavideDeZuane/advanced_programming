@@ -24,7 +24,13 @@ const addDevice = async (req:Request, res:Response) => {
       }
 }
 
-const getDevice = async (req: Request, res: Response) => {getAll(Device, req, res)}
+const getDevice = async (req: Request, res: Response) => {
+  try{
+    await getAll(Device,req, res)
+  }catch(error) {
+    res.send(error)
+  }
+};
 
 const device_controller = {
     addDevice,

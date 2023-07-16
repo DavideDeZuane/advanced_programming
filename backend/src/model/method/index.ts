@@ -5,6 +5,8 @@ import { Request, Response } from "express"
 import { CustomError } from "../../middlewares/error.middleware";
 import { AppLogger, RedisProxy } from "../../utils/";
 
+const logger = AppLogger.getInstance();
+const redis = RedisProxy.getInstance()
 
 const addObj = async (
     model:any,
@@ -20,8 +22,6 @@ const addObj = async (
   };
 
   const getAll = async (model: any, req: Request, res: Response) => {
-    const logger = AppLogger.getInstance();
-    const redis = RedisProxy.getInstance()
     try
     {
         let all = await model.find({}).select('-createdAt -__v') ;
@@ -75,4 +75,33 @@ const addObj = async (
     }
 }
 
-  export {addObj, getAll}
+const getById = async (model: any, req: Request, res: Response) => {
+  await model.findById(req.params.id).select('-createdAt -__v')
+      .then((elem: any) => {
+        console.log(elem)
+          if(elem !== null){
+              logger.info(`Return the element: ${model.Schema}`);
+              console.log("mando json")
+              res.json(elem)
+          }
+          if(elem === null){ 
+              res.status(StatusCodes.NO_CONTENT).json(
+                  new CustomError()
+                                  .setDescription(`Inexistence ${model.Schema} with this id`)
+                                  .setStatusCode(StatusCodes.NOT_FOUND)
+                                  .setTimeStamp(new Date())
+                                  .setName('No result')
+                                  .setType('/error/db')
+                                  .toJson()
+              )
+              console.log("Mandato custom error")
+          }
+      })
+      .catch((err: any) => { 
+          /* Se per esempio non è presente la connessione al database da questo errore*/
+          logger.error(`Altro errore`); 
+          res.json(err) 
+      }) 
+}
+
+  export {addObj, getAll, getById}

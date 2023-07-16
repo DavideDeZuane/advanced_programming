@@ -9,7 +9,7 @@ import {
 	getStatusCode,
 } from 'http-status-codes';
 import Component from "../model/Component";
-import { addObj, getAll } from "../model/method/index";
+import { addObj, getAll, getById } from "../model/method/index";
 
 
 const addComponent = async(req:Request, res:Response) => {
@@ -23,11 +23,25 @@ const addComponent = async(req:Request, res:Response) => {
       }
 }
 
-const getComponent = async (req: Request, res: Response) => {getAll(Component, req, res)};
+const getComponent = async (req: Request, res: Response) => {
+  try{
+    await getAll(Component,req, res)
+  }catch(error) {
+    res.send(error)
+  }
+};
 
+const getComponentById =async (req: Request, res: Response) => {
+  try{
+    await getById(Component, req, res)
+  } catch(error){
+    res.send(error)
+  }
+}
 const component_controller = {
     addComponent,
-    getComponent
+    getComponent,
+    getComponentById
 }
 
 export default component_controller;

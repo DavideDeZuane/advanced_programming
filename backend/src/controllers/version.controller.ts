@@ -25,7 +25,13 @@ const addVersion = async (req:Request, res:Response) => {
     }
 }
 
-const getVersion =async (req:Request, res: Response) => {getAll(Version, req, res)}
+const getVersion =async (req:Request, res: Response) => {
+    try{
+        await getAll(Version,req, res)
+      }catch(error) {
+        res.send(error)
+      }
+    };
 
 const version_controller = {
     addVersion,

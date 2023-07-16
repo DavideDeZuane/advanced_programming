@@ -25,7 +25,13 @@ const addOperation = async (req:Request, res:Response) => {
       }
 }
 
-const getOperation =async (req:Request, res: Response) => {getAll(Operation, req, res)}
+const getOperation =async (req:Request, res: Response) => {
+  try{
+    await getAll(Operation, req, res)
+  }catch(error) {
+    res.send(error)
+  }
+};
 
 const operation_controller = {
     addOperation,
