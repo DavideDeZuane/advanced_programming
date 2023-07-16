@@ -17,7 +17,7 @@ const addComponent = async(req:Request, res:Response) => {
     const component:ComponentClass = new ComponentClass(req.body.name, req.body.type, new Date(), req.body.description, req.body.price);
     try {
         await addObj(Component, component);
-        res.send('Successfully: device added');
+        res.send('Successfully: component added');
       } catch (error) {
         res.send(error);
       }
