@@ -2,7 +2,15 @@
 
 ## :dart: Obiettivo
 
-L'obiettivo del progetto è quello di realizzare un API 
+L'obiettivo del progetto è quello di realizzare un API che andrà ad agire sulle seguenti risorse:
+
+- `components`: ovvero quelli che sono le varie componenti che vanno a comporre un sensore
+- `devices`: la composizione di vari componenti insieme al software/file di configurazione specifici del dispositivo
+- `systems`: il sistema ovvero l'insieme di dispositivi che verrà installato ad un cliente
+- `users`: quelli che sono i client
+- `operations`: quelli che sono gli interventi che verranno effettuati ad un determinato sistema
+
+Inoltre per interagire con le API si è implementata una single page application realizzata tramite l'utilizzo del framework Angular.
 
 
 ## Progettazione
@@ -31,6 +39,7 @@ graph LR;
     Express.js ---  MongoDB;
     MongoDB --- MongoExpress;
     Angular --- Express.js;
+    Express.js --- Redis
     end
     subgraph External
     Auth0
