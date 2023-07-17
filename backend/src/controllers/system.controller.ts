@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
 import System from "../model/System";
 import { SystemClass } from "../model/class/System";
-import { addObj, getAll } from "../model/method/index";
+import { addObj, getAll, getById } from "../model/method/index";
 import { CustomError } from "../middlewares/error.middleware";
 import {
 	ReasonPhrases,
@@ -24,7 +24,7 @@ const addSystem = async(req:Request, res:Response) => {
       }
 }
 
-const getSystem =async (req: Request, res: Response) => {
+const getSystem = async (req: Request, res: Response) => {
   try{
     await getAll(System,req, res)
   }catch(error) {
@@ -32,9 +32,18 @@ const getSystem =async (req: Request, res: Response) => {
   }
 };
 
+const getSystemById =async (req: Request, res: Response) => {
+  try{
+    await getById(System, req, res)
+  } catch(error){
+    res.send(error)
+  }
+}
+
 const system_controller = {
     addSystem,
-    getSystem
+    getSystem,
+    getSystemById
 }
 
 export default system_controller;

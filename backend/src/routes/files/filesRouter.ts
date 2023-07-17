@@ -24,7 +24,8 @@ fileRouter.get('/:device_id', (req, res) => {
 //##### POST METHOD ######
 */
 //insert new file
-fileRouter.get('/',  middlewares.logging_chain.GET,  controller.file_controller.getFile)
-          .post('/', middlewares.logging_chain.POST, controller.file_controller.addFile) 
+fileRouter.get('/',     middlewares.logging_chain.GET,  controller.file_controller.getFile)
+          .get('/:id',  middlewares.logging_chain.GET,  controller.file_controller.getFileById)
+          .post('/',    middlewares.logging_chain.POST, controller.file_controller.addFile) 
 
 export { fileRouter };

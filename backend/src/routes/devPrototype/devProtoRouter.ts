@@ -26,6 +26,7 @@ protoRouter.get('/:id', (req, res) => {
 */
 //insert new prototype
 protoRouter.get('/',    middlewares.logging_chain.GET,  controller.prototype_controller.getPrototype)
+           .get('/:id', middlewares.logging_chain.GET,  controller.prototype_controller.getPrototypeById)
            .post('/',   middlewares.logging_chain.POST, controller.prototype_controller.addPrototype);
 
 export { protoRouter };

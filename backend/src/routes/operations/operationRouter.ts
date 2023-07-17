@@ -31,6 +31,7 @@ operationRouter.get('/:employee_id', (req, res) => {
 */
 //insert new operation
 operationRouter.get('/',    middlewares.logging_chain.GET,  controller.operation_controller.getOperation)
+               .get('/:id', middlewares.logging_chain.GET,  controller.operation_controller.getOperationById)
                .post('/',   middlewares.logging_chain.POST, controller.operation_controller.addOperation)
 //##### PUT METHOD #####
 

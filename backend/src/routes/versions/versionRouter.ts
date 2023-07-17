@@ -19,8 +19,9 @@ versionRouter.get('/:id', (req, res) => {
 //##### POST METHOD ######
 */
 //insert new version
-versionRouter.get('/',  middlewares.logging_chain.GET,  controller.version_controller.getVersion)
-             .post('/', middlewares.logging_chain.POST, controller.version_controller.addVersion)
+versionRouter.get('/',      middlewares.logging_chain.GET,  controller.version_controller.getVersion)
+             .get('/:id',   middlewares.logging_chain.GET,  controller.version_controller.getVersionById)
+             .post('/',     middlewares.logging_chain.POST, controller.version_controller.addVersion)
 
 
 //##### PUT METHOD #####

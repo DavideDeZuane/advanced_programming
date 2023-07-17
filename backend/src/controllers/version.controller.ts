@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
 import Version from "../model/Version";
 import { VersionClass } from "../model/class/Version";
-import { addObj, getAll } from "../model/method/index";
+import { addObj, getAll, getById } from "../model/method/index";
 import { CustomError } from "../middlewares/error.middleware";
 import {
 	ReasonPhrases,
@@ -28,14 +28,23 @@ const addVersion = async (req:Request, res:Response) => {
 const getVersion =async (req:Request, res: Response) => {
     try{
         await getAll(Version,req, res)
-      }catch(error) {
+    }catch(error) {
         res.send(error)
-      }
-    };
+    }
+};
+
+const getVersionById =async (req: Request, res: Response) => {
+    try{
+        await getById(Version, req, res)
+    } catch(error){
+        res.send(error)
+    }
+}
 
 const version_controller = {
     addVersion,
-    getVersion
+    getVersion,
+    getVersionById
 }
 
 export default version_controller;
