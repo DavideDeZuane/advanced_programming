@@ -13,13 +13,10 @@ import {
 
 
 const addEmployee = async (req:Request, res:Response) => {
-    const employee: EmployeeClass = new EmployeeClass(req.body.name, req.body.role, req.body.department, req.body.birthDate, req.body.fiscalCode, new Date());
-    try {
+    const employee: EmployeeClass = new EmployeeClass(req.body.name, req.body.role, req.body.department, req.body.birthdate, req.body.fiscalCode, new Date());
         await addObj(Employee, employee);
-        res.send('Successfully: device added');
-      } catch (error) {
-        res.send(error);
-      }
+        res.send('Successfully: employee added');
+     
 }
 
 const getEmployee = async (req: Request, res: Response) => {
