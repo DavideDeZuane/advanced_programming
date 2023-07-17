@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
 import Operation from "../model/Operation";
 import { OperationClass } from "../model/class/Operation";
-import { addObj, getAll, getById } from "../model/method/index";
+import { addObj, getAll, getById, update } from "../model/method/index";
 import { CustomError } from "../middlewares/error.middleware";
 import {
 	ReasonPhrases,
@@ -41,10 +41,19 @@ const getOperationById =async (req: Request, res: Response) => {
   }
 }
 
+const updateOperation =async (req:Request, res: Response) => {
+  try{
+    await update(Operation, req, res)
+  } catch(error){
+    res.send(error)
+  }
+}
+
 const operation_controller = {
     addOperation,
     getOperation,
-    getOperationById
+    getOperationById,
+    updateOperation
 }
 
 export default operation_controller;

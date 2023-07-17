@@ -31,7 +31,8 @@ employeeRouter.get('/:department', (req, res) => {
 //insert new employee
 employeeRouter.get('/',     middlewares.logging_chain.GET,  controller.employee_controller.getEmployee)
               .get('/:id',  middlewares.logging_chain.GET,  controller.employee_controller.getEmployeeById)
-              .post('/',    middlewares.logging_chain.POST, controller.employee_controller.addEmployee);
+              .post('/',    middlewares.logging_chain.POST, controller.employee_controller.addEmployee)
+              .put('/:id',  middlewares.logging_chain.PUT,  controller.employee_controller.updateEmployee)
 
 
 export {employeeRouter};

@@ -28,5 +28,6 @@ deviceRouter.get('/:prototype_id', (req, res) => {
 deviceRouter.get('/',    middlewares.logging_chain.GET,   controller.device_controller.getDevice)
             .get('/:id', middlewares.logging_chain.GET,   controller.device_controller.getDeviceById)
             .post('/',   middlewares.logging_chain.POST,  controller.device_controller.addDevice)
+            .put('/:id', middlewares.logging_chain.PUT,   controller.device_controller.updateDevice)
 
 export {deviceRouter};

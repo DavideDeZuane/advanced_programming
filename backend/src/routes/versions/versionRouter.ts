@@ -22,6 +22,7 @@ versionRouter.get('/:id', (req, res) => {
 versionRouter.get('/',      middlewares.logging_chain.GET,  controller.version_controller.getVersion)
              .get('/:id',   middlewares.logging_chain.GET,  controller.version_controller.getVersionById)
              .post('/',     middlewares.logging_chain.POST, controller.version_controller.addVersion)
+             .put('/:id',   middlewares.logging_chain.PUT,  controller.version_controller.updateVersion)
 
 
 //##### PUT METHOD #####

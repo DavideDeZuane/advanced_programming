@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
 import Version from "../model/Version";
 import { VersionClass } from "../model/class/Version";
-import { addObj, getAll, getById } from "../model/method/index";
+import { addObj, getAll, getById, update } from "../model/method/index";
 import { CustomError } from "../middlewares/error.middleware";
 import {
 	ReasonPhrases,
@@ -41,10 +41,20 @@ const getVersionById =async (req: Request, res: Response) => {
     }
 }
 
+//non so se è utile poichè coverrebbe creare un'altra versione
+const updateVersion =async (req:Request, res: Response) => {
+    try{
+      await update(Version, req, res)
+    } catch(error){
+      res.send(error)
+    }
+  }
+
 const version_controller = {
     addVersion,
     getVersion,
-    getVersionById
+    getVersionById,
+    updateVersion
 }
 
 export default version_controller;

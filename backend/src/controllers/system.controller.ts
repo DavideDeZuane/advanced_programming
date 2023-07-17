@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
 import System from "../model/System";
 import { SystemClass } from "../model/class/System";
-import { addObj, getAll, getById } from "../model/method/index";
+import { addObj, getAll, getById, update } from "../model/method/index";
 import { CustomError } from "../middlewares/error.middleware";
 import {
 	ReasonPhrases,
@@ -40,10 +40,19 @@ const getSystemById =async (req: Request, res: Response) => {
   }
 }
 
+const updateSystem =async (req:Request, res: Response) => {
+  try{
+    await update(System, req, res)
+  } catch(error){
+    res.send(error)
+  }
+}
+
 const system_controller = {
     addSystem,
     getSystem,
-    getSystemById
+    getSystemById,
+    updateSystem
 }
 
 export default system_controller;

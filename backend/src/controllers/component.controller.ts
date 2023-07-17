@@ -9,7 +9,7 @@ import {
 	getStatusCode,
 } from 'http-status-codes';
 import Component from "../model/Component";
-import { addObj, getAll, getById } from "../model/method/index";
+import { addObj, getAll, getById, update } from "../model/method/index";
 
 
 const addComponent = async(req:Request, res:Response) => {
@@ -38,10 +38,20 @@ const getComponentById =async (req: Request, res: Response) => {
     res.send(error)
   }
 }
+
+const updateComponent =async (req:Request, res: Response) => {
+  try{
+    await update(Component, req, res)
+  } catch(error){
+    res.send(error)
+  }
+}
+
 const component_controller = {
     addComponent,
     getComponent,
-    getComponentById
+    getComponentById,
+    updateComponent
 }
 
 export default component_controller;

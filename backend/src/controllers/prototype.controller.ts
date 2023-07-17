@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
-import { addObj, getAll, getById } from "../model/method/index"
+import { addObj, getAll, getById, update } from "../model/method/index"
 import DevicePrototype from "../model/DevicePrototype";
 import { DevicePrototypeClass } from "../model/class/devPrototype";
 import { CustomError } from "../middlewares/error.middleware";
@@ -39,10 +39,19 @@ const getPrototypeById =async (req: Request, res: Response) => {
   }
 }
 
+const updatePrototype =async (req:Request, res: Response) => {
+  try{
+    await update(DevicePrototype, req, res)
+  } catch(error){
+    res.send(error)
+  }
+}
+
 const prototype_controller = {
     addPrototype,
     getPrototype,
-    getPrototypeById
+    getPrototypeById,
+    updatePrototype
 }
 
 export default prototype_controller;

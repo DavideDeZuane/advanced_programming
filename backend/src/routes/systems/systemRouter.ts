@@ -27,6 +27,7 @@ systemRouter.get('/:user_id', (req, res) => {
 //insert new system
 systemRouter.get('/',       middlewares.logging_chain.GET,  controller.system_controller.getSystem)
             .get('/:id',    middlewares.logging_chain.GET,  controller.system_controller.getSystemById)
-            .post('/',      middlewares.logging_chain.POST, controller.system_controller.addSystem);
+            .post('/',      middlewares.logging_chain.POST, controller.system_controller.addSystem)
+            .put('/:id',    middlewares.logging_chain.PUT,  controller.system_controller.updateSystem)
 
 export { systemRouter };

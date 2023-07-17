@@ -33,6 +33,7 @@ const logging_chain = {
     ],
     PUT: [
         logging.preLog,
+        //aggiungi la validazione dei campi qui
         logging.postLog
     ],
     GET: [

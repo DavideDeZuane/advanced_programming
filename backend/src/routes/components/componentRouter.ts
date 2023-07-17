@@ -31,6 +31,7 @@ componentRouter.get('/:type', (req, res) => {
 //insert new component
 componentRouter.get('/',    middlewares.logging_chain.GET,    controller.component_controller.getComponent)
                .get('/:id', middlewares.logging_chain.GET,    controller.component_controller.getComponentById)
-               .post('/',   middlewares.logging_chain.POST,   controller.component_controller.addComponent);
+               .post('/',   middlewares.logging_chain.POST,   controller.component_controller.addComponent)
+               .put('/:id', middlewares.logging_chain.PUT,    controller.component_controller.updateComponent)
 
 export {componentRouter};

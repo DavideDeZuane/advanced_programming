@@ -30,9 +30,9 @@ const addObj = async (
         console.log({all})
         if(all.length === 0 || !all){
           console.log("Entro nell'if")
-          res.status(StatusCodes.NOT_FOUND).json(
+          res.status(StatusCodes.BAD_REQUEST).json(
             new CustomError()
-              .setDescription(`Inexistence ${model.modelName} elements`)
+              .setDescription(`Inexistent ${model.modelName} elements`)
               .setStatusCode(StatusCodes.NO_CONTENT)
               .setTimeStamp(new Date())
               .setName('No content')
@@ -61,10 +61,10 @@ const getById = async (model: any, req: Request, res: Response) => {
     try {
       const elem = await model.findById(req.params.id).select('-createdAt -__v');
       if (!elem) {
-        res.status(StatusCodes.NOT_FOUND).json(
+        res.status(StatusCodes.BAD_REQUEST).json(
           new CustomError()
-            .setDescription(`Inexistence ${model.modelName} with this id`)
-            .setStatusCode(StatusCodes.NOT_FOUND)
+            .setDescription(`Inexistent ${model.modelName} with this id`)
+            .setStatusCode(StatusCodes.BAD_REQUEST)
             .setTimeStamp(new Date())
             .setName('No result')
             .setType('/error/db')
@@ -83,6 +83,34 @@ const getById = async (model: any, req: Request, res: Response) => {
         .toJson();
     }
   };
+
+  const update = async (model: any, req:Request, res:Response) => {
+    try{
+      logger.info(`Request modify for ${model.modelName} to resource: ${req.params.id}`)
+
+      if(await model.findByIdAndUpdate(req.params.id, req.body) !== null){
+        logger.info('Success update for resource');
+        res.status(StatusCodes.OK).send(ReasonPhrases.OK);
+        redis.flushall()
+      } else {
+        logger.warn('Error to update the resource')
+        res.status(StatusCodes.BAD_REQUEST).json(
+          new CustomError()
+                          .setDescription(`Insert a valid ${model.modelName}`)
+                          .setCode('DB_ERROR')
+                          .setTimeStamp(new Date())
+                          .setName('Inexistent document')
+                          .setType('/error/db/update')
+                          .setStatusCode(StatusCodes.BAD_REQUEST)
+                          .toJson()
+          )                
+        }
+    }
+    catch(error){ 
+        logger.warn('Error to update the resource')
+        res.send('Errore generico nell\'aggiornamento');
+  }
+}
   
 
-  export {addObj, getAll, getById}
+export {addObj, getAll, getById, update}

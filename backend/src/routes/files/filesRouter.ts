@@ -27,5 +27,6 @@ fileRouter.get('/:device_id', (req, res) => {
 fileRouter.get('/',     middlewares.logging_chain.GET,  controller.file_controller.getFile)
           .get('/:id',  middlewares.logging_chain.GET,  controller.file_controller.getFileById)
           .post('/',    middlewares.logging_chain.POST, controller.file_controller.addFile) 
+          .put('/:id',  middlewares.logging_chain.PUT,  controller.file_controller.updateFile)
 
 export { fileRouter };
