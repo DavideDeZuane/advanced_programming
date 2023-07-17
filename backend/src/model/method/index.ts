@@ -26,7 +26,6 @@ const addObj = async (
   const getAll = async (model: any, req: Request, res: Response) => {
     try
     {
-        redis.flushall()
         let all = await model.find({}).select('-createdAt -__v') ;
         if(all.length === 0){
             res.send(
