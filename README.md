@@ -49,7 +49,7 @@ graph LR;
 
 ## Design Pattern
 
-Breve descrizione dei design pattern utilizzati per la realizzazione del codice in JS. 
+Breve descrizione dei design pattern utilizzati per la realizzazione del codice in TS. 
 
 ### Chain of Responsability
 
