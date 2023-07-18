@@ -49,6 +49,8 @@ graph LR;
 
 ### Diagramma E-R
 
+Come Database per il progetto abbiamo deciso di utilizzare MongoDB, un database NoSQL (Not Only SQL) open-source orientato ai documenti. È progettato per essere scalabile, flessibile e adatto a una vasta gamma di applicazioni. Segue una rappresentazione dello schema utilizzando la notazione del diagramma ER:
+
 ```mermaid
     erDiagram
     COMPONENT o|--o{ PROTOTYPE : forms
