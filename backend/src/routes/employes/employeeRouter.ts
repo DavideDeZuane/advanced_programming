@@ -4,35 +4,9 @@ import * as controller from '../../controllers/index';
 
 const employeeRouter: Router = Router();
 
-//##### GET METHOD ######
-/*
-//all employes
-employeeRouter.get('/', middlewares.chain, (req:Request, res: Response) => {
-    res.send('Route degli employee')
-});
-
-//employes profile by id
-employeeRouter.get('/:id', (req, res) => {
-    const employesId = req.params.id; // Ottieni l'ID dell'impiegato dai parametri della richiesta
-})
-
-//employes by role
-employeeRouter.get('/:role', (req, res) => {
-    const employesRole = req.params.role; // Ottieni il ruolo dell'impiegato dai parametri della richiesta
-})
-
-//employes by department
-employeeRouter.get('/:department', (req, res) => {
-    const employesId = req.params.department; // Ottieni department dell'impiegato dai parametri della richiesta
-})
-
-//##### POST METHOD ######
-*/
-//insert new employee
-employeeRouter.get('/',     middlewares.logging_chain.GET,  controller.employee_controller.getEmployee)
-              .get('/:id',  middlewares.logging_chain.GET,  controller.employee_controller.getEmployeeById)
-              .post('/',    middlewares.logging_chain.POST, controller.employee_controller.addEmployee)
-              .put('/:id',  middlewares.logging_chain.PUT,  controller.employee_controller.updateEmployee)
-
+employeeRouter.get('/',     middlewares.employee.GET,  controller.employee_controller.getEmployee)
+              .get('/:id',  middlewares.employee.GET,  controller.employee_controller.getEmployeeById)
+              .post('/',    middlewares.employee.POST, controller.employee_controller.addEmployee)
+              .put('/:id',  middlewares.employee.PUT,  controller.employee_controller.updateEmployee)
 
 export {employeeRouter};

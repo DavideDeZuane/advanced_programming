@@ -36,7 +36,7 @@ const system_validation = [
     body('name').trim().escape().isAlphanumeric(),
     body('devices').trim().escape().isAlphanumeric(),
     body('address').trim().escape().isAlphanumeric(),
-    body('client').trim().escape().isAlpha(),
+    body('client').trim().escape().isAlphanumeric(),
     
 ]
 

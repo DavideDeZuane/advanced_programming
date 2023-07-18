@@ -1,21 +1,14 @@
 import mongoose from "mongoose";
 import { NextFunction, Request, Response, response } from "express"
 import { ComponentClass } from "../model/class/Component";
-import { CustomError } from "../middlewares/error.middleware";
-import {
-	ReasonPhrases,
-	StatusCodes,
-	getReasonPhrase,
-	getStatusCode,
-} from 'http-status-codes';
 import Component from "../model/Component";
 import { addObj, getAll, getById, update } from "../model/method/index";
 
 
 const addComponent = async(req:Request, res:Response) => {
-    //crea nuovo oggetto di tipo "quello della classe"
-    const component:ComponentClass = new ComponentClass(req.body.name, req.body.type, new Date(), req.body.description, req.body.price);
-    try {
+  try {
+        //crea nuovo oggetto di tipo "quello della classe"
+        const component:ComponentClass = new ComponentClass(req.body.name, req.body.type, new Date(), req.body.description, req.body.price);
         await addObj(Component, component);
         res.send('Successfully: component added');
       } catch (error) {

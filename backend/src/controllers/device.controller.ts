@@ -3,20 +3,14 @@ import { NextFunction, Request, Response } from "express"
 import {DeviceClass } from "../model/class/Device";
 import Device from "../model/Device";
 import { addObj, getAll, getById, update } from "../model/method/index";
-import { CustomError } from "../middlewares/error.middleware";
-import {
-	ReasonPhrases,
-	StatusCodes,
-	getReasonPhrase,
-	getStatusCode,
-} from 'http-status-codes';
-import { send } from "process";
+import { validationResult } from "express-validator";
 
 
 const addDevice = async (req:Request, res:Response) => {
-    const device: DeviceClass = new DeviceClass(req.body.name, req.body.devicePrototypes, new Date());
-    console.log(`Prototipo: ${req.body.devicePrototypes}`)
-    try {
+  try {
+      const device: DeviceClass = new DeviceClass(req.body.name, req.body.devicePrototypes, new Date());
+      console.log(`Prototipo: ${req.body.devicePrototypes}`)
+    
         await addObj(Device, device);
         res.send('Successfully: device added');
       } catch (error) {

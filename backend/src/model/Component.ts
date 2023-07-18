@@ -5,12 +5,18 @@ import { IComponent } from './class/Component';
 const componentSchema: Schema<IComponent> = new Schema<IComponent>({
   name: {
     type: String,
-    required: true
+    validate: {
+      validator: function (value: string) {
+        return /^[a-zA-Z\s0-9]+$/.test(value);
+      },
+      message: "Symbols not allowed"
+    },
+    required: true,
   },
   type: {
     type: String,
     enum:{
-      values: ['Tipo 1', 'Tipo 2', 'Tipo N'],
+      values: ['Tipo X', 'Tipo Y', 'Tipo N'],
       message: '{VALUE}: invalid type'
     },
     required: true
