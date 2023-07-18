@@ -8,14 +8,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
-      - uses: actions/checkout@main
-      - name: Build del progetto
-        run: |
+    - name: Checkout 
+      uses: actions/checkout@main
+      with:
+        repository: DavideDeZuane/advanced_programming
+      
+    - name: Build del progetto
+      run: |
           docker-compose -d up --build
-      - name: Installing e Testing with Newmann
-        run: |
+    - name: Installing e Testing with Newmann
+      run: |
           npm install -g newman
           newman run api_collection.json -e api_env.json
   
