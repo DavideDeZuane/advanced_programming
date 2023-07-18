@@ -49,7 +49,12 @@ graph LR;
 
 ### Diagramma E-R
 
-Come Database per il progetto abbiamo deciso di utilizzare MongoDB, un database NoSQL (Not Only SQL) open-source orientato ai documenti. È progettato per essere scalabile, flessibile e adatto a una vasta gamma di applicazioni. Segue una rappresentazione dello schema utilizzando la notazione del diagramma ER:
+Come Database per il progetto abbiamo deciso di utilizzare MongoDB, un database NoSQL (Not Only SQL) open-source orientato ai documenti. È progettato per essere scalabile, flessibile e adatto a una vasta gamma di applicazioni. Segue una rappresentazione dello schema utilizzando la notazione del diagramma ER.
+In MongoDB i dati vengono organizzati all'interno di "collezioni", quelle che siamo andati a realizzare sono le seguenti:
+
+- `Clients`
+- `Employees`
+- ...
 
 ```mermaid
     erDiagram
@@ -149,6 +154,57 @@ sequenceDiagram
     API ->> Angular: Response
     deactivate API
 ```
+
+### Authenticated Routes
+
+Mostrare il funzionamento della catena di middleware per le principali richieste
+
+```mermaid
+```
+
+
+## API Docs
+
+### Clients
+
+#### Get All
+
+Routes:
+
+```
+GET /clients
+```
+Request:
+```
+Authorization: Bearer {token}
+```
+
+Response: 
+```json
+[
+    {
+    
+    }
+]
+```
+#### Get by ID
+```
+GET /clients/:id
+```
+Request:
+```
+Authorization: Bearer {token}
+```
+
+Response: 
+```json
+{
+    
+}
+```
+
+
+
 
 ## Startup
 
