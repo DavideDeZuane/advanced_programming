@@ -47,6 +47,49 @@ graph LR;
     Auth0 --- Angular
 ```
 
+### Diagramma E-R
+
+```mermaid
+    erDiagram
+    COMPONENT o|--o{ PROTOTYPE : forms
+    COMPONENT {
+        string name
+        string custNumber
+        string sector
+    }
+    PROTOTYPE ||--|{ DEVICE : inspire
+    PROTOTYPE {
+        int orderNumber
+        string deliveryAddress
+    }
+    DEVICE |{--|{ SYSTEM : compose 
+    DEVICE{
+        string productCode
+        int quantity
+        float pricePerUnit
+    }
+    SYSTEM ||--|| CLIENT : belong
+    SYSTEM{
+        string template
+    }
+    EMPLOYEE o{--o{ SYSTEM: assigned
+    EMPLOYEE{
+        string template1
+    }
+    EMPLOYEE o|--o{ OPERATION: perform
+    OPERATION{
+        string template2
+    }
+    FILE ||--|| DEVICE: refers
+    FILE{
+        string template3
+    }
+    VERSION ||--|| FILE: extend
+    DEVICE {
+        string template4
+    }
+```
+
 ## Design Pattern
 
 Breve descrizione dei design pattern utilizzati per la realizzazione del codice in TS. 
@@ -117,42 +160,4 @@ cp .env.template .env
 ```
 docker-compose up -d --build
 ```
-## Diagramma E-R per DB
-erDiagram
-    COMPONENT o|--o{ PROTOTYPE : forms
-    COMPONENT {
-        string name
-        string custNumber
-        string sector
-    }
-    PROTOTYPE ||--|{ DEVICE : inspire
-    PROTOTYPE {
-        int orderNumber
-        string deliveryAddress
-    }
-    DEVICE |{--|{ SYSTEM : compose 
-    DEVICE{
-        string productCode
-        int quantity
-        float pricePerUnit
-    }
-    SYSTEM ||--|| CLIENT : belong
-    SYSTEM{
-        string template
-    }
-    EMPLOYEE o{--o{ SYSTEM: assigned
-    EMPLOYEE{
-        string template1
-    }
-    EMPLOYEE o|--o{ OPERATION: perform
-    OPERATION{
-        string template2
-    }
-    FILE ||--|| DEVICE: refers
-    FILE{
-        string template3
-    }
-    VERSION ||--|| FILE: extend
-    DEVICE {
-        string template4
-    }
+
