@@ -9,12 +9,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout del codice
-      uses: actions/checkout@v2
-    - name: Build del progetto
-      run: docker-compose -d up --build
-    - name: Installing Newmann
-      run: npm install -g newman
-    - name: Test
-      run: newman run api_collection.json -e api_env.json
+      - name: Checkout del codice
+        uses: actions/checkout@v2
+      - name: Build del progetto
+        run: docker-compose -d up --build
+      - name: Installing Newmann
+        run: npm install -g newman
+      - name: Test 
+        run: newman run api_collection.json -e api_env.json
   
