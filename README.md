@@ -203,6 +203,28 @@ Response:
 }
 ```
 
+#### Update Clients
+```
+PUT /clients/:id
+```
+Request:
+```json
+Authorization: Bearer {token}
+ {
+    "firstName": "Peppino",
+    "lastName": "Corleone",
+    "birthDate": "1990-01-01T00:00:00.000Z",
+    "fiscalCode": "ABCD1234E",
+    "vatNumber": "12345678901",
+    "address": "Montagana 123"
+}
+```
+Response: 
+```json
+OK
+```
+
+
 
 
 
