@@ -11,8 +11,8 @@ const addSystem = async(req:Request, res:Response) => {
         const system: SystemClass = new SystemClass(req.body.name, req.body.devices, req.body.address, req.body.client, new Date());
         console.log(`Devices: ${req.body.devices}`)
         console.log(`Client: ${req.body.client}`)
-        await addObj(System, system);
-        res.send('Successfully: system added');
+        await addObj(System, system, req, res);
+        //res.send('Successfully: system added');
       } catch (error) {
         res.send(error);
       }

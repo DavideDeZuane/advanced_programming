@@ -11,17 +11,41 @@ const logger = AppLogger.getInstance();
 const redis = RedisProxy.getInstance()
 
 const addObj = async (
-    model:any,
-    data: any
+model:any,
+    data: any,
+    req: Request,
+    res: Response
   ) => {
     try {
       const object = new model(data);
       console.log("Oggetto: " + object)
       await object.save();
+      logger.info(`${model.modelName} created with id: ${model._id}`)
+      res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
+      redis.flushall()
     } catch (error) {
-      throw error;
+      if(error instanceof mongoose.Error.ValidationError){
+        logger.warn('The data sent does not comply with the validation rules');
+        res.send(error.errors);
+    } 
+    else if(error instanceof CustomError){
+      res.status(StatusCodes.BAD_REQUEST).send(error)
     }
-  };
+    else if(error instanceof Error){
+        logger.warn(error.message);
+        res.status(StatusCodes.CONFLICT).json(
+            new CustomError()
+                            .setStatusCode(StatusCodes.CONFLICT)
+                            .setDescription(error.message)
+                            .setCode('DB_ERROR')
+                            .setType('/error/db/insert')
+                            .setTimeStamp(new Date())
+                            .setName('Duplicate Key')
+                            .toJson()
+        );
+    }
+}
+}
 
   const getAll = async (model: any, req: Request, res: Response) => {
     try
@@ -46,15 +70,46 @@ const addObj = async (
     }
     catch(error)
     {
-      throw new CustomError()
-        .setDescription('Errore generico')
-        .setStatusCode(StatusCodes.INTERNAL_SERVER_ERROR)
-        .setCode('DB_ERROR')
-        .setTimeStamp(new Date())
-        .setType('/error/db')
-        .setName('Generic Error')
-        .toJson();
-    }   
+        if(error instanceof mongoose.Error.DocumentNotFoundError){
+            logger.error('There is no document')
+            res.json(
+                new CustomError()
+                                .setDescription('No results were found')
+                                .setCode('DB_ERROR')
+                                .setTimeStamp(new Date())
+                                .setName('Documento not found')
+                                .setType('/error/db/fetch')
+                                .setStatusCode(StatusCodes.NOT_FOUND)
+                                .toJson()
+            ) 
+        }
+        if(error instanceof mongoose.Error.MissingSchemaError){
+            logger.error('The schema does not exist in the database')
+            res.json(
+                new CustomError()
+                                .setDescription('There is no schema for the requested resource')
+                                .setCode('DB_ERROR')
+                                .setTimeStamp(new Date())
+                                .setName('Schema non esistente')
+                                .setType('/error/db')
+                                .setStatusCode(StatusCodes.INTERNAL_SERVER_ERROR)
+                                .toJson()
+            )
+        }
+        if(error instanceof Error){
+            logger.error('Generic error')
+            res.json(
+                new CustomError()
+                               .setDescription('Generic error following database query')
+                               .setStatusCode(StatusCodes.INTERNAL_SERVER_ERROR)
+                               .setCode('DB_ERROR')
+                               .setTimeStamp(new Date())
+                               .setType('/error/db')
+                               .setName('Generic Error')
+                               .toJson()
+                )
+        }
+    }
 }
 
 const getById = async (model: any, req: Request, res: Response) => {
@@ -108,7 +163,7 @@ const getById = async (model: any, req: Request, res: Response) => {
     }
     catch(error){ 
         logger.warn('Error to update the resource')
-        res.send('Errore generico nell\'aggiornamento');
+        res.send('General update error');
   }
 }
   

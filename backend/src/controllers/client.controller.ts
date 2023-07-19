@@ -5,6 +5,7 @@ import Client from "../model/Client";
 import { ClientClass, IClient } from "../model/class/Client";
 import { CustomError } from "../middlewares/error.middleware";
 import { AppLogger, RedisProxy } from "../utils";
+import { addObj, getAll, update } from "../model/method/index";
 
 const logger = AppLogger.getInstance();
 const redis = RedisProxy.getInstance()
@@ -63,14 +64,12 @@ const deleteClient = async (req:Request, res:Response) => {
 const getClients = async (req:Request, res:Response) => {
     try
     {
-        let clients = await Client.find({}).where("isDisabled", false).select('-createdAt -__v -isDisabled') ;
-        if(clients.length !== 0){
-            redis.set(req.originalUrl, JSON.stringify(clients))
-            res.json(clients);
+        let clients = await Client.find({}).select('-createdAt -__v') ;
+        if(clients.length === 0){
+            res.status(StatusCodes.NO_CONTENT).send(ReasonPhrases.NO_CONTENT);
         }
-        if(clients.length == 0){
-            res.status(StatusCodes.NO_CONTENT).send();
-        }
+        redis.set(req.originalUrl, JSON.stringify(clients))
+        res.json(clients);
     }
     catch(error)
     {
@@ -117,7 +116,7 @@ const getClients = async (req:Request, res:Response) => {
 }
 
 const getById = async (req:Request, res:Response) => {
-    await Client.findById(req.params.id).where("isDisabled", false).select('-createdAt -__v -isDisabled')
+    await Client.findById(req.params.id).select('-createdAt -__v')
         .then((elem) => {
             if(elem !== null){
                 logger.info('Ritorno l\'utente');
@@ -144,32 +143,12 @@ const getById = async (req:Request, res:Response) => {
 
 /* per quanto riguarda l'aggiornametno conviene fare una PUT, si crea una richiesta di nuovo con tutti i campi in questo modo evitiamo di fare n validazioni */
 const updateClient = async (req:Request, res:Response) => {
-    logger.info(`Richiesta di modifica per la risorsa \\clients\\${req.params.id}`)
-    
-    await Client.findByIdAndUpdate(req.params.id, req.body)
-    .then(() => {
-        logger.info('Successo nell\'aggiornamento della risorsa');
-        res.status(StatusCodes.OK).send(ReasonPhrases.OK);
-        redis.flushall()
-        }) 
-        .catch((err) => { 
-            logger.warn('Errore nell\'aggiornamento della risorsa')
-            if(err instanceof mongoose.Error.DocumentNotFoundError){
-                res.json(
-                    new CustomError()
-                                    .setDescription('Non è stato trovato alcun risultato')
-                                    .setCode('DB_ERROR')
-                                    .setTimeStamp(new Date())
-                                    .setName('Documento non trovato')
-                                    .setType('/error/db/update')
-                                    .setStatusCode(StatusCodes.NOT_FOUND)
-                                    .toJson()
-                )                
-            }
-            console.log(err)
-            res.send('Errore generico nell\'aggiornamento'); 
-        })
-}
+    try{
+        await update(Client, req, res)
+      } catch(error){
+        res.send(error)
+      }
+    }
 
 const client = {
     getById,

@@ -10,9 +10,8 @@ const addFile = async (req:Request, res:Response) => {
   try {
         const file:FileClass = new FileClass(req.body.name, req.body.device, req.body.fileType, new Date(), req.body.description);
         console.log(`Device: ${req.body.device}`)
-    
-        await addObj(File, file);
-        res.send('Successfully: file added');
+        await addObj(File, file, req, res);
+        //res.send('Successfully: file added');
       } catch (error) {
         res.send(error);
       }

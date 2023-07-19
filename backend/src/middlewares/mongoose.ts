@@ -1,6 +1,7 @@
 import mongoose, { Document, Error, Query, Schema, PreMiddlewareFunction, Model } from 'mongoose';
 import { Interface } from 'readline';
 import { CustomError } from './error.middleware';
+import { BAD_REQUEST } from 'http-status';
 
 function VerifyDuplicateKey(schem: any){
     schem.post('save', (error: any, doc: Interface, next: any):any => {
@@ -39,7 +40,7 @@ function CheckExistenceFK(schem: any, mod: any, fk: any) {
           console.log("Sono entrato in if CheckExistenceFK")
           next(
             new CustomError()
-              .setCode("DB_ERROR")
+              .setStatusCode(BAD_REQUEST)
               .setDescription("Inexistent foreign key reference to: " + mod.modelName)
               .setName("Inexistent reference")
               .setType("/db/error/insert")
@@ -60,7 +61,7 @@ function CheckExistenceFK(schem: any, mod: any, fk: any) {
         console.log("Sono entrato in if CheckSizeFK")
         next(
           new CustomError()
-            .setCode("DB_ERROR")
+            .setStatusCode(BAD_REQUEST)
             .setDescription("Too many " + fk)
             .setName("Too many FK")
             .setType("/db/error/insert")

@@ -11,8 +11,8 @@ const addVersion = async (req:Request, res:Response) => {
             //riga sotto va modificata
             version.blob = Buffer.from("Faccio un esempio di blob", 'utf-8')
             console.log(`File: ${req.body.file}`)
-            await addObj(Version, version);
-            res.send('Successfully: file added');
+            await addObj(Version, version, req, res);
+            //res.send('Successfully: version added');
         } catch (error) {
             res.send(error);
         }

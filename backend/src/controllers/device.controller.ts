@@ -8,11 +8,10 @@ import { validationResult } from "express-validator";
 
 const addDevice = async (req:Request, res:Response) => {
   try {
-      const device: DeviceClass = new DeviceClass(req.body.name, req.body.devicePrototypes, new Date());
-      console.log(`Prototipo: ${req.body.devicePrototypes}`)
-    
-        await addObj(Device, device);
-        res.send('Successfully: device added');
+        const device: DeviceClass = new DeviceClass(req.body.name, req.body.devicePrototypes, new Date());
+        console.log(`Prototipo: ${req.body.devicePrototypes}`)
+        await addObj(Device, device, req, res);    
+        //res.send('Successfully: device added');
       } catch (error) {
         res.send(error);
       }

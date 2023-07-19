@@ -12,8 +12,8 @@ const addOperation = async (req:Request, res:Response) => {
         const operation: OperationClass = new OperationClass(req.body.employees, req.body.systems, req.body.description, req.body.type, new Date());
         console.log(`Employees: ${req.body.employees}`)
         console.log(`System: ${req.body.systems}`)
-        await addObj(Operation, operation);
-        res.send('Successfully: system added');
+        await addObj(Operation, operation, req, res);
+        //res.send('Successfully: operation added');
       } catch (error) {
         res.send(error);
       }

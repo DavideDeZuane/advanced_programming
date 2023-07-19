@@ -9,8 +9,8 @@ import { validationResult } from "express-validator";
 const addEmployee = async (req:Request, res:Response) => {
   try{
       const employee: EmployeeClass = new EmployeeClass(req.body.name, req.body.role, req.body.department, req.body.birthdate, req.body.fiscalCode, new Date());
-      await addObj(Employee, employee);
-      res.send('Successfully: employee added');
+      await addObj(Employee, employee, req, res);
+      //res.send('Successfully: employee added');
     } catch(error){
       res.send(error)
     }
