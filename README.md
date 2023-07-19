@@ -47,6 +47,21 @@ graph LR;
     Auth0 --- Angular
 ```
 
+### Use Case
+
+```mermaid
+graph TD
+Admin(fa:fa-user Admin) ---|CRUD| Clients(fa:fa-folder-open Clients)
+Admin ---|CRUD| Devices(fa:fa-folder-open Devices)
+Admin ---|CRUD| Systems(fa:fa-folder-open Systems)
+Admin ---|CRUD| Components(fa:fa-folder-open Components)
+Admin ---|CRUD| Employees(fa:fa-folder-open Employees)
+Admin ---|CRUD| Operations(fa:fa-folder-open Operations)
+User(fa:fa-user-lock User) ----|CRU| Employees
+User ----|CRU| Clients
+```
+
+
 ### Diagramma E-R
 
 Come Database per il progetto abbiamo deciso di utilizzare MongoDB, un database NoSQL (Not Only SQL) open-source orientato ai documenti. È progettato per essere scalabile, flessibile e adatto a una vasta gamma di applicazioni. Segue una rappresentazione dello schema utilizzando la notazione del diagramma ER.
