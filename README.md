@@ -60,7 +60,7 @@ In MongoDB i dati vengono organizzati all'interno di "collezioni", quelle che si
     erDiagram
     COMPONENT |{--o{ PROTOTYPE : forms
     COMPONENT {
-        string id
+        string id PK
         string name
         string type
         string description
@@ -69,9 +69,9 @@ In MongoDB i dati vengono organizzati all'interno di "collezioni", quelle che si
     }
     PROTOTYPE ||--o{ DEVICE : inspire
     PROTOTYPE {
-        string id
+        string id PK
         string nome
-        string components
+        string components FK
         date createdAt
     }
     DEVICE |{--|{ SYSTEM : compose 
