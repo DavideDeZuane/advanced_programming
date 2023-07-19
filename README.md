@@ -265,8 +265,23 @@ Response:
 ```json
 [
     {
-    
-    }
+        "_id": "64a9241a89ceaecac3a5b609",
+        "firstName": "Mario",
+        "lastName": "Rossi",
+        "birthDate": "1990-01-01T00:00:00.000Z",
+        "fiscalCode": "ABCD1234E",
+        "vatNumber": "12345678901",
+        "address": "Montagana 123"
+    },
+    {
+        "_id": "64a9a5bf4891a8cd8a5c70d6",
+        "firstName": "Luigi",
+        "lastName": "Neri",
+        "birthDate": "1990-01-01T00:00:00.000Z",
+        "fiscalCode": "ERGDF34",
+        "vatNumber": "12345689021",
+        "address": "Andiamo a Mordor 123"
+    },
 ]
 ```
 #### Get by ID
@@ -280,12 +295,21 @@ Authorization: Bearer {token}
 
 Response: 
 ```json
-{
-    
-}
+    {
+        "_id": "64a9241a89ceaecac3a5b609",
+        "firstName": "Mario",
+        "lastName": "Rossi",
+        "birthDate": "1990-01-01T00:00:00.000Z",
+        "fiscalCode": "ABCD1234E",
+        "vatNumber": "12345678901",
+        "address": "Montagana 123"
+    }
 ```
 
 #### Update Clients
+
+Per l'aggiornamento del cliente si era indecisi se utilizzare il metodo PUT o PATCH. Dato che le richieste verranno sempre fatte dal frontend si è deciso di utilizzare il metodo PUT, il quale prevede di specificare nel corpo della richiesta tutti i parametri anche quelli non modificati.
+
 ```
 PUT /clients/:id
 ```
@@ -296,7 +320,7 @@ Authorization: Bearer {token}
 
 ```json
  {
-    "firstName": "Mario",
+    "firstName": "Franco",
     "lastName": "Rossi",
     "birthDate": "1990-01-01T00:00:00.000Z",
     "fiscalCode": "ABCD1234E",
@@ -305,7 +329,7 @@ Authorization: Bearer {token}
 }
 ```
 Response: 
-```json
+```
 OK
 ```
 
