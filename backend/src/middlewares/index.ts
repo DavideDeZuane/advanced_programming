@@ -3,7 +3,6 @@ import { errHandler } from "./error.middleware";
 import logging from "./morgan.middleware";
 import * as validator from './validation/index'
 import * as caching from './cache.middleware'
-import { CheckExistenceFK } from "./mongoose";
 
 /* aggiungere l'auth ai vari metodi*/
 const client = {
@@ -16,6 +15,7 @@ const client = {
     ],
     PUT: [
         logging.preLog,
+        auth.checkToken,
         ...validator.client,
         validator.checkValidation,
         logging.postLog
@@ -27,6 +27,7 @@ const client = {
     ],
     DELETE: [
         logging.preLog,
+        auth.checkToken,
         logging.postLog
     ]
 }
@@ -34,12 +35,14 @@ const client = {
 const component = {
     POST: [
         logging.preLog,
+        auth.checkToken,
         ...validator.componentV,
         validator.checkValidation,
         logging.postLog
     ],
     PUT: [
         logging.preLog,
+        auth.checkToken,
         ...validator.componentV,
         validator.checkValidation,
         logging.postLog
@@ -54,12 +57,14 @@ const component = {
 const proto = {
     POST: [
         logging.preLog,
+        auth.checkToken,
         ...validator.dev_prototype,
         validator.checkValidation,
         logging.postLog
     ],
     PUT: [
         logging.preLog,
+        auth.checkToken,
         ...validator.dev_prototype,
         validator.checkValidation,
         logging.postLog
@@ -74,12 +79,14 @@ const proto = {
 const device = {
     POST: [
         logging.preLog,
+        auth.checkToken,
         ...validator.device,
         validator.checkValidation,
         logging.postLog
     ],
     PUT: [
         logging.preLog,
+        auth.checkToken,
         ...validator.device,
         validator.checkValidation,
         logging.postLog
@@ -94,12 +101,14 @@ const device = {
 const system = {
     POST: [
         logging.preLog,
+        auth.checkToken,
         ...validator.system,
         validator.checkValidation,
         logging.postLog
     ],
     PUT: [
         logging.preLog,
+        auth.checkToken,
         ...validator.system,
         validator.checkValidation,
         logging.postLog
@@ -114,12 +123,14 @@ const system = {
 const operation = {
     POST: [
         logging.preLog,
+        auth.checkToken,
         ...validator.operation,
         validator.checkValidation,
         logging.postLog
     ],
     PUT: [
         logging.preLog,
+        auth.checkToken,
         ...validator.operation,
         validator.checkValidation,
         logging.postLog
@@ -134,12 +145,14 @@ const operation = {
 const employee = {
     POST: [
         logging.preLog,
+        auth.checkToken,
         ...validator.employee,
         validator.checkValidation,
         logging.postLog
     ],
     PUT: [
         logging.preLog,
+        auth.checkToken,
         ...validator.employee,
         validator.checkValidation,
         logging.postLog
@@ -154,12 +167,14 @@ const employee = {
 const file = {
     POST: [
         logging.preLog,
+        auth.checkToken,
         ...validator.file,
         validator.checkValidation,
         logging.postLog
     ],
     PUT: [
         logging.preLog,
+        auth.checkToken,
         ...validator.file,
         validator.checkValidation,
         logging.postLog
@@ -174,6 +189,7 @@ const file = {
 const version = {
     POST: [
         logging.preLog,
+        auth.checkToken,
         ...validator.version,
         validator.checkValidation,
         logging.postLog
