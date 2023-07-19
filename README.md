@@ -194,6 +194,49 @@ sequenceDiagram
     end
 ```
 
+### POST Routes
+
+sequenceDiagram
+    Bob ->>+ preLog: Request
+    preLog ->>- checkToken: Authentication
+    activate checkToken
+    alt is valid
+        checkToken ->>+ checkPermission: check Permission
+        deactivate checkToken
+        alt authorized
+            checkPermission ->>- Validator: apply validatione & sanitize
+            activate Validator
+                Validator ->> checkValidation: check validation
+            deactivate Validator
+            activate checkValidation
+            alt valid
+                checkValidation ->>+ Controller: end of chain
+                deactivate checkValidation
+                Controller ->>- Database: Validation & save
+                activate Database
+                    Database ->> Controller: OK
+                deactivate Database
+                activate Controller
+                    Controller ->> Bob: 204 Created
+                    Controller ->> Reids: flush cache
+                deactivate Controller
+            else not valid
+                activate checkValidation
+                checkValidation ->> Bob: validation error
+                deactivate checkValidation
+            end
+        else not authorized 
+                    activate checkPermission
+                checkPermission ->> Bob: not allowed
+            deactivate checkPermission
+
+        end
+    else is not valid
+                activate checkToken
+                checkToken ->> Bob: invalid token
+            deactivate checkToken
+    end
+
 
 
 Mostrare il funzionamento della catena di middleware per le principali richieste
