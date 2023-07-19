@@ -1,5 +1,5 @@
 FROM node:alpine
-WORKDIR /appS
+WORKDIR /app
 COPY . . 
 RUN npm install
 RUN npx tsc

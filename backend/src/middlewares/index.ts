@@ -23,6 +23,10 @@ const client = {
         logging.preLog,
         caching.cacheMiddleware,
         logging.postLog 
+    ],
+    DELETE: [
+        logging.preLog,
+        logging.postLog
     ]
 }
 

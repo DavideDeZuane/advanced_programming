@@ -68,6 +68,10 @@ const clientSchema: Schema<IClient> = new Schema<IClient>({
   createdAt: {
     type: Date,
     default: Date.now
+  },
+  isDisabled: {
+    type: Boolean,
+    default: false
   }
 });
 

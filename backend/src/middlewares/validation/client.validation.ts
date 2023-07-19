@@ -4,7 +4,7 @@ const client = [
     body('firstName').trim().escape().isAlpha('it-IT'),
     body('lastName').trim().escape().isAlpha('it-IT', {ignore: ' '}),
     body('birthDate').isISO8601().toDate(),
-    body('fiscalCode').trim().matches(/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/),
+    body('fiscalCode').trim().matches(/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/).withMessage('Bad fiscal code'),
     body('address').trim(),
 ]
 

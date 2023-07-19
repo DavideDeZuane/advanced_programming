@@ -12,7 +12,16 @@ const redis = RedisProxy.getInstance()
 const addClient = async (req:Request, res:Response) => {
     let client:IClient;
     try{
-        client = new Client(req.body);
+        client = ClientClass.builder()
+            .setFirstName(req.body.firstName)
+            .setLastName(req.body.lastName)
+            .setAddress(req.body.address)
+            .setFiscalCode(req.body.fiscalCode)
+            .setVatNumber(req.body.vatNumber)
+            .build()
+            .toMongooseDocument()
+        ;
+
         client.validateSync()
         await client.save()
         logger.info(`Creato Cliente con id: ${client._id}`)
@@ -39,15 +48,29 @@ const addClient = async (req:Request, res:Response) => {
     }
 }
 
+const deleteClient = async (req:Request, res:Response) => {
+    try{
+        await Client.findByIdAndUpdate(req.params.id, { isDisabled: true });
+        logger.warn(`User with id ${req.params.id} disabled`);
+        redis.flushall()
+        res.status(StatusCodes.OK).send('Client deleted')
+    } catch(error){
+        res.send(new Error());
+    }
+    
+}
+
 const getClients = async (req:Request, res:Response) => {
     try
     {
-        let clients = await Client.find({}).select('-createdAt -__v') ;
-        if(clients.length === 0){
-            res.status(StatusCodes.NO_CONTENT).send(ReasonPhrases.NO_CONTENT);
+        let clients = await Client.find({}).where("isDisabled", false).select('-createdAt -__v -isDisabled') ;
+        if(clients.length !== 0){
+            redis.set(req.originalUrl, JSON.stringify(clients))
+            res.json(clients);
         }
-        redis.set(req.originalUrl, JSON.stringify(clients))
-        res.json(clients);
+        if(clients.length == 0){
+            res.status(StatusCodes.NO_CONTENT).send();
+        }
     }
     catch(error)
     {
@@ -94,7 +117,7 @@ const getClients = async (req:Request, res:Response) => {
 }
 
 const getById = async (req:Request, res:Response) => {
-    await Client.findById(req.params.id).select('-createdAt -__v')
+    await Client.findById(req.params.id).where("isDisabled", false).select('-createdAt -__v -isDisabled')
         .then((elem) => {
             if(elem !== null){
                 logger.info('Ritorno l\'utente');
@@ -152,7 +175,8 @@ const client = {
     getById,
     getClients,
     addClient,
-    updateClient
+    updateClient,
+    deleteClient
 }
 
 export default client
