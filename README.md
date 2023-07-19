@@ -57,8 +57,8 @@ Admin ---|CRUD| Systems(fa:fa-folder-open Systems)
 Admin ---|CRUD| Components(fa:fa-folder-open Components)
 Admin ---|CRUD| Employees(fa:fa-folder-open Employees)
 Admin ---|CRUD| Operations(fa:fa-folder-open Operations)
-User(fa:fa-user-lock User) ----|CRU| Employees
-User ----|CRU| Clients
+User(fa:fa-user-lock User) ----|R| Employees
+User ----|R| Clients
 ```
 
 
