@@ -27,6 +27,10 @@ const componentSchema: Schema<IComponent> = new Schema<IComponent>({
   createdAt: {
     type: Date,
     default: Date.now
+  },
+  isDisabled: {
+    type: Boolean,
+    default: false
   }
 });
 

@@ -186,6 +186,18 @@ const getById = async (model: any, req: Request, res: Response) => {
       }
   }
 }
+
+const deleteByID = async (model: any, req:Request, res:Response) => {
+  try{
+      await model.findByIdAndUpdate(req.params.id, { isDisabled: true });
+      logger.warn(`${model.modelName} with id ${req.params.id} disabled`);
+      redis.flushall()
+      res.status(StatusCodes.OK).send(`${model.modelName} deleted`)
+  } catch(error: any){
+      res.send(new Error(error));
+  }
+  
+}
   
 
-export {addObj, getAll, getById, update}
+export {addObj, getAll, getById, update, deleteByID}

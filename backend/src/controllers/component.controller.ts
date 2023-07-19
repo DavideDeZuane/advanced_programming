@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { NextFunction, Request, Response, response } from "express"
 import { ComponentClass } from "../model/class/Component";
 import Component from "../model/Component";
-import { addObj, getAll, getById, update } from "../model/method/index";
+import { addObj, getAll, getById, update, deleteByID } from "../model/method/index";
 
 
 const addComponent = async(req:Request, res:Response) => {
@@ -42,11 +42,20 @@ const updateComponent =async (req:Request, res: Response) => {
   }
 }
 
+const deleteComponent = async (req: Request, res: Response) => {
+  try{
+    await deleteByID(Component, req, res) 
+  }catch(error){
+    res.send(error)
+  }
+}
+
 const component_controller = {
     addComponent,
     getComponent,
     getComponentById,
-    updateComponent
+    updateComponent,
+    deleteComponent
 }
 
 export default component_controller;

@@ -51,6 +51,11 @@ const component = {
         logging.preLog,
         caching.cacheMiddleware,
         logging.postLog 
+    ],
+    DELETE: [
+        logging.preLog,
+        //auth.checkToken,
+        logging.postLog
     ]
 }
 

@@ -6,6 +6,7 @@ export interface IComponent extends Document {
   description?: string;
   price?: number;
   createdAt: Date;
+  isDisabled: boolean;
 }
 
 
@@ -13,6 +14,7 @@ export interface IComponent extends Document {
 class ComponentClass {
   public name: string;
   public type: string;
+  isDisabled: boolean
   public description?: string;
   public price?: number;
   public createdAt: Date;
@@ -21,6 +23,7 @@ class ComponentClass {
     name: string,
     type: string,
     createdAt: Date,
+    isDisabled: boolean,
     description?: string,
     price?: number
   ) {
@@ -29,6 +32,7 @@ class ComponentClass {
     this.createdAt = createdAt;
     this.description = description;
     this.price = price;
+    this.isDisabled = isDisabled;
   }
 
 }
