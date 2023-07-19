@@ -19,6 +19,7 @@ model:any,
     try {
       const object = new model(data);
       console.log("Oggetto: " + object)
+      object.validateSync();
       await object.save();
       logger.info(`${model.modelName} created with id: ${model._id}`)
       res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
@@ -143,7 +144,12 @@ const getById = async (model: any, req: Request, res: Response) => {
     try{
       logger.info(`Request modify for ${model.modelName} to resource: ${req.params.id}`)
 
-      if(await model.findByIdAndUpdate(req.params.id, req.body) !== null){
+      const obj = await model.findByIdAndUpdate(req.params.id, req.body, {
+        new: true, // Restituisce il documento aggiornato
+        runValidators: true, // Esegue la validazione del documento
+      });
+  
+      if (obj !== null) {
         logger.info('Success update for resource');
         res.status(StatusCodes.OK).send(ReasonPhrases.OK);
         redis.flushall()
@@ -162,8 +168,22 @@ const getById = async (model: any, req: Request, res: Response) => {
         }
     }
     catch(error){ 
+      if (error instanceof mongoose.Error.ValidationError){
+        logger.warn('Error to update the resource')
+        res.status(StatusCodes.BAD_REQUEST).json(
+          new CustomError()
+                          .setDescription(`Validation failed`)
+                          .setCode('DB_ERROR')
+                          .setTimeStamp(new Date())
+                          .setName('Validation failed')
+                          .setType('/error/db/update')
+                          .setStatusCode(StatusCodes.BAD_REQUEST)
+                          .toJson()
+          )                
+      } else {
         logger.warn('Error to update the resource')
         res.send('General update error');
+      }
   }
 }
   

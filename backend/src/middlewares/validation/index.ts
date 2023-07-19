@@ -25,8 +25,8 @@ const checkValidation = (req:Request, res:Response, next:NextFunction) => {
             logger.info('Validation over');
             next();
         } else {
-            next(new CustomError()
-                            .setDescription('Validazione non riuscita')
+            res.status(StatusCodes.BAD_REQUEST).send(new CustomError()
+                            .setDescription(`Validation failed at field: ${errors.array()[0].path}`)
                             .setStatusCode(StatusCodes.BAD_REQUEST)
                             .setName('Bad Input')
                             .setType('/error/middleware')
