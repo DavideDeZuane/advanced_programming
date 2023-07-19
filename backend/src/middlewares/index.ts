@@ -54,7 +54,7 @@ const component = {
     ],
     DELETE: [
         logging.preLog,
-        //auth.checkToken,
+        auth.checkToken,
         logging.postLog
     ]
 }
@@ -78,6 +78,11 @@ const proto = {
         logging.preLog,
         caching.cacheMiddleware,
         logging.postLog 
+    ],
+    DELETE: [
+        logging.preLog,
+        //auth.checkToken,
+        logging.postLog
     ]
 }
 

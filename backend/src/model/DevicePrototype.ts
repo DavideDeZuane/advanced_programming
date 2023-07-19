@@ -15,6 +15,10 @@ const devicePrototypeSchema: Schema<IDevicePrototype> = new Schema<IDeviceProtot
   createdAt: {
     type: Date,
     default: Date.now
+  },
+  isDisabled: {
+    type: Boolean,
+    default: false
   }
 });
 

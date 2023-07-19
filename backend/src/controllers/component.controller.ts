@@ -8,7 +8,7 @@ import { addObj, getAll, getById, update, deleteByID } from "../model/method/ind
 const addComponent = async(req:Request, res:Response) => {
   try {
         //crea nuovo oggetto di tipo "quello della classe"
-        const component:ComponentClass = new ComponentClass(req.body.name, req.body.type, new Date(), req.body.description, req.body.price);
+        const component:ComponentClass = new ComponentClass(req.body.name, req.body.type, new Date(), false, req.body.description, req.body.price);
         await addObj(Component, component, req, res);
         //res.send('Successfully: component added');
       } catch (error) {
