@@ -160,6 +160,10 @@ sequenceDiagram
 Ogni richiesta verso l'API ha poi specificata una catena di middleware che va ad agire su questa, in particolare abbiamo una catena di middleware per le richieste GET e una per le PUT e POST.
 La catena di middleware che gestisce le richieste GET è la segguente:
 
+- i due middleware di logging sono innescati uno all'avvio della richiesta e uno alla fine del completamento della richiesta.
+- è presente un middleware intermedio che va a verificare che il contenuto non sia stato già inserito all'interno della cache di redis (la chiave che si utilizza per lo storage è l'url della risorsa).
+- se non è contenuto all'interno della cache allora si attiva il controller che interroga il DB, prende il valore di ritorno lo aggiunge alla cache e lo invia all'utente.
+
 ```mermaid
 sequenceDiagram
     Bob ->>+ preLog: Request
