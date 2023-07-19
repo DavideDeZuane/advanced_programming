@@ -71,7 +71,7 @@ In MongoDB i dati vengono organizzati all'interno di "collezioni", quelle che si
     PROTOTYPE {
         string id PK
         string nome
-        string components FK
+        string[] components FK
         date createdAt
     }
     DEVICE |{--|{ SYSTEM : compose 
