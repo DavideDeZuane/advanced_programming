@@ -10,8 +10,8 @@ const addPrototype = async (req:Request, res:Response) => {
   try{
       const proto:DevicePrototypeClass = new DevicePrototypeClass(req.body.name, req.body.components, new Date());
       console.log(`Components: ${req.body.components}`)
-      await addObj(DevicePrototype, proto);
-      res.send('Successfully: prototipo added');
+      await addObj(DevicePrototype, proto, req, res);
+      //res.send('Successfully: prototype added');
     } catch (error) {
       res.send(error);
     }

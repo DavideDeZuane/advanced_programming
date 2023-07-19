@@ -2,7 +2,7 @@ import { body, checkSchema } from 'express-validator';
 
 const device = [
     body('name').trim().escape().isAlphanumeric('it-IT', {ignore: ' '}),
-    body('prototype').trim().escape().isAlphanumeric('it-IT', {ignore: ' '})
+    //body('prototype').trim().escape().isAlphanumeric('it-IT', {ignore: ' '})
     
 ]
 

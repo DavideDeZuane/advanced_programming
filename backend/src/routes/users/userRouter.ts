@@ -10,7 +10,7 @@ const clientRouter:Router = Router();
 
 clientRouter.get('/',    middlewares.client.GET,    controller.client.getClients)
             .post('/',   middlewares.client.POST,   controller.client.addClient)
-            .get('/:id', middlewares.client.GET,    controller.client.getById)
+            .get('/:id', middlewares.client.GET,    controller.client.getClientById)
             .put('/:id', middlewares.client.PUT,    controller.client.updateClient);
 
             //app.get('/public', checkToken, checkPermissions([AdminPermission.Read]), chain, (req:Request, res:Response) => { console.log('questa rotta richiede i permessi di ruolo '); let obj = { campo: 'prova' }; res.json(obj)})
