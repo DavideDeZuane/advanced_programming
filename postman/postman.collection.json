@@ -1,0 +1,990 @@
+{
+	"info": {
+		"_postman_id": "e17c4857-225e-4703-a8c2-0f74d9260b6b",
+		"name": "Api-Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28558166"
+	},
+	"item": [
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "getClients",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{SERVER_URL}}:{{SERVER_PORT}}/clients",
+							"protocol": "http",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"port": "{{SERVER_PORT}}",
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{SERVER_URL}}:{{SERVER_PORT}}/clients/64b7fc62cce416547cd17321",
+							"protocol": "http",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"port": "{{SERVER_PORT}}",
+							"path": [
+								"clients",
+								"64b7fc62cce416547cd17321"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateClient",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n        \"firstName\": \"Update\",\n        \"lastName\": \"Il Breve\",\n        \"birthDate\": \"1990-01-01T00:00:00.000Z\",\n        \"fiscalCode\": \"DZNDVD00R28A957Z\",\n        \"vatNumber\": \"12345689021\",\n        \"address\": \"Andiamo a Mordor 123\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{SERVER_URL}}:{{SERVER_PORT}}/clients/64b7fc7ccce416547cd17327",
+							"protocol": "http",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"port": "{{SERVER_PORT}}",
+							"path": [
+								"clients",
+								"64b7fc7ccce416547cd17327"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addClient",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n    \"firstName\": \"Giorgio\",\n    \"lastName\": \"FRATM\",\n    \"birthDate\": \"1990-01-01T00:00:00.000Z\",\n    \"fiscalCode\": \"DZNDRD00R28A951L\",\n    \"vatNumber\": \"12349684012\",\n    \"address\": \"Montagana 123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{SERVER_URL}}:{{SERVER_PORT}}/clients",
+							"protocol": "http",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"port": "{{SERVER_PORT}}",
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteClient",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{SERVER_URL}}:{{SERVER_PORT}}/clients/64b7fc62cce416547cd17321",
+							"protocol": "http",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"port": "{{SERVER_PORT}}",
+							"path": [
+								"clients",
+								"64b7fc62cce416547cd17321"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Collection delle rotte per testare gli endpoint dell'API che prevede le operazioni di CRUD sull'entità `Clients`."
+		},
+		{
+			"name": "Components",
+			"item": [
+				{
+					"name": "getComponent",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/components",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"components"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/components/64b6a41eb577f302c753638e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"components",
+								"64b6a41eb577f302c753638e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateComponent",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Cambio nome e prezzo\",\n    \"type\": \"Tipo Y\",\n    \"description\": \"Opzionale\",\n    \"price\": \"34.0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/components/64b6a41eb577f302c753638e",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"components",
+								"64b6a41eb577f302c753638e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addComponent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Componente collection\",\n    \"type\": \"Tipo Y\",\n    \"description\": \"Opzionale\",\n    \"price\": \"12\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/components",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"components"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Prototypes",
+			"item": [
+				{
+					"name": "getPrototypes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/prototypes",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"prototypes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/prototypes/64b6ae850b70ab4783f5feaf",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"prototypes",
+								"64b6ae850b70ab4783f5feaf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePrototype",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Proto collection put\",\n    \"components\": [\n        \"64b7f652cce416547cd17311\",\n        \"64b7a021a5c356816ebc0a32\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/prototypes/64b6ae850b70ab4783f5feaf",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"prototypes",
+								"64b6ae850b70ab4783f5feaf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addPrototype",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Proto collection\",\n    \"components\": [\n        \"64b7f652cce416547cd17311\",\n        \"64b7a021a5c356816ebc0a32\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/prototypes",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"prototypes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Devices",
+			"item": [
+				{
+					"name": "getDevices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/devices",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"devices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/devices/64b7afd20774121e78ba18ce",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"devices",
+								"64b7afd20774121e78ba18ce"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateDevice",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Device update nome\",\n    \"devicePrototypes\": [\n        \"64b7aa50882e10902330f348\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/devices/64b7afd20774121e78ba18ce",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"devices",
+								"64b7afd20774121e78ba18ce"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addDevice",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Device collection\",\n    \"devicePrototypes\": [\n        \"64b7aa50882e10902330f348\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/devices",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"devices"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Systems",
+			"item": [
+				{
+					"name": "getSystems",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/systems",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"systems"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/systems/64b7fd4acce416547cd17329",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"systems",
+								"64b7fd4acce416547cd17329"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSystem",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Sistema update nome e un device in più\",\n    \"devices\": [\n        \"64b7afd20774121e78ba18ce\",\n        \" 64b7fbcfcce416547cd1731d\",\n        \" 64b7b0130774121e78ba18d2\"\n    ],\n    \"address\": \"Montagana 123 \",\n    \"client\": \"64b7fc62cce416547cd17321\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/systems/64b7fd4acce416547cd17329",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"systems",
+								"64b7fd4acce416547cd17329"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addSystems",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Sistema 3\",\n    \"devices\": [\n        \"64b7afd20774121e78ba18ce\",\n        \" 64b7fbcfcce416547cd1731d\"\n    ],\n    \"address\": \"Montagana 123 \",\n    \"client\": \"64b7fc7ccce416547cd17327\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/systems",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"systems"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employes",
+			"item": [
+				{
+					"name": "getEmployee",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/employes",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"employes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/employes/64b801afcce416547cd17340",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"employes",
+								"64b801afcce416547cd17340"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateEmployee",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Davide Update\",\n    \"role\": \"Admin\",\n    \"department\": \"Office\",\n    \"birthdate\": \"2000-06-23T00:00:00.000Z\",\n    \"fiscalCode\": \"12345678910\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/employes/64b801afcce416547cd17340",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"employes",
+								"64b801afcce416547cd17340"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addEmployee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Michele\",\n    \"role\": \"Admin\",\n    \"department\": \"Office\",\n    \"birthdate\": \"2000-06-23\",\n    \"fiscalCode\": \"12345678010\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/employes",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"employes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Operations",
+			"item": [
+				{
+					"name": "getOperation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/operations",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"operations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/operations/64b804f6cce416547cd1734b",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"operations",
+								"64b804f6cce416547cd1734b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateOperation",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"employees\": [\n        \"64b68f8da9adde4cb7f89d6b\",\n        \"64b801afcce416547cd17340\",\n        \"64b801c8cce416547cd17344\"\n    ],\n    \"systems\": [\n        \"64b7fd4acce416547cd17329\"\n    ],\n    \"description\": \"Abbiamo sostituito tutto update con un altro employees pure\",\n    \"type\": \"Sostituzione\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/operations/64b804f6cce416547cd1734b",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"operations",
+								"64b804f6cce416547cd1734b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addOperation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"employees\": [\n        \"64b68f8da9adde4cb7f89d6b\",\n        \"64b801afcce416547cd17340\"\n    ],\n    \"systems\": \"64b7fd4acce416547cd17329\",\n    \"description\": \"Abbiamo riparato tutto\",\n    \"type\": \"Riparazione\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/operations",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"operations"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Files",
+			"item": [
+				{
+					"name": "getFiles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/files",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"files"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/files/64b807da82f4330b51d8736a",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"files",
+								"64b807da82f4330b51d8736a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateFile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"aggiornato\",\n    \"device\": \"64b7b0130774121e78ba18d2\",\n    \"fileType\": \"csv\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/files/64b807da82f4330b51d8736a",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"files",
+								"64b807da82f4330b51d8736a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addFile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"file1\",\n    \"device\": \"64b7b0130774121e78ba18d2\",\n    \"fileType\": \"csv\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/files",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"files"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Versions",
+			"item": [
+				{
+					"name": "getVersion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/versions",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"versions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/versions/64b80d243f64e79abf5469a6",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"versions",
+								"64b80d243f64e79abf5469a6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addVersion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"file\": \"64b8080f82f4330b51d8736d\",\n    \"blob\": \"Proviamo un altro blob ancora\",\n    \"versionNumber\": \"2.0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/versions",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"versions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(pm.response.toJSON())",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"client_id\":\"9xzp4SVOUXPttI9SlnjEFgdRHN6qADoF\",\n    \"client_secret\":\"usHsjmUi3M3FXZ-y4vZ-3aoVRGU86CNgReGaAz5IVvVc4XawzvwYIfCvBtYRWInH\",\n    \"audience\":\"http://express.api\",\n    \"grant_type\":\"client_credentials\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev-mklwxkr2dddffknh.us.auth0.com/oauth/token",
+					"protocol": "https",
+					"host": [
+						"dev-mklwxkr2dddffknh",
+						"us",
+						"auth0",
+						"com"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {",
+					"    console.log(response.json());",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"value": "",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "TOKEN",
+			"value": ""
+		}
+	]
+}
