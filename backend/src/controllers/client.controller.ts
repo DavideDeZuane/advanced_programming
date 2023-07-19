@@ -64,12 +64,14 @@ const deleteClient = async (req:Request, res:Response) => {
 const getClients = async (req:Request, res:Response) => {
     try
     {
-        let clients = await Client.find({}).select('-createdAt -__v') ;
+        let clients = await Client.find().where("isDisabled", false).select('-createdAt -__v -isDisabled') ;
+        if(clients.length !== 0){
+            redis.set(req.originalUrl, JSON.stringify(clients))
+            res.json(clients);
+        }
         if(clients.length === 0){
             res.status(StatusCodes.NO_CONTENT).send(ReasonPhrases.NO_CONTENT);
         }
-        redis.set(req.originalUrl, JSON.stringify(clients))
-        res.json(clients);
     }
     catch(error)
     {
@@ -116,7 +118,7 @@ const getClients = async (req:Request, res:Response) => {
 }
 
 const getById = async (req:Request, res:Response) => {
-    await Client.findById(req.params.id).select('-createdAt -__v')
+    await Client.findById(req.params.id).where('isDisabled', false).select('-createdAt -__v -isDisabled')
         .then((elem) => {
             if(elem !== null){
                 logger.info('Ritorno l\'utente');
