@@ -2,13 +2,13 @@ import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express"
 import {DeviceClass } from "../model/class/Device";
 import Device from "../model/Device";
-import { addObj, getAll, getById, update } from "../model/method/index";
+import { addObj, deleteByID, getAll, getById, update } from "../model/method/index";
 import { validationResult } from "express-validator";
 
 
 const addDevice = async (req:Request, res:Response) => {
   try {
-        const device: DeviceClass = new DeviceClass(req.body.name, req.body.devicePrototypes, new Date());
+        const device: DeviceClass = new DeviceClass(req.body.name, req.body.devicePrototypes, new Date(), false);
         console.log(`Prototipo: ${req.body.devicePrototypes}`)
         await addObj(Device, device, req, res);    
         //res.send('Successfully: device added');
@@ -41,11 +41,20 @@ const updateDevice =async (req:Request, res: Response) => {
   }
 }
 
+const deleteDevice =async (req:Request, res: Response) => {
+  try{
+    await deleteByID(Device, req, res)
+  }catch(error){
+    res.send(error)
+  }
+}
+
 const device_controller = {
     addDevice,
     getDevice,
     getDeviceById,
-    updateDevice
+    updateDevice,
+    deleteDevice
 }
 
 export default device_controller;

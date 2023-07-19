@@ -81,7 +81,7 @@ const proto = {
     ],
     DELETE: [
         logging.preLog,
-        //auth.checkToken,
+        auth.checkToken,
         logging.postLog
     ]
 }
@@ -89,7 +89,7 @@ const proto = {
 const device = {
     POST: [
         logging.preLog,
-        auth.checkToken,
+        //auth.checkToken,
         ...validator.device,
         validator.checkValidation,
         logging.postLog
@@ -105,6 +105,11 @@ const device = {
         logging.preLog,
         caching.cacheMiddleware,
         logging.postLog 
+    ],
+    DELETE: [
+        logging.preLog,
+        auth.checkToken,
+        logging.postLog
     ]
 }
 

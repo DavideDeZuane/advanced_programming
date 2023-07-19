@@ -15,6 +15,10 @@ const deviceSchema: Schema<IDevice> = new Schema<IDevice>({
   createdAt: {
     type: Date,
     default: Date.now
+  },
+  isDisabled: {
+    type: Boolean,
+    default: false
   }
 });
 
