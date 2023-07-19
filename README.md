@@ -323,3 +323,9 @@ cp .env.template .env
 docker-compose up -d --build
 ```
 
+Così facendo si esegue il progetto, in questo modo è possibile accedere ai seguenti servizi:
+- `localhost:4200`: si accede al frontend dell'applicazione realizzata tramite angular
+- `localhost:3000`: è l'URL base per contattare le API e interrogare gli endpoint specificati nella sezione API Docs
+- `localhost:8081`: si accede a mongo express, un tool grafico per manipolare il database
+
+
