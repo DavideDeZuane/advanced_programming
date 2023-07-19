@@ -339,6 +339,10 @@ L'eliminazione di un cliente prevede solo il settaggio di un flag, questo per ma
 ```
 DELETE /clients/:id
 ```
+Request:
+```
+Authorization: Bearer {token}
+```
 Response: 
 ```
 OK
