@@ -55,7 +55,7 @@ import { TableComponent } from './table/table.component';
         /* si specificano le rotte a cui applicare l'interpector per richiedere l'autenticazione */
         allowedList: [ {
           httpMethod: 'POST',
-          uri: `${environment.api.serverUrl}/`,
+          uri: `${environment.api.serverUrl}/clients`,
         }
         ]
       }
