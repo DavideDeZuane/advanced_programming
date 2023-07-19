@@ -58,42 +58,83 @@ In MongoDB i dati vengono organizzati all'interno di "collezioni", quelle che si
 
 ```mermaid
     erDiagram
-    COMPONENT o|--o{ PROTOTYPE : forms
+    COMPONENT |{--o{ PROTOTYPE : forms
     COMPONENT {
+        string id
         string name
-        string custNumber
-        string sector
+        string type
+        string description
+        float price
+        date createdAt
     }
-    PROTOTYPE ||--|{ DEVICE : inspire
+    PROTOTYPE ||--o{ DEVICE : inspire
     PROTOTYPE {
-        int orderNumber
-        string deliveryAddress
+        string id
+        string nome
+        string components
+        date createdAt
     }
     DEVICE |{--|{ SYSTEM : compose 
     DEVICE{
-        string productCode
-        int quantity
-        float pricePerUnit
+        string id
+        string name
+        string devicePrototypes
+        date createdAt
     }
     SYSTEM ||--|| CLIENT : belong
     SYSTEM{
-        string template
+        string id
+        string name
+        string devices
+        string address
+        string client
+        date createdAt
+    }
+    CLIENT{
+        string id
+        string firstName
+        string lastName
+        date birthDate
+        string fiscalCode
+        string vatNumber
+        string address
+        date createdAt 
     }
     EMPLOYEE o{--o{ SYSTEM: assigned
     EMPLOYEE{
-        string template1
+        string id
+        string name
+        string role
+        string department
+        date birthdate
+        string fiscalCode
+        date createdAt
     }
-    EMPLOYEE o|--o{ OPERATION: perform
+    EMPLOYEE o{--o{ OPERATION: perform
     OPERATION{
-        string template2
+        string id
+        string employees
+        string systems
+        string description
+        string type
+        date createdAt
     }
     FILE ||--|| DEVICE: refers
     FILE{
-        string template3
+        string id
+        string name
+        string device
+        string fileType
+        string description
+        date createdAt
     }
     VERSION ||--|| FILE: extend
-    DEVICE {
-        string template4
+    VERSION {
+        string id
+        string file
+        buffer blob
+        string versionNumber
+        date createdAt
     }
 ```
 
