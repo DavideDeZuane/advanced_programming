@@ -76,62 +76,62 @@ In MongoDB i dati vengono organizzati all'interno di "collezioni", quelle che si
     }
     DEVICE |{--|{ SYSTEM : compose 
     DEVICE{
-        string id
+        string id PK
         string name
-        string devicePrototypes
+        string[] devicePrototypes FK
         date createdAt
     }
     SYSTEM ||--|| CLIENT : belong
     SYSTEM{
-        string id
+        string id PK
         string name
-        string devices
+        string[] devices FK
         string address
-        string client
+        string[] client FK
         date createdAt
     }
     CLIENT{
-        string id
+        string id FK
         string firstName
         string lastName
         date birthDate
-        string fiscalCode
-        string vatNumber
+        string fiscalCode UK
+        string vatNumber UK
         string address
         date createdAt 
     }
     EMPLOYEE o{--o{ SYSTEM: assigned
     EMPLOYEE{
-        string id
+        string id FK
         string name
         string role
         string department
         date birthdate
-        string fiscalCode
+        string fiscalCode UK
         date createdAt
     }
     EMPLOYEE o{--o{ OPERATION: perform
     OPERATION{
-        string id
-        string employees
-        string systems
+        string id PK
+        string[] employees FK
+        string[] systems FK
         string description
         string type
         date createdAt
     }
     FILE ||--|| DEVICE: refers
     FILE{
-        string id
+        string id PK
         string name
-        string device
+        string[] device FK
         string fileType
         string description
         date createdAt
     }
     VERSION ||--|| FILE: extend
     VERSION {
-        string id
-        string file
+        string id PK
+        string[] file FK
         buffer blob
         string versionNumber
         date createdAt
