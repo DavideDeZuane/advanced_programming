@@ -19,18 +19,7 @@ export class AuthenticationButtonComponent implements OnInit {
   
   constructor(public auth: AuthService, public http: HttpClient) {}
 
-  prova: string = '';
-
   ngOnInit(): void {
-    this.getData()
   }
-  //se non effettuiamo la subscribe non viene effettuata la richiesta
-  //con localhost funziona, se metto express no, secondo me perchè lo risolve nginx e non docker
-  getData() {
-    this.http.get<Response>('http://localhost:3000/public').subscribe(
-      (res) => {console.log(res.campo); this.prova = res.campo;}
-    )
-  }
-
 
 }

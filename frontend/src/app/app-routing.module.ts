@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'form', component: FormComponent },
   { path: 'clients', title: 'Clienti', component: ClientsComponent, children: [
       { path: 'forms', component: FormComponent },
+      { path: 'forms/:id', component: FormComponent},
       { path: 'table', component: TableComponent } 
     ]
   }
