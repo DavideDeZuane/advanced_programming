@@ -195,7 +195,7 @@ sequenceDiagram
 ```
 
 ### POST Routes
-
+```mermaid
 sequenceDiagram
     Bob ->>+ preLog: Request
     preLog ->>- checkToken: Authentication
@@ -236,12 +236,6 @@ sequenceDiagram
                 checkToken ->> Bob: invalid token
             deactivate checkToken
     end
-
-
-
-Mostrare il funzionamento della catena di middleware per le principali richieste
-
-```mermaid
 ```
 
 
