@@ -290,11 +290,14 @@ Response:
 PUT /clients/:id
 ```
 Request:
-```json
+```
 Authorization: Bearer {token}
+```
+
+```json
  {
-    "firstName": "Peppino",
-    "lastName": "Corleone",
+    "firstName": "Mario",
+    "lastName": "Rossi",
     "birthDate": "1990-01-01T00:00:00.000Z",
     "fiscalCode": "ABCD1234E",
     "vatNumber": "12345678901",
