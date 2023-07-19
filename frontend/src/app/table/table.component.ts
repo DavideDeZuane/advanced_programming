@@ -78,7 +78,7 @@ export class TableComponent {
     }).then( (result) => { 
       if(result.isConfirmed) 
         this.http.delete<Client>(`http://localhost:3000/clients/${id}`).subscribe(
-          (res) => { this.toastr.success('Eliminato con successo')}
+          (res) => { this.toastr.success('Eliminato con successo') }
       );
     });
   }
