@@ -180,8 +180,6 @@ Nel nostro caso lo abbiamo utilizzato come intermediario per il client Redis che
 E' un design pattern creazionale utilizzato per separare la creazione di un oggetto complesso dalla sua rappresentazione. Questo pattern permette di costruire oggetti complessi passo dopo passo, consentendo una maggiore flessibilità e chiarezza nel processo di creazione. Per garantire un sistema di errori il più standard possibile abbiamo realizzato una classe di errori che costriusce l'oggetto di errore tramite questo pattern. In modo da garantire una descrizione esaustiva su quello che è l'errore che si è andato a verificare.
 
 
-
-
 ## Diagram
 
 Lo schema di interazione base dell'applicazione è il seguente:
@@ -299,6 +297,43 @@ sequenceDiagram
             deactivate checkToken
     end
 ```
+### Database Middleware
+
+Una peculiarità di Mongoose è che si basa su una logica, simile a quella di express, che fa utilizzo di middleware per realizzare le operazioni. Data questa logica, consente di definire dei middleware personalizzati da applicare prima di alcuni metodi; nel nostro caso abbiamo definito dei middleware:
+
+- `pre-save`: in modo tale da andare ad eseguire dei controlli prima di effettuare il salvataggio
+- `pre-validation`: anche il processo di validazione è implementato come un middleware, nel nostro caso lo abbiamo implementato in modo tale implementare dei controlli sulle chiavi esterne per quelle entità che hanno "vincoli di chiave esterna"
+- `post-save`: per verificare se la fase di save generasse degli errori a causa dell'unicità di alcuni campi
+
+```mermaid
+sequenceDiagram
+    Request--> CheckExistenceFK:check exixts FK
+    CheckExistenceFK->>+CheckSizeFK:check ok
+    alt exists 
+        CheckExistenceFK ->> Request:error
+    else not exists
+    CheckSizeFK ->>- Validation:next()
+    activate Validation
+    end
+    alt data valid
+    activate Save
+    else 
+    Validation ->> Request:error
+    Validation ->> Save:next()
+    deactivate Validation
+    end
+    activate Save
+    alt good
+    Save ->> VerifyDuplicateKey:next()
+    activate VerifyDuplicateKey
+    else bad
+    Save ->> Request: error
+    end
+    deactivate Save
+    VerifyDuplicateKey ->> MongoDB:save
+    deactivate VerifyDuplicateKey
+
+```
 
 
 ## API Docs
@@ -362,7 +397,7 @@ Response:
     }
 ```
 
-#### Update Clients
+#### Update Clients 🔐
 
 Per l'aggiornamento del cliente si era indecisi se utilizzare il metodo PUT o PATCH. Dato che le richieste verranno sempre fatte dal frontend si è deciso di utilizzare il metodo PUT, il quale prevede di specificare nel corpo della richiesta tutti i parametri anche quelli non modificati.
 
@@ -389,7 +424,7 @@ Response:
 OK
 ```
 
-#### Delete
+#### Delete 🔐
 
 L'eliminazione di un cliente prevede solo il settaggio di un flag, questo per mantenere i dati all'interno del database.
 ```
@@ -403,6 +438,12 @@ Response:
 ```
 OK
 ```
+
+### Altre Risorse
+
+Rotte analoghe si hanno per le altre risorse, tranne per alcune in cui non è prevista la rotta che implementa il verbo HTTP `DELETE`.
+La lista è disponibile all'interno della collection Postman.
+
 
 ## Startup
 
