@@ -1,7 +1,7 @@
 import { body, checkSchema } from 'express-validator';
 
 const file = [
-    body('name').trim().escape().isAlphanumeric('it-IT', {ignore: ' '}),
+    body('name').trim().escape().isAlphanumeric(),
     body('device').trim().escape().isAlphanumeric('it-IT', {ignore: ' '}),
     body('fileType').trim().escape().isAlpha(),
     body('description').trim().escape(),
@@ -14,7 +14,7 @@ const fileSchema = () => {
     name: { 
         trim: true,
         escape: true,
-        isAlphanumeric: { options: ['it-IT', {ignore: ' '}] },
+        isAlphanumeric: true,
         errorMessage: "Alphanumeric field"  
     },
     device: {

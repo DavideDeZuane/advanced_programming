@@ -3,6 +3,7 @@ import { errHandler } from "./error.middleware";
 import logging from "./morgan.middleware";
 import * as validator from './validation/index'
 import * as caching from './cache.middleware'
+import { CheckExistenceFK } from "./mongoose";
 
 /* aggiungere l'auth ai vari metodi*/
 const client = {
@@ -172,12 +173,6 @@ const file = {
 
 const version = {
     POST: [
-        logging.preLog,
-        ...validator.version,
-        validator.checkValidation,
-        logging.postLog
-    ],
-    PUT: [
         logging.preLog,
         ...validator.version,
         validator.checkValidation,
