@@ -155,7 +155,42 @@ sequenceDiagram
     deactivate API
 ```
 
-### Authenticated Routes
+### GET Routes
+
+Ogni richiesta verso l'API ha poi specificata una catena di middleware che va ad agire su questa, in particolare abbiamo una catena di middleware per le richieste GET e una per le PUT e POST.
+La catena di middleware che gestisce le richieste GET è la segguente:
+
+```mermaid
+sequenceDiagram
+    Bob ->>+ preLog: Request
+    preLog ->>- cacheMiddleware: next
+    activate cacheMiddleware
+    cacheMiddleware ->>+ Redis: Check
+    deactivate cacheMiddleware
+    alt is cached
+        Redis ->>- cacheMiddleware: Response
+        activate cacheMiddleware
+        cacheMiddleware ->> postLog: Log
+        cacheMiddleware ->> Bob: res.json
+        deactivate cacheMiddleware
+    else is notcached
+        Redis ->>+ cacheMiddleware: Empty
+        cacheMiddleware ->>- Controller: Router
+        activate Controller
+        Controller ->> Database: Query
+        deactivate Controller
+        activate Database
+        Database ->> Controller: Result
+        deactivate Database
+        activate Controller
+        Controller ->> Reids: add to cache
+        Controller ->> postLog: Log
+        Controller ->> Bob: res.json
+        deactivate Controller
+    end
+```
+
+
 
 Mostrare il funzionamento della catena di middleware per le principali richieste
 
